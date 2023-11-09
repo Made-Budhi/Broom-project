@@ -1,6 +1,6 @@
-CREATE DATABASE pbl_test;
+CREATE DATABASE db_broom;
 
-USE pbl_test;
+USE db_broom;
 
 /*
 convention yang aku pakek
