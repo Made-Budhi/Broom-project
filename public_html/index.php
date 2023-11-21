@@ -97,7 +97,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = 'system';
+	$system_path = '../system';
 
 /*
  *---------------------------------------------------------------
@@ -114,7 +114,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'application';
+	$application_folder = '../application';
 
 /*
  *---------------------------------------------------------------
@@ -203,11 +203,11 @@ switch (ENVIRONMENT)
 	else
 	{
 		// Ensure there's a trailing slash
-		$system_path = index . phpstrtr(
-        rtrim($system_path, '/\\'),
-        '/\\',
-        DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR
-      ) . DIRECTORY_SEPARATOR;
+		$system_path = strtr(
+			rtrim($system_path, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		).DIRECTORY_SEPARATOR;
 	}
 
 	// Is the system path correct?
@@ -230,7 +230,7 @@ switch (ENVIRONMENT)
 	define('BASEPATH', $system_path);
 
 	// Path to the front controller (this file) directory
-	define('FCPATH', index . phpdirname(__FILE__) . DIRECTORY_SEPARATOR);
+	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
 	// Name of the "system" directory
 	define('SYSDIR', basename(BASEPATH));
@@ -312,4 +312,4 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
-require_once BASEPATH . 'core/CodeIgniter.php';
+require_once BASEPATH.'core/CodeIgniter.php';
