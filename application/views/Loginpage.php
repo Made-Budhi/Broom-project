@@ -34,5 +34,14 @@
 
 		<input type="submit" value="Login">
 	</form>
+
+<button type="button" onClick="login()">Daftar</button>
+<script language="javascript">
+	function login()
+	{
+		window.open("<?php echo base_url('Cviews/Register')?>","_self");	
+	}
+</script>
+
 </body>
 </html>
