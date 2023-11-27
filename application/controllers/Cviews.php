@@ -11,7 +11,7 @@ class Cviews extends CI_Controller
 	{
 		$this->load->view('loginpage');
 	}
-  
+ 
 	function register()
 	{
 		$this->load->view('Register');

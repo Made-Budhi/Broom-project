@@ -39,7 +39,7 @@
 <script language="javascript">
 	function login()
 	{
-		window.open("<?php echo base_url('Cviews/Register')?>","_self");	
+		window.open("<?php echo base_url('Cviews/Register')?>","_self");
 	}
 </script>
 
