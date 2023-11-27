@@ -10,23 +10,7 @@
 
 <div class="container mt-3">
   <h2>Halaman Login</h2>
-
-  <?php
-		$pesan=$this->session->flashdata('pesan');
-		if ($pesan=="")
-		{
-			echo "";	
-		}
-		else
-		{
-	?>
-         <div class="alert alert-danger alert-dismissible">
-               <?php echo $pesan; ?>                        
-      	 </div>
-      <?php
-		}
-	  ?>
-
+  
   <form name="*" method="post" action="<?php echo base_url('chalaman/proseslogin'); ?>">
     <div class="mb-3 mt-3">
       <label>Username</label>
@@ -46,15 +30,5 @@
     <a href="<?php echo base_url('chalaman/email'); ?>">Forgor?</a>
   </form>
 </div>
-
-<script language="javascript">
-	function daftar()
-	{
-		window.open("<?php echo base_url('chalaman/daftar')?>","_self");	
-	}
-</script>
-
-
-
 </body>
 </html>

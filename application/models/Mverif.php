@@ -1,29 +1,33 @@
 <?php 
 class Mverif extends CI_Model {
 
+    /**
+     *  Create random numbers by shuffling $nomor variable
+     */
     public function buatotp(){
-            $nomor="123456789";
+            $nomor="1234567890";
 			$otp=substr(str_shuffle($nomor),0,6);
 			return $otp;
     }
 
-    // public function simpanverif(){
-    //     $token=$this->buatotp();
-    //     $Email=$this->input->post('email');
-    //     $data=array(
-    //         'token'=>$token
-    //     );
-
-    //     $this->db->insert('tbdaftar',$data);
-    //     $this->sendmail($token,$this->input->post('email'));
-    //     echo "<script>alert('Dikirim');</script>";
-    // }
+    /**
+     * Determines email to use for the otp code
+     * Creates session based on the email and the otp code
+     */
     public function simpanverif(){
+        // Retrieving data from user input post
         $Email=$this->input->post('email');
         $token=$this->buatotp();
 
+        // Fetching from database
         $sql="select * from tbdaftar where email='".$Email."' ";
 		$query=$this->db->query($sql);
+
+        /*
+		 * Checking whether the data exists or not.
+		 * If exist		= Query for row -> Creates $array contains email and otp code -> Creates Session based on $array -> calls sendmail($token, $Email) function
+		 * If not		= Failed to send
+		 */
         if($query->num_rows()>0)
 		{
             $data=$query->row();
@@ -39,7 +43,12 @@ class Mverif extends CI_Model {
         }
         
     }
+
+    /**
+     * For creating an smtp to mail the otp code
+     */
     public function sendmail($token,$Email){
+        // smtp configuration
         $config['useragent'] = "codeigniter";
         $config['mailpath'] = "usr/bin/sendmail";
         $config['protocol'] = "smtp";
@@ -59,7 +68,12 @@ class Mverif extends CI_Model {
         $this->email->to($Email);
         $this->email->subject("Verifikasi email");
         $this->email->message("OTP anda ".$token."");
- 
+        
+        /*
+		 * Checking whether to send the email or not.
+		 * If exist		= go to insert otp page
+		 * If not		= Failed to send
+		 */
         if ($this->email->send()){
             redirect('chalaman/otp');
         }
@@ -68,12 +82,22 @@ class Mverif extends CI_Model {
         }
      }
 
+     /**
+      * For resetting password
+      */
      function newpass($password){
-        // $password=$this->input->post('password');
+        // gets the session based on the email input
         $Email=$this->session->userdata('email');
 
+        // Fetching from database
         $sql="select * from tbdaftar where email='".$Email."' ";
 		$query=$this->db->query($sql);
+
+         /*
+		 * Checking whether the data exist  or not.
+		 * If exist		= Updates the password field -> redirect to first view -> destroy session
+-		 * If not		= failed -> go back to reset password page
+		 */
         if($query->num_rows()>0)
 		{
             $sql="UPDATE tbdaftar set password='".$password."' where email ='".$Email."' ";

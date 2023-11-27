@@ -20,15 +20,5 @@
    
   </form>
 </div>
-
-<script language="javascript">
-	function daftar()
-	{
-		window.open("<?php echo base_url('chalaman/daftar')?>","_self");	
-	}
-</script>
-
-
-
 </body>
 </html>
