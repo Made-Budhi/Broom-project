@@ -25,6 +25,7 @@ class Mregister extends CI_Model
     $id = $this->input->post('id');
     $name = $this->input->post("name");
     $phone = $this->input->post("phone");
+    $token = '';
     
     // Insert data email, password, and generated token to table account
     $this->account_verify->send_email($email, $token);
