@@ -10,7 +10,7 @@
 
 <div class="container mt-3">
 
-  <form name="*" method="post" action="<?php echo base_url('cforgor/forgor'); ?>">
+  <form name="*" method="post" action="<?php echo base_url('cforgot/forgot'); ?>">
     <div class="mb-3 mt-3">
       <label>Email</label>
       <input type="email" class="form-control" name="email">
