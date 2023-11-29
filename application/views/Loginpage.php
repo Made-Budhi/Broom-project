@@ -11,6 +11,7 @@
 
 	<?php
 	// Shows error login message if there's any.
+  // TODO: must create hooks
 	$errormsg = $this->session->flashdata('loginerror');
 	if (!is_null($errormsg)) {
 		?>
