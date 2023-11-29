@@ -23,7 +23,7 @@
 	}
 	?>
 
-	<form action="<?= base_url('index.php/clogin/loginauth') ?>" method="post">
+	<form action="<?= base_url('clogin/loginauth') ?>" method="post">
 		<label for="email">Enter E-mail</label>
 		<input type="text" name="email" id="email">
 
