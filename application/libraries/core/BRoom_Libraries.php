@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 abstract class BRoom_Libraries
 {
@@ -6,6 +7,6 @@ abstract class BRoom_Libraries
   
   public function __construct()
   {
-    $this->CI = get_instance();
+    $this->CI =& get_instance();
   }
 }
