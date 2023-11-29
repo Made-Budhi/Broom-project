@@ -6,14 +6,14 @@
 class Cforgot extends CI_Controller
 {
 
-		/**
-		 * calling model for verification
-		 */
-		function forgor()
-		{
-			$this->load->model("Mverif");
-			$this->Mverif->simpanverif();
-		}
-		
+	/**
+	 * Calling model for verification
+	 */
+	function forgot()
+	{
+		$this->load->model("Mverif", 'verif');
+		$this->verif->simpanverif();
 	}
-?>
+
+}
+
