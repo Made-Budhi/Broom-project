@@ -14,3 +14,5 @@ $config['mailtype']     = "html";
 $config['newline']      = "\r\n";
 $config['timeout']      = 30;
 $config['wordwrap']     = true;
+$config['from']         = "admin-center@pnb.ac.id";
+$config['name']         = "Administrator";
