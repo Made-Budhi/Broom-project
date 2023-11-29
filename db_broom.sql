@@ -13,7 +13,9 @@ CREATE TABLE Account (
 	account_id 		INT AUTO_INCREMENT,
 	email 			VARCHAR(254) NOT NULL,
 	password 		VARCHAR(254) NOT NULL,
+	token			VARCHAR(6),
 	role			ENUM('Peminjam', 'Pimpinan', 'Pengelola') NOT NULL,
+	is_verif		BOOLEAN DEFAULT FALSE,
 
 	PRIMARY KEY (account_id)
 );
