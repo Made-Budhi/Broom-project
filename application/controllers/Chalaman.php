@@ -1,36 +1,18 @@
 <?php
-	class Chalaman extends CI_Controller
+/**
+ * @property Mverif $verif
+ */
+class Chalaman extends CI_Controller
+{
+	/**
+	 * Loading otp input page.
+	 *
+	 * @return void
+	 */
+	function otp()
 	{
-
-		/**
-		 * Loading login page.
-		 *
-		 * @return void
-		 */
-		function tampil()
-		{
-			$this->load->view('halamantampil');	
-		}
-
-		/**
-		 * Loading input email page.
-		 *
-		 * @return void
-		 */
-		function email()
-		{
-			$this->load->view('email');	
-		}
-
-		/**
-		 * Loading otp input page.
-		 *
-		 * @return void
-		 */
-		function otp()
-		{
-			$this->load->view('otp');	
-		}
+		$this->load->view('otp');
+	}
 
 		/**
 		 * Determines the validity of the otp code
