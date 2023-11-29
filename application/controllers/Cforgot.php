@@ -1,6 +1,10 @@
 <?php
-	class Cforgot extends CI_Controller
-	{
+
+/**
+ * @property Mverif $verif
+ */
+class Cforgot extends CI_Controller
+{
 
 		/**
 		 * calling model for verification
