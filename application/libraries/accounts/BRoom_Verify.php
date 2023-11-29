@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once APPPATH.'libraries/core/BRoom_Libraries.php';
+
 class BRoom_Verify extends BRoom_Libraries
 {
   private array $config;
@@ -31,11 +33,11 @@ class BRoom_Verify extends BRoom_Libraries
     $token = $this->generate_token();
     
     if (!$send_status) {
-      log_message('info', $this->CI
+      log_message('debug', $this->CI
         ->lang->line('log_send_email_failed')
       );
     } else {
-      log_message('info', $this->CI
+      log_message('debug', $this->CI
         ->lang->line('log_send_email_succeed')
       );
     }
