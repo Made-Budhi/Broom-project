@@ -35,11 +35,11 @@ class Mregister extends CI_Model
       "token"     => $token,
       "role"      => "Peminjam"
     );
-    $this->db->insert('account', $data);
+    $this->db->insert('Account', $data);
     
     // Build a variable to get account_id FROM table account
     $fkdata = $this->db->select()
-      ->from('account')
+      ->from('Account')
       ->where('email', $email)->where('password', $password)
       ->get()->first_row();
     $fkid = $fkdata->account_id;
@@ -52,7 +52,7 @@ class Mregister extends CI_Model
       "role"=>"Mahasiswa",
       "account_id"=>$fkid
     );
-    $this->db->insert('peminjam', $data);
+    $this->db->insert('Peminjam', $data);
     
     echo "<script>alert('Data sudah disimpan, Silahkan Verifikasi');</script>";
   }
