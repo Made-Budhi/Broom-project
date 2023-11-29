@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @property Mregister $mregister
+ * @property Maccount $account
  */
 
 class Cregister extends CI_Controller
@@ -10,12 +10,12 @@ class Cregister extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('mregister');
+    $this->load->model('Maccount', 'account');
   }
   
   public function register(): void
   {
-    $this->mregister->regis();
+    $this->account->register();
   }
   
   

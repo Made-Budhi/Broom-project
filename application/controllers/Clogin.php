@@ -1,6 +1,8 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
- * @property Mlogin $mlogin
+ * @property Maccount $account
  */
 
 class Clogin extends CI_Controller
@@ -8,7 +10,7 @@ class Clogin extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('mlogin');
+		$this->load->model('Maccount', 'account');
 	}
 
 	/**
@@ -18,9 +20,9 @@ class Clogin extends CI_Controller
 	 *
 	 * @return void
 	 */
-	function loginauth()
-	{
-		$this->mlogin->loginauth();
+	function loginauth(): void
+  {
+		$this->account->login();
 
 		$session = $this->session->get_userdata();
 

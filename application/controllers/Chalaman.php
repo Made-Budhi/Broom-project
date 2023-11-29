@@ -1,6 +1,8 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
- * @property Mverif $verif
+ * @property Maccount $account
  */
 class Chalaman extends CI_Controller
 {
@@ -9,8 +11,8 @@ class Chalaman extends CI_Controller
 	 *
 	 * @return void
 	 */
-	function otp()
-	{
+	public function otp(): void
+  {
 		$this->load->view('otp');
 	}
 
@@ -19,12 +21,12 @@ class Chalaman extends CI_Controller
 	 *
 	 * @return void
 	 */
-	function reset()
-	{
+	public function reset(): void
+  {
 		/*
 		 * Checking whether the otp is the correct one or not.
 		 * If correct		= go to reset password page
--		 * If not			= go back to otp input page
+		 * If not			= go back to otp input page
 		 */
 		if($this->session->userdata('token')==$this->input->post('token')) {
 			$this->load->view('reset');
@@ -37,9 +39,9 @@ class Chalaman extends CI_Controller
 	/**
 	 * Calling model for resetting password
 	 */
-	function newpass(){
-		$this->load->model('Mverif', 'verif');
-		$this->verif->newpass($this->input->post('password'));
+	public function newpass(): void
+  {
+		$this->account->newpass($this->input->post('password'));
 	}
 }
 

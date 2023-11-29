@@ -1,7 +1,8 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @property Mverif $verif
+ * @property Maccount $account
  */
 class Cforgot extends CI_Controller
 {
@@ -9,10 +10,10 @@ class Cforgot extends CI_Controller
 	/**
 	 * Calling model for verification
 	 */
-	function forgot()
-	{
-		$this->load->model("Mverif", 'verif');
-		$this->verif->simpanverif();
+	function forgot(): void
+  {
+		$this->load->model("Maccount", 'account');
+		$this->account->create_verification();
 	}
 
 }
