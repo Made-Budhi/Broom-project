@@ -9,7 +9,7 @@ class Mregister extends CI_Model
   public function __construct()
   {
     parent::__construct();
-    $this->load->library('accounts/Verify', null, 'account_verify');
+    $this->load->library('accounts/BRoom_Verify', null, 'account_verify');
   }
   
   /**
