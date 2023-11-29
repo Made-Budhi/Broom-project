@@ -18,7 +18,14 @@ class BRoom_Verify extends BRoom_Libraries
     $this->config = $this->CI->config->config;
   }
   
-  public function send_email(string $email, string &$token): bool
+  /**
+   * @param string $email
+   * @param string $token
+   * @param bool $is_otp
+   * @return bool
+   */
+  public function send_email(string $email, string &$token,
+                             bool $is_otp = false): bool
   {
     $this->CI->email->initialize($this->config);
     $this->CI->email
@@ -29,8 +36,10 @@ class BRoom_Verify extends BRoom_Libraries
     $this->CI->email
       ->message($this->CI->lang->line('email_verification_messages'));
     
+    $token = $is_otp?
+      $this->_create_random('otp') : $this->_create_random('token');
+    
     $send_status = $this->CI->email->send();
-    $token = $this->generate_token();
     
     if (!$send_status) {
       log_message('debug', $this->CI
@@ -45,8 +54,22 @@ class BRoom_Verify extends BRoom_Libraries
     return $send_status;
   }
   
-  private function generate_token(): string
+  private function _create_random(string $type): string|bool
   {
-    return str_shuffle(uniqid());
+    $type = strtolower($type);
+    $value = null;
+    
+    if ($type === 'otp') {
+      try {
+        // random_int() are from PHP 7.0, beware for old project
+        $value = strval(random_int(100000, 999999));
+      } catch (Exception) {
+        return false;
+      }
+    } elseif ($type === 'token') {
+      $value = substr(str_shuffle(uniqid()), 0, 6);
+    }
+    
+    return $value;
   }
 }
