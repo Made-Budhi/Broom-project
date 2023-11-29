@@ -7,28 +7,32 @@
 <body>
     
 <div>
-  <h2>Halaman Daftar</h2>
-  <form name="formdaftar" method="post" action="<?php echo base_url('Cregister/register'); ?>">
-    <div>
-      <label>Email</label>
-      <input type="text" name="email">
-    </div>
-    <div>
-      <label>Password</label>
-      <input type="password" name="password">
-    </div>
-    <div>
-      <label>Nomor Induk</label>
-      <input type="text" name="id">
-    </div>
-    <div>
-      <label>Name</label>
-      <input type="text" name="name">
-    </div>
-    <div>
-      <label>Telp</label>
-      <input type="text" name="phone">
-    </div>
+	<h2>Halaman Daftar</h2>
+	<form name="formdaftar" method="post" action="<?php echo base_url('cregister/register'); ?>">
+		<div>
+		  <label>Email</label>
+		  <input type="text" name="email">
+		</div>
+
+		<div>
+		  <label>Password</label>
+		  <input type="password" name="password">
+		</div>
+
+		<div>
+		  <label>Nomor Induk</label>
+		  <input type="text" name="id">
+		</div>
+
+		<div>
+		  <label>Name</label>
+		  <input type="text" name="name">
+		</div>
+
+		<div>
+		  <label>Telp</label>
+		  <input type="text" name="phone">
+		</div>
 
     <hr>
 
@@ -40,7 +44,7 @@
 <script>
 	function login()
 	{
-		window.open("<?php echo base_url('Cviews/loginpage')?>","_self");
+		window.open("<?php echo base_url('cviews/loginpage')?>","_self");
 	}
 </script>
 
