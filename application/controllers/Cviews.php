@@ -16,4 +16,15 @@ class Cviews extends CI_Controller
 	{
 		$this->load->view('Register');
 	}
+
+	/**
+	 * Load input email form for forgot
+	 * password mechanism.
+	 *
+	 * @return void
+	 */
+	function email()
+	{
+		$this->load->view('email');
+	}
 }
