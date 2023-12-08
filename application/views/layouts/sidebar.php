@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="<?= base_url('assets/styles/sidebar.css')?>">
 </head>
 <body>
-    <div class="container-fluid vh-100 position-relative d-flex">
+    <div class="container-fluid vh-100 position-relative">
 		<!-- sidebar only  -->
-        <div class="menubar p-3 h-100 d-flex flex-column">
+        <div class="menubar p-3 h-100 d-flex flex-column fit-content">
 				<div class="d-flex align-items-center gap-2 hide justify-content-center">
 					<img src="<?= base_url('assets/images/logo-pnb.png')?>" width="60vw" class="logo">
 					<div class="d-flex flex-column tablet-mode">
@@ -21,7 +21,7 @@
 					</div>
 				</div>
                 
-                <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center bg-white">
+                <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
                         <a href="#" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100"><i class="fa fa-home fa-lg p-2"></i> <span>Dashboard</span></a>
                         <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 "><i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span></a>
                         <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 "><i class="fa-solid fa-file-circle-plus fa-lg p-2"></i> <span>Reservasi</span></a>
@@ -33,149 +33,7 @@
         </div>
 
 		<!-- content  -->
-		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
-						
-			<div>
-				<h2>Halaman Daftar</h2>
-				<form name="formdaftar" method="post" action="<?php echo base_url('cregister/register'); ?>">
-					<div>
-					<label>Email</label>
-					<input type="text" name="email">
-					</div>
-
-					<div>
-					<label>Password</label>
-					<input type="password" name="password">
-					</div>
-
-					<div>
-					<label>Nomor Induk</label>
-					<input type="text" name="id">
-					</div>
-
-					<div>
-					<label>Name</label>
-					<input type="text" name="name">
-					</div>
-
-					<div>
-					<label>Telp</label>
-					<input type="text" name="phone">
-					</div>
-
-				<hr>
-
-				<button type="submit" >Daftar</button>
-				<button type="button" onClick="login()">Login</button>
-			</form>
-			</div>
-						
-			<div>
-				<h2>Halaman Daftar</h2>
-				<form name="formdaftar" method="post" action="<?php echo base_url('cregister/register'); ?>">
-					<div>
-					<label>Email</label>
-					<input type="text" name="email">
-					</div>
-
-					<div>
-					<label>Password</label>
-					<input type="password" name="password">
-					</div>
-
-					<div>
-					<label>Nomor Induk</label>
-					<input type="text" name="id">
-					</div>
-
-					<div>
-					<label>Name</label>
-					<input type="text" name="name">
-					</div>
-
-					<div>
-					<label>Telp</label>
-					<input type="text" name="phone">
-					</div>
-
-				<hr>
-
-				<button type="submit" >Daftar</button>
-				<button type="button" onClick="login()">Login</button>
-			</form>
-			</div>
-						
-			<div>
-				<h2>Halaman Daftar</h2>
-				<form name="formdaftar" method="post" action="<?php echo base_url('cregister/register'); ?>">
-					<div>
-					<label>Email</label>
-					<input type="text" name="email">
-					</div>
-
-					<div>
-					<label>Password</label>
-					<input type="password" name="password">
-					</div>
-
-					<div>
-					<label>Nomor Induk</label>
-					<input type="text" name="id">
-					</div>
-
-					<div>
-					<label>Name</label>
-					<input type="text" name="name">
-					</div>
-
-					<div>
-					<label>Telp</label>
-					<input type="text" name="phone">
-					</div>
-
-				<hr>
-
-				<button type="submit" >Daftar</button>
-				<button type="button" onClick="login()">Login</button>
-			</form>
-			</div>
-						
-			<div>
-				<h2>Halaman Daftar</h2>
-				<form name="formdaftar" method="post" action="<?php echo base_url('cregister/register'); ?>">
-					<div>
-					<label>Email</label>
-					<input type="text" name="email">
-					</div>
-
-					<div>
-					<label>Password</label>
-					<input type="password" name="password">
-					</div>
-
-					<div>
-					<label>Nomor Induk</label>
-					<input type="text" name="id">
-					</div>
-
-					<div>
-					<label>Name</label>
-					<input type="text" name="name">
-					</div>
-
-					<div>
-					<label>Telp</label>
-					<input type="text" name="phone">
-					</div>
-
-				<hr>
-
-				<button type="submit" >Daftar</button>
-				<button type="button" onClick="login()">Login</button>
-			</form>
-			</div>
-
-		</div>
+		<div class=""></div>
        
 
     </div>
