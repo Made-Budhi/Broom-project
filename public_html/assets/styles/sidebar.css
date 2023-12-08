@@ -1,3 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
+
+html{
+	scroll-behavior: smooth !important;
+	-moz-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-webkit-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-moz-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-o-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	transition: all 1s ease-in-out, left 1.5s ease-in-out;
+}
+body{
+	background: linear-gradient(90deg, #FFF 8%, #F2F6FF 92%) !important;
+}
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-thumb {
+	background: #ddd; 
+	border-radius: 100px;
+	height: 5%;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #333; 
+}
 
 .gabarito{
 	font-family: Gabarito;
@@ -28,6 +52,7 @@
 	border: 1px solid rgb(243, 243, 243);
 }
 
+
 @media screen and (max-width:1280px){
 	.tablet-mode, .menubutton>a>span{
 		display: none !important;
@@ -46,6 +71,14 @@
 		}
 		.hide{
 			display:none !important;
+		}
+		.btn{
+			border-radius: 0 !important;
+		}
+		.btn-primary,.btn-primary:hover,.btn-primary:active{
+			background: linear-gradient(to top, rgba(255, 0, 0, 0) 95%, rgb(22, 136, 167,1) 5%) !important;
+			color: black;
+			border: 0;
 		}
 		.menubar{
 			position:fixed;
