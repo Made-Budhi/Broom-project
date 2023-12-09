@@ -33,9 +33,27 @@
         </div>
 
 		<!-- content  -->
-		<div class=""></div>
+		<div class="">
+            <?php
+                if(empty($konten)){
+                    echo "";
+                } else {
+                    echo $konten;
+                }
+            ?>          
+        </div>
        
 
     </div>
+
+
+<?php
+  if(empty($table)){
+    echo "";
+  } else {
+    echo $table;
+  }
+?>
+
 </body>
 </html>
