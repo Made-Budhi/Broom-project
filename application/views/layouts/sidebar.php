@@ -47,13 +47,5 @@
     </div>
 
 
-<?php
-  if(empty($table)){
-    echo "";
-  } else {
-    echo $table;
-  }
-?>
-
 </body>
 </html>
