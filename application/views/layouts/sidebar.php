@@ -12,10 +12,12 @@
 		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
 	</style>
 </head>
+
 <body data-bs-theme="dark">
     <div class="container-fluid vh-100 position-relative d-flex bg-dark">
+
 		<!-- sidebar only  -->
-        <div class="menubar p-3 h-100 d-flex flex-column">
+        <div class="menubar p-3 h-100 d-flex flex-column fit-content">
 				<div class="d-flex align-items-center gap-2 hide justify-content-center">
 					<img src="<?= base_url('assets/images/logo-pnb.png')?>" width="60vw" class="logo">
 					<div class="d-flex flex-column tablet-mode">
@@ -39,6 +41,7 @@
 		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
 					
 		</div>
+
        
 
     </div>
