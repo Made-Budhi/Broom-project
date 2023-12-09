@@ -38,12 +38,21 @@
         </div>
 
 		<!-- content  -->
+
 		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
-					
+					<?php
+                if(empty($konten)){
+                    echo "";
+                } else {
+                    echo $konten;
+                }
+            ?>  
 		</div>
 
        
 
     </div>
+
+
 </body>
 </html>

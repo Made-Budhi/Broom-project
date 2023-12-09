@@ -28,4 +28,17 @@ class Cviews extends CI_Controller
 	{
 		$this->load->view('email');
 	}
+
+	function dashboard()
+	{
+		// Load Model to get Reservasi DATABASE
+		$this->load->model('Mreservasi');
+		// add variable and get DATABASE reservasi
+		$tableR['hasil'] = $this->Mreservasi->tampildata();
+		// Load Dashboard and put DATABASE from resevasi to table
+        $data['konten']=$this->load->view('dashboard',$tableR,TRUE);
+		$this->load->view('layouts/sidebar',$data);
+	}
+
+	
 }
