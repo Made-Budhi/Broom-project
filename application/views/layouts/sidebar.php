@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	<!-- load bootstrap, font-awesome, style  -->
+	<!-- load bootstrap, font-awesome, style, googlefont  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= base_url('assets/styles/sidebar.css')?>">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
+	</style>
 </head>
-<body>
-    <div class="container-fluid vh-100 position-relative">
+
+<body data-bs-theme="dark">
+    <div class="container-fluid vh-100 position-relative d-flex bg-dark">
+
 		<!-- sidebar only  -->
         <div class="menubar p-3 h-100 d-flex flex-column fit-content">
 				<div class="d-flex align-items-center gap-2 hide justify-content-center">
@@ -33,7 +38,10 @@
         </div>
 
 		<!-- content  -->
-		<div class=""></div>
+		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
+					
+		</div>
+
        
 
     </div>

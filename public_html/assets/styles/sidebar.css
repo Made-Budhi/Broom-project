@@ -1,9 +1,31 @@
+html{
+	scroll-behavior: smooth !important;
+	-moz-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-webkit-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-moz-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-o-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	transition: all 1s ease-in-out, left 1.5s ease-in-out;
+}
+body{
+	background: linear-gradient(90deg, #FFF 8%, #F2F6FF 92%) !important;
+}
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-thumb {
+	background: #ddd; 
+	border-radius: 100px;
+	height: 5%;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #333; 
+}
 
 .gabarito{
-	font-family: Gabarito;
+	font-family: Gabarito, sans-serif;
 }
 .geologica{
-	font-family: Geologica;
+	font-family: Geologica, sans-serif;
 }
 .w-20{
 	width:20%;
@@ -23,9 +45,6 @@
 .fit-content{
 	width: fit-content;
 	height: fit-content;
-}
-.menubar{
-	border: 1px solid rgb(243, 243, 243);
 }
 
 @media screen and (max-width:1280px){
