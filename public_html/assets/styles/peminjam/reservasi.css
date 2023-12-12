@@ -1,0 +1,21 @@
+.keterangan {
+	color: red;
+}
+
+input[name=kostumisasi-lanjutan] {
+	display: none !important;
+}
+
+input[name=kostumisasi-lanjutan]:checked + div.kostumisasi-lanjutan,
+#pilihan-organisasi-tidak:not(:checked) + div.organisasi-tidak,
+#pilihan-logo-pnb-tidak:checked + div.logo-kiri
+{
+	display: block;
+}
+
+input[name=kostumisasi-lanjutan]:not(:checked) + div.kostumisasi-lanjutan,
+#pilihan-organisasi-tidak:checked + div.organisasi-tidak,
+#pilihan-logo-pnb-tidak:not(:checked) + div.logo-kiri
+{
+	display: none;
+}
