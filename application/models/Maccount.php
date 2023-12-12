@@ -34,8 +34,6 @@ class Maccount extends CI_Model
      * If not		= login authentication failed
      */
     if ($data->num_rows() > 0) {
-      echo "Data found!";
-      
       $accountData = $data->first_row();
       
       // Join table account with related role
