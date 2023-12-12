@@ -50,10 +50,20 @@
     </div>
   </div>
 
-		<!-- content  -->
-		<div class=""></div>
-       
+  <!-- content  -->
+  <div class="w-100 overflow-auto p-3">
+    
+    <?php
+    if (!empty($roles_views))
+      echo $roles_views;
+    
+    if (!empty($settings_views)) {
+      echo $settings_views;
+    }
+    ?>
+    
 
-    </div>
+  </div>
+</div>
 </body>
 </html>
