@@ -52,3 +52,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'cviews/loginpage';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// BRoom Main Controller
+$route['settings'] = 'Csetting';
+$route['dashboard'] = 'Cdashboard';
+
+// BRoom Settings Controller
+$route['settings/(:any)'] = 'Csetting/$1';

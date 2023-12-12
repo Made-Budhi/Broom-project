@@ -34,7 +34,6 @@ class Maccount extends CI_Model
      * If not		= login authentication failed
      */
     if ($data->num_rows() > 0) {
-      echo "Data found!";
       
       $accountData = $data->first_row();
       
@@ -170,5 +169,39 @@ class Maccount extends CI_Model
       redirect('chalaman/reset');
     }
     
+  }
+  
+  /**
+   * Get current user data's of session
+   *
+   * @return array|null
+   */
+  public function get_current_account_data(): ?array
+  {
+    $currentRole = $this->session->userdata('role');
+    
+    return $this->db->select()->from($currentRole)->join(
+      'Account',
+      "Account.account_id = " . $currentRole .".account_id",
+      'inner'
+    )->get()->first_row('array');
+  }
+  
+  /**
+   * Update current user data's of session
+   * - name
+   * - phone
+   *
+   * @param array $data
+   * @return void
+   */
+  public function edit(array $data): void
+  {
+    $currentSessionData = $this->session->userdata;
+    
+    $this->db->set('name', $data['account_name'])
+      ->set('phone', $data['account_phone'])
+      ->where('id', $currentSessionData['id'])
+      ->update($currentSessionData['role']);
   }
 }
