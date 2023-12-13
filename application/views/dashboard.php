@@ -9,6 +9,25 @@
 
 <h4>History Reservasi</h4>
 
+<br>
+
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-10 d-flex">
+        <div class="card-body">
+          <h1 class="card-title">Reservasi gedung sekarang!</h1>
+          <h3 class="card-text">Mulai melakukan reservasi hanya dari perangkat elektronik anda !</h3>
+          <Button class="btn btn-primary btn-lg">Buat Reservasi</Button>
+        </div>
+        <div class="col-md-0">
+        <img src="" class="card-img-bottom float-right" alt="...">
+        </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
 <table class="table table-bordered">
 
     <thead>

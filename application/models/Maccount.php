@@ -34,6 +34,7 @@ class Maccount extends CI_Model
      * If not		= login authentication failed
      */
     if ($data->num_rows() > 0) {
+
       $accountData = $data->first_row();
       
       // Join table account with related role
@@ -41,8 +42,7 @@ class Maccount extends CI_Model
         'Account',
         "Account.account_id = " . $accountData->role .".account_id",
         'inner'
-      )->get()->first_row();
-      
+      )->where('Account.account_id', $accountData->account_id)->get()->first_row();
       
       // Setting session with role & id
       $sessionData = array(
