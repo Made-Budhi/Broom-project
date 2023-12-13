@@ -24,7 +24,7 @@
 	}
 	?>
 
-	<form action="<?= base_url('clogin/loginauth') ?>" method="post">
+	<form action="<?= site_url('clogin/loginauth') ?>" method="post">
 		<label for="email">Enter E-mail</label>
 		<input type="text" name="email" id="email">
 
@@ -38,12 +38,12 @@
 
 	<button type="button" onClick="login()">Daftar</button>
 
-	<a href="<?= base_url('cviews/email') ?>">Lupa Password?</a>
+	<a href="<?= site_url('cviews/email') ?>">Lupa Password?</a>
 
 	<script>
 		function login()
 		{
-			window.open("<?php echo base_url('cviews/register')?>","_self");
+			window.open("<?= site_url('cviews/register')?>","_self");
 		}
 	</script>
 
