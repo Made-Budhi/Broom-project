@@ -34,7 +34,6 @@ class Maccount extends CI_Model
      * If not		= login authentication failed
      */
     if ($data->num_rows() > 0) {
-      
       $accountData = $data->first_row();
       
       // Join table account with related role
@@ -170,7 +169,7 @@ class Maccount extends CI_Model
     }
     
   }
-  
+
   /**
    * Get current user data's of session
    *
@@ -205,3 +204,4 @@ class Maccount extends CI_Model
       ->update($currentSessionData['role']);
   }
 }
+
