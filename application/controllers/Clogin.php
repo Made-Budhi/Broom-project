@@ -11,7 +11,6 @@ class Clogin extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Maccount', 'account');
-		$this->load->model('Mreservasi');
 	}
 
 	/**
@@ -24,27 +23,6 @@ class Clogin extends CI_Controller
 	function loginauth(): void
   {
 		$this->account->login();
-
-		$session = $this->session->get_userdata();
-
-		// Determine which page should be loaded.
-		switch ($session['role']) {
-			case 'Peminjam':
-				// add variable and get DATABASE reservasi
-				$tableR['hasil'] = $this->Mreservasi->tampildata();
-				// Load Dashboard and put DATABASE from resevasi to table
-				$data['konten']=$this->load->view('dashboard',$tableR,TRUE);
-				$this->load->view('layouts/sidebar',$data);
-			break;
-
-			case 'Pimpinan':
-				$this->load->view('pimpinan_mainviews'); // TODO: change the correct view to corresponding role
-			break;
-
-			case 'Pengelola':
-				$this->load->view('pengelola_mainviews'); // TODO: change the correct view to corresponding role
-			break;
-
-		}
-
+    redirect('Cdashboard', 'refresh');
+	}
 }

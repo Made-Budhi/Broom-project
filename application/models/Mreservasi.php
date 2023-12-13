@@ -4,14 +4,8 @@
     {
         function tampildata()
 		{
-			$sessions = $this->session->get_userdata();
-			
-			$query= $this->db->select()->from("reservasi")->join(
-				"peminjam",
-				"reservasi.peminjam_id = peminjam.id",
-				"inner"
-				)->where("peminjam_id",$sessions['id'])->get();
-			
+			$sql="SELECT * FROM reservasi";
+			$query=$this->db->query($sql);
             // to check query database
 			if ($query->num_rows()>0)
 			{
