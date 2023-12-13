@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -15,7 +16,19 @@
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
 	</style>
+
 </head>
+<body>
+<div class="container-fluid vh-100 position-relative d-flex">
+  <!-- sidebar only  -->
+  <div class="menubar p-3 h-100 d-flex flex-column fit-content bg-white">
+    <div class="d-flex align-items-center gap-2 hide justify-content-center">
+      <img src="<?= base_url('assets/images/logo-pnb.png')?>" width="60vw" class="logo">
+      <div class="d-flex flex-column tablet-mode">
+        <h2 class="geologica m-0">BRoom</h2>
+        <small class="gabarito m-0 fs-7">Aplikasi Peminjaman Ruangan</small>
+      </div>
+    </div>
 
 <body data-bs-theme="dark">
     <div class="container-fluid vh-100 position-relative d-flex bg-dark">
@@ -39,15 +52,19 @@
 							<i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span>
 						</a>
 
-                        <a href="<?= base_url('creservasi/reservasi') ?>"
+                        <a href="<?= site_url('creservasi/reservasi') ?>"
 					   	class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa-solid fa-file-circle-plus fa-lg p-2"></i> <span>Reservasi</span>
 						</a>
 
                         <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 "><i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span></a>
                         <span class="flex-grow-1 hide"></span>
-						<a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 "><i class="fa fa-gear px-2"></i> <span>Pengaturan</span></a>
-                        <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2"></i></i> <span>Logout</span></a>
+                  
+						<a onclick="" href="<?= site_url('settings') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+        <i class="fa fa-gear px-2"></i>
+                  
+                        <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
+                          </i></i> <span>Logout</span></a>
                 </div>
         </div>
 
@@ -57,13 +74,20 @@
 			<?php
 			if (!empty($konten))
 				echo $konten;
-			else if (!empty($reservasi))
+          
+			if (!empty($reservasi))
 				echo $reservasi;
+          
+      if (!empty($roles_views))
+        echo $roles_views;
+          
+      if (!empty($settings_views))
+        echo $settings_views;
 			?>
 		</div>
 
     </div>
-
+  </div>
 
 </body>
 </html>
