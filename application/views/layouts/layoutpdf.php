@@ -51,7 +51,7 @@ $logo_pnb = 'data:image/' . $type . ';base64,' . base64_encode($content);
 <body>
 <header>
 	<?php
-	if (!$data['pilihan-logo-pnb']) {
+	if (empty($data['pilihan-logo-pnb'])) {
 
 		if (!empty($data['left-logo'])) {
 			$path = base_url() . 'assets/images/left_logo/' . $data['left-logo'];
