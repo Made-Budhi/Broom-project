@@ -1,6 +1,13 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-
+/**
+ * @property CI_Loader $load
+ * @property CI_Lang $lang
+ * @property CI_DB $db
+ * @property CI_Input $input
+ * @property CI_Session $session
+ */
 class Mpdf extends CI_Model
 {
 	public function __construct()
@@ -15,8 +22,8 @@ class Mpdf extends CI_Model
 	 * @param array $data
 	 * @return void
 	 */
-	function pdfPreview(array $data)
-	{
+	function pdfPreview(array $data): void
+    {
 		$this->load->helper('pdf');
 
 		$reservationdata['data'] = $data;
