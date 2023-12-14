@@ -1,11 +1,12 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @property Mpdf $pdf
  * @property CI_Upload $uploadttd
  * @property CI_Upload $uploadlogokiri
  * @property CI_Upload $uploadlogokanan
  */
-
 class Creservasi extends CI_Controller
 {
 	public function __construct()
@@ -21,7 +22,7 @@ class Creservasi extends CI_Controller
 		$this->load->view('layouts/sidebar', $html);
 	}
 
-	function uploadpdf()
+	function uploadpdf(): void
 	{
 		$data = $this->pdf->retrieveData();
 
@@ -36,7 +37,7 @@ class Creservasi extends CI_Controller
 		$this->reservasi($message);
 	}
 
-	function previewpdf()
+	function previewpdf(): void
 	{
 		$data = $this->pdf->retrieveData();
 
