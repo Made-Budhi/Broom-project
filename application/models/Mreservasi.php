@@ -12,11 +12,16 @@ class Mreservasi extends CI_Model
 		$sessions = $this->session->get_userdata();
 		$hasil = array();
 		
-		$query = $this->db->select()->from("Reservasi")->join(
+		$query= $this->db->select('*,
+				Reservasi.status as reservasi_status')->from("Reservasi")
+				->join(
 				"Peminjam",
 				"Reservasi.peminjam_id = Peminjam.id",
-				"inner"
-		)->where("peminjam_id", $sessions['id'])->get();
+				"inner")
+				->join(
+				"Ruangan",
+				"Reservasi.ruangan_id = Ruangan.id",
+				"inner")->where("peminjam_id",$sessions['id'])->get();
 		
 		// to check query database
 		foreach ($query->result() as $row) {

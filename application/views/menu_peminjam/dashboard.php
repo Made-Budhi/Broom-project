@@ -52,8 +52,8 @@
 
         <tr>
             <td class="text-center"><?php echo $data->date_start;?> <br> <?php echo $data->date_end ?></td>
-            <td class="text-center"><?php echo $data->ruangan_id ?></td>
-            <td class="text-center"><?php echo $data->status ?></td>
+            <td class="text-center"><?php echo $data->name ?></td>
+            <td class="text-center"><?php echo $data->reservasi_status ?></td>
 
             <!-- TODO Detail mengarah ke arah PDF form -->
             <td class="text-center">
