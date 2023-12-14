@@ -19,8 +19,8 @@
 
 </head>
 
-<body data-bs-theme="dark">
-    <div class="container-fluid vh-100 position-relative d-flex bg-dark">
+<body data-bs-theme="">
+    <div class="container-fluid vh-100 position-relative d-flex">
 
 		<!-- sidebar only  -->
         <div class="menubar p-3 h-100 d-flex flex-column fit-content">
@@ -33,7 +33,7 @@
 				</div>
                 
                 <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
-                        <a href="" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100">
+                        <a href="<?= site_url('cviews/dashboard') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100">
 							<i class="fa fa-home fa-lg p-2"></i> <span>Dashboard</span>
 						</a>
 
