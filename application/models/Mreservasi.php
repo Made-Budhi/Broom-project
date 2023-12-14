@@ -6,9 +6,15 @@
 		{
 			$sessions = $this->session->get_userdata();
 			
-			$query= $this->db->select()->from("reservasi")->join(
+			$query= $this->db->select('*, 
+				reservasi.status as reservasi_status
+			')->from("reservasi")->join(
 				"peminjam",
 				"reservasi.peminjam_id = peminjam.id",
+				"inner"
+				)->join(
+				"ruangan",
+				"reservasi.ruangan_id = ruangan.id",
 				"inner"
 				)->where("peminjam_id",$sessions['id'])->get();
 			
