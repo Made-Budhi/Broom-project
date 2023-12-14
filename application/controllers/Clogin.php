@@ -46,5 +46,5 @@ class Clogin extends CI_Controller
 			break;
 
 		}
-	}
+
 }
