@@ -36,7 +36,7 @@ class Cviews extends CI_Controller
 		// add variable and get DATABASE reservasi
 		$tableR['hasil'] = $this->Mreservasi->tampildata();
 		// add variable TO Load Dashboard and put DATABASE from resevasi to table
-        $data['konten']=$this->load->view('dashboard',$tableR,TRUE);
+        $data['konten']=$this->load->view('menu_peminjam/dashboard',$tableR,TRUE);
 		// view layout with $data
 		$this->load->view('layouts/sidebar',$data);
 	}
