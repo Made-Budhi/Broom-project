@@ -42,7 +42,7 @@ class Creservasi extends CI_Controller
 		$data = $this->pdf->retrieveData();
 
 		$image = $this->imageUploadHandler();
-		$data['ttd-ketua-panitia'] 	= $image['ttd-ketua-panitia'];
+		$data['ttd-ketua-panitia']	= $image['ttd-ketua-panitia'];
 		$data['left-logo']			= $image['left-logo'];
 		$data['right-logo']			= $image['right-logo'];
 
@@ -57,7 +57,7 @@ class Creservasi extends CI_Controller
 	{
 		// Upload peminjam signature
 		$config1 = array(
-			'upload_path' 	=> 'C:/xampp/htdocs/Broom-project/public_html/assets/images/signature_peminjam/',
+			'upload_path' 	=> FCPATH.'assets/images/signature_peminjam/',
 			'allowed_types' => 'jpg|png',
 			'max_size' 		=> 0,
 			'max_width'		=> 0,
@@ -80,7 +80,7 @@ class Creservasi extends CI_Controller
 
 		// Upload left logo
 		$config2 = array(
-			'upload_path' 	=> 'C:/xampp/htdocs/Broom-project/public_html/assets/images/left_logo/',
+			'upload_path' 	=> FCPATH.'assets/images/left_logo/',
 			'allowed_types' => 'jpg|png',
 			'max_size' 		=> 0,
 			'max_width'		=> 0,
@@ -100,7 +100,7 @@ class Creservasi extends CI_Controller
 
 		// Upload right logo
 		$config3 = array(
-			'upload_path' 	=> 'C:/xampp/htdocs/Broom-project/public_html/assets/images/right_logo/',
+			'upload_path' 	=> FCPATH.'assets/images/right_logo/',
 			'allowed_types' => 'jpg|png',
 			'max_size' 		=> 0,
 			'max_width'		=> 0,
