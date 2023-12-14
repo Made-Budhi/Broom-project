@@ -47,10 +47,18 @@ class Creservasi extends CI_Controller
 		$data['right-logo']			= $image['right-logo'];
 
 		$this->pdf->pdfPreview($data);
-
-		$this->imageDeletion($data['ttd-ketua-panitia'], 'C:/xampp/htdocs/Broom-project/public_html/assets/images/signature_peminjam/');
-		$this->imageDeletion($data['left-logo'], 'C:/xampp/htdocs/Broom-project/public_html/assets/images/left_logo/');
-		$this->imageDeletion($data['right-logo'], 'C:/xampp/htdocs/Broom-project/public_html/assets/images/right_logo/');
+		
+		if (!empty($image['ttd-ketua-panitia'])) {
+			$this->imageDeletion($data['ttd-ketua-panitia'], FCPATH .'assets/images/signature_peminjam/');
+		}
+		
+		if (!empty($image['left-logo'])) {
+			$this->imageDeletion($data['left-logo'], FCPATH.'assets/images/left_logo/');
+		}
+		
+		if (!empty($image['right-logo'])) {
+			$this->imageDeletion($data['right-logo'], FCPATH.'assets/images/right_logo/');
+		}
 	}
 
 	function imageUploadHandler(): array
