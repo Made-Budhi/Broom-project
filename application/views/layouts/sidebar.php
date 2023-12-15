@@ -55,7 +55,7 @@
         <i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
                   
                         <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
-                          </i></i> <span>Logout</span></a>
+                          </i> <span>Logout</span></a>
                 </div>
         </div>
 
@@ -78,7 +78,6 @@
 		</div>
 
     </div>
-  </div>
 
 </body>
 </html>
