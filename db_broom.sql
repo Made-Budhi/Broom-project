@@ -57,6 +57,8 @@ CREATE TABLE Ruangan
 	id		 	INT NOT NULL AUTO_INCREMENT,
 	name   		VARCHAR(254) NOT NULL,
 	status  	BOOLEAN DEFAULT TRUE NOT NULL,
+	image		TINYTEXT,
+	description	TEXT,
 
 	PRIMARY KEY (id)
 );
