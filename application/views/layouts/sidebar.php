@@ -37,7 +37,7 @@
 							<i class="fa fa-home fa-lg p-2"></i> <span>Dashboard</span>
 						</a>
 
-                        <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+                        <a href="<?=  site_url('crooms') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span>
 						</a>
 
@@ -46,7 +46,9 @@
 							<i class="fa-solid fa-file-circle-plus fa-lg p-2"></i> <span>Reservasi</span>
 						</a>
 
-                        <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 "><i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span></a>
+                        <a href="#"
+						   class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span></a>
                         <span class="flex-grow-1 hide"></span>
                   
 						<a onclick="" href="<?= site_url('settings') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
@@ -68,10 +70,10 @@
 				echo $reservasi;
 
 			if (!empty($roles_views))
-			echo $roles_views;
+				echo $roles_views;
 
 			if (!empty($settings_views))
-			echo $settings_views;
+				echo $settings_views;
 			?>
 		</div>
 
