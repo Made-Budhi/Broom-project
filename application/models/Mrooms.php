@@ -1,11 +1,13 @@
-<?php 
-
+<?php
+/**
+ * @property CI_DB $db
+ */
 class Mrooms extends CI_Model {
 
-    function tampildata($gedung)
+    function tampildata($id)
     {
         $start=$this->input->post('tgl');
-        $sql="SELECT * FROM schedule_list WHERE ('$start' BETWEEN start_datetime AND end_datetime) AND gedung='$gedung  ';";
+        $sql="SELECT * FROM Reservasi WHERE ('$start' BETWEEN date_start AND date_end) AND ruangan_id = '$id';";
         $query=$this->db->query($sql);
         if ($query->num_rows()>0)
         {
@@ -23,25 +25,7 @@ class Mrooms extends CI_Model {
 
     function tampilgedung()
     {
-        
-        $sql="select * from list_gedung";
-        $query=$this->db->query($sql);
-        if ($query->num_rows()>0)
-        {
-            foreach ($query->result() as $row)
-            {
-                $hasil[]=$row;
-            }	
-        }
-        else
-        {
-            $hasil="";	
-        }
-        return $hasil;	
-    }
-
-    function gedung(){
-        $sql="select * from schedule_list WHERE gedung";
+        $sql="SELECT * FROM Ruangan";
         $query=$this->db->query($sql);
         if ($query->num_rows()>0)
         {
@@ -58,7 +42,5 @@ class Mrooms extends CI_Model {
     }
 
 }
-
-    
 
 ?>
