@@ -21,25 +21,8 @@ class Clogin extends CI_Controller
 	 * @return void
 	 */
 	function loginauth(): void
-  {
+	{
 		$this->account->login();
-
-		$session = $this->session->get_userdata();
-
-		// Determine which page should be loaded.
-		switch ($session['role']) {
-			case 'Peminjam':
-				$this->load->view('peminjam_mainviews'); // TODO: change the correct view to corresponding role
-			break;
-
-			case 'Pimpinan':
-				$this->load->view('pimpinan_mainviews'); // TODO: change the correct view to corresponding role
-			break;
-
-			case 'Pengelola':
-				$this->load->view('pengelola_mainviews'); // TODO: change the correct view to corresponding role
-			break;
-
-		}
+    	redirect('Cdashboard', 'refresh');
 	}
 }

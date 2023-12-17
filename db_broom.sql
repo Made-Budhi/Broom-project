@@ -57,21 +57,43 @@ CREATE TABLE Ruangan
 	id		 	INT NOT NULL AUTO_INCREMENT,
 	name   		VARCHAR(254) NOT NULL,
 	status  	BOOLEAN DEFAULT TRUE NOT NULL,
+	image		TINYTEXT,
+	description	TEXT,
 
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE Reservasi
 (
-	reservasi_id		INT NOT NULL UNIQUE AUTO_INCREMENT,
-	peminjam_id			VARCHAR(18),
-	ruangan_id      	INT,
-	pimpinan_id     	CHAR(18),
-	document_number 	VARCHAR(20) NOT NULL,
-	date_start      	DATETIME NOT NULL,
-	date_end        	DATETIME NOT NULL,
-	purpose         	VARCHAR(254) NOT NULL,
-	status          	ENUM ('Diterima', 'Ditolak', 'Menunggu') NOT NULL,
+	reservasi_id	INT          		AUTO_INCREMENT,
+	peminjam_id		VARCHAR(18),
+	ruangan_id      INT,
+	pimpinan_id     CHAR(18),
+
+	organization_choice		BOOLEAN 	NOT NULL, 	-- Pilihan untuk menyertakan nama organisasi atau tidak
+	organization_name		TINYTEXT, 				-- Berisi nilai apabila `organization_choice` == true. Else null
+	head_committee_name		TINYTEXT 	NOT NULL,
+	head_committee_id		VARCHAR(18) NOT NULL,
+	head_committee_sign		TINYTEXT	NOT NULL,
+
+	date_start      	DATE     		NOT NULL,
+	time_start			TIME			NOT NULL,
+	date_end        	DATE    		NOT NULL,
+	time_end			time			NOT NULL,
+
+	document_number 	VARCHAR(100)  	NOT NULL,
+	reservation_date	DATE 			NOT NULL,
+	purpose         	VARCHAR(254) 	NOT NULL,
+	attachment			VARCHAR(5)		NOT NULL,
+	event				TINYINT			NOT NULL,
+	organizer			VARCHAR(254)	NOT NULL,
+	copy				MEDIUMTEXT,
+
+	pnb_logo_choice		BOOLEAN 		NOT NULL,
+	left_logo			TINYTEXT,					-- Opsional
+	right_logo			TINYTEXT,					-- Opsional
+
+	status ENUM ('Diterima', 'Ditolak', 'Menunggu') NOT NULL,
 
 	PRIMARY KEY (reservasi_id),
 	FOREIGN KEY (peminjam_id) REFERENCES Peminjam (id),

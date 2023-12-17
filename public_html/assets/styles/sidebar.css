@@ -1,0 +1,112 @@
+html{
+	scroll-behavior: smooth !important;
+	-moz-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-webkit-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-moz-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	-o-transition: all 1s ease-in-out, left 1.5s ease-in-out;
+	transition: all 1s ease-in-out, left 1.5s ease-in-out;
+}
+body{
+	background: linear-gradient(90deg, #FFF 8%, #F2F6FF 92%) !important;
+}
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-thumb {
+	background: #ddd; 
+	border-radius: 100px;
+	height: 5%;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #333; 
+}
+
+.gabarito{
+	font-family: Gabarito, sans-serif;
+}
+.geologica{
+	font-family: Geologica, sans-serif;
+}
+.w-20{
+	width:20%;
+}
+.w-15{
+	width:15%;
+}
+.w-90{
+	width:90%;
+}
+.btn-primary,.btn-primary:hover,.btn-primary:active{
+	background-color: #1687A7 !important;
+}
+.fs-7{
+	font-size: x-small;
+}
+.fit-content{
+	width: fit-content;
+	height: fit-content;
+}
+
+@media screen and (max-width:1280px){
+	.tablet-mode, .menubutton>a>span{
+		display: none !important;
+	}
+	.menubar{
+		padding:0 !important;
+		margin:0 !important;
+	}
+	.menubutton>a{
+		padding-block:.5em !important;
+	}
+
+	@media screen and (max-width:768px) {
+		.logo{
+			margin:auto !important;
+		}
+		.hide{
+			display:none !important;
+		}
+		.menubar{
+			position:fixed;
+			bottom:0;
+			left:0;
+			height: fit-content !important;
+			width: 100%;
+		}
+		.menubutton>a>span, .menubutton>a:not(.hide){
+			display: block !important;
+			text-align:center !important;
+		}
+
+		@media screen and (max-width:575px){
+			*:not(i){
+				width: 100%;
+				font-size: 80%;
+
+			}
+
+			@media screen and (max-width:575px){
+				*:not(i){
+					width: 100%;
+					font-size: 75%;
+					overflow-x:hidden;
+				}
+				
+				.menubar{
+					box-sizing:content-box;
+					margin:0 !important;
+					padding:0 !important;
+				}
+
+				@media screen and (max-width:365px){
+					*:not(i){
+						width: 100%;
+						font-size: 70%;
+						overflow-x:hidden;
+					}
+					
+				}
+			}
+		}
+	}
+}
