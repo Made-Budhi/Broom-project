@@ -1,4 +1,4 @@
-const body = document.body;
+const body = document.body
 
 function checkForStorage() {
 	return typeof (Storage) !== 'undefined';
@@ -20,18 +20,22 @@ function changeTheme(){
 	}
 }
 
-const lightBlock = document.getElementById('lightThemeBlock');
-const darkBlock = document.getElementById('darkThemeBlock');
-lightBlock.addEventListener('click', () => {
-	if (!getTheme()) {
-		changeTheme();
-	}
-});
-darkBlock.addEventListener('click', () => {
-	if (getTheme()) {
-		changeTheme();
-	}
-});
+function initPreferences(){
+	setTimeout(() => {
+		const lightBlock = document.getElementById('lightThemeBlock');
+		const darkBlock = document.getElementById('darkThemeBlock');
+		lightBlock.addEventListener('click', () => {
+			if (!getTheme()) {
+				changeTheme();
+			}
+		});
+		darkBlock.addEventListener('click', () => {
+			if (getTheme()) {
+				changeTheme();
+			}
+		});
+	}, 1000);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 	if(checkForStorage){
@@ -39,11 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			const theme = true;
 			localStorage.setItem('theme', JSON.stringify(theme));
 		}
-		else {
-			body.setAttribute('data-bs-theme', getTheme()? 'light' : 'dark');
-		}
 	}
 	else {
-		console.log("browser tidak mendukung preferences change theme");
+		console.log("browser tidak mendukung preferences");
 	}
 });
+
+document.getElementById("edit-preferences").addEventListener("click", () => initPreferences());
+

@@ -17,11 +17,10 @@
 		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
 	</style>
 
-	<script src="<?= base_url('js/settings/init.js'); ?>"></script>
 
 </head>
 
-<body data-bs-theme="">
+<body>
     <div class="container-fluid vh-100 position-relative d-flex">
 
 		<!-- sidebar only  -->
@@ -81,5 +80,6 @@
 
     </div>
 
+<script src="<?= base_url('js/settings/init.js'); ?>"></script>
 </body>
 </html>
