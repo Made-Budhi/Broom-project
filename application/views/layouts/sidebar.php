@@ -60,23 +60,11 @@
                 </div>
         </div>
 
-		<!-- content  -->
-
-		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
-			<?php
-			if (!empty($konten))
-				echo $konten;
-          
-			if (!empty($reservasi))
-				echo $reservasi;
-
-			if (!empty($roles_views))
-				echo $roles_views;
-
-			if (!empty($settings_views))
-				echo $settings_views;
-			?>
-		</div>
+        <!-- content  -->
+    
+        <div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
+            <?php view($content) ?>
+        </div>
 
     </div>
 
