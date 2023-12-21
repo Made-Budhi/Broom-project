@@ -12,12 +12,7 @@
 <h3 class="w-90 mx-auto">Pengajuan terbaru</h3>
 
 <?php
-if(empty($hasil))
-	{
-		echo "Data Kosong";	
-	}
-else
-	{
+    view_data($hasil);
 		$no=1;
 		foreach ($hasil as $data):
 ?>
@@ -34,7 +29,7 @@ else
             <p class="card-text">Perihal : <?php echo $data->purpose ?></p>
             <p class="card-text">Date Start : <?php echo $data->date_start ?></p>
           </div>
-          <a href="<?= site_url('Cpemimpin/detailV/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail</a>
+          <a href="<?= site_url('Cpimpinan/detailV/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail</a>
         </div>
     </div>
   </div>
@@ -43,5 +38,4 @@ else
 <?php
 	 	$no++;
 	 	endforeach;
-	}
 ?>
