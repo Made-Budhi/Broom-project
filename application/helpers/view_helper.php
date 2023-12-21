@@ -11,20 +11,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 function view(&$content , string $name = ''): void
 {
-	if (!empty($content)) {
-		if (!empty($name)) {
-			echo $content[$name];
-			return;
-		}
-		
-		if (is_array($content)) {
-			show_error('Loaded content is an array.');
-			return;
-		}
-		
-		echo $content;
+	if (empty($content)) {
+		show_404();
 		return;
 	}
 	
-	show_error('Content name is not found.');
+	if (!empty($name)) {
+		echo $content[$name];
+		return;
+	}
+	
+	if (is_array($content)) {
+		show_error('Loaded content is an array, please provide content key');
+		return;
+	}
+	
+	echo $content;
 }
