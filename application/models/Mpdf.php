@@ -84,7 +84,7 @@ class Mpdf extends CI_Model
 	}
 
 	/**
-	 *
+	 * Retrieve data from reservation form
 	 *
 	 * @return array
 	 */
@@ -98,32 +98,32 @@ class Mpdf extends CI_Model
 
 		return array(
 			// Header Data
-			'pilihan-logo-pnb'		=> $this->input->post('pilihan-logo-pnb'),
-			'pilihan-organisasi'	=> $this->input->post('pilihan-organisasi'),
-			'nama-organisasi'		=> $this->input->post('nama-organisasi'),
+			'pnb_logo_choice'		=> $this->input->post('pilihan-logo-pnb'),
+			'organization_choice'	=> $this->input->post('pilihan-organisasi'),
+			'organization_name'		=> $this->input->post('nama-organisasi'),
 
 			// Body Data
-			'tanggal-pengajuan' 	=> date('Y-m-d', now()),
-			'nomor-dokumen' 		=> $this->input->post('nomor-dokumen'),
-			'lampiran'				=> $this->input->post('lampiran'),
-			'perihal'				=> $this->input->post('perihal'),
-			'kegiatan'				=> $this->input->post('kegiatan'),
-			'penyelenggara'			=> $this->input->post('penyelenggara'),
-			'tanggal-mulai'			=> $this->input->post('tanggal-mulai'),
-			'jam-mulai'				=> $this->input->post('jam-mulai'),
-			'tanggal-selesai'		=> $this->input->post('tanggal-selesai'),
-			'jam-selesai'			=> $this->input->post('jam-selesai'),
-			'id-pimpinan'			=> $pimpinan->id,
-			'nama-pimpinan'			=> $pimpinan->name,
-			'jabatan-pimpinan'		=> $pimpinan->position,
-			'id-ruangan'			=> $ruangan->id,
-			'nama-ruangan'			=> $ruangan->name,
-			'nama-ketua-panitia'	=> $this->input->post('nama-ketua-panitia'),
-			'id-ketua-panitia'		=> $this->input->post('id-ketua-panitia'),
+			'reservation_date' 		=> date('Y-m-d', now()),
+			'document_number' 		=> $this->input->post('nomor-dokumen'),
+			'attachment'			=> $this->input->post('lampiran'),
+			'purpose'				=> $this->input->post('perihal'),
+			'event'					=> $this->input->post('kegiatan'),
+			'organizer'				=> $this->input->post('penyelenggara'),
+			'date_start'			=> $this->input->post('tanggal-mulai'),
+			'time_start'			=> $this->input->post('jam-mulai'),
+			'date_end'				=> $this->input->post('tanggal-selesai'),
+			'time_end'				=> $this->input->post('jam-selesai'),
+			'pimpinan_id'			=> $pimpinan->id,
+			'pimpinan_name'			=> $pimpinan->name,
+			'pimpinan_position'		=> $pimpinan->position,
+			'ruangan_id'			=> $ruangan->id,
+			'ruangan_name'			=> $ruangan->name,
+			'head_committee_name'	=> $this->input->post('nama-ketua-panitia'),
+			'head_committee_id'		=> $this->input->post('id-ketua-panitia'),
 			'status'				=> 'Menunggu',
 
 			// Footer Data
-			'tembusan' 				=> $this->input->post('tembusan')
+			'copy'	 				=> $this->input->post('tembusan')
 		);
 	}
 }
