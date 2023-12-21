@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Mpdf $pdf
  */
 
-class Cpemimpin extends CI_Controller
+class Cpimpinan extends CI_Controller
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class Cpemimpin extends CI_Controller
 		// add variable and get DATABASE reservasi
 		$reservasiM['hasil'] = $this->pemimpin->pesetujuan();
 		// add variable TO Load Dashboard and put DATABASE from resevasi to table
-        $data['content']=$this->load->view('persetujuan_pemimpin',$reservasiM,TRUE);
+        $data['content']=$this->load->view('menu_pimpinan/persetujuan',$reservasiM,TRUE);
 		// view layout with $data
 		$this->load->view('layouts/sidebar_pimpinan',$data);
 	}
@@ -30,7 +30,7 @@ class Cpemimpin extends CI_Controller
 		// add variable and get DATABASE reservasi
 		$reservasiM['hasil'] = $this->pemimpin->lengkap($reservasi_id);
 		// add variable TO Load Dashboard and put DATABASE from resevasi to table
-        $data['content']=$this->load->view('persetujuan_detail',$reservasiM,TRUE);
+        $data['content']=$this->load->view('menu_pimpinan/persetujuan_detail',$reservasiM,TRUE);
 		// view layout with $data
 		$this->load->view('layouts/sidebar_pimpinan',$data);
 	}
@@ -39,7 +39,7 @@ class Cpemimpin extends CI_Controller
     {
         $this->pemimpin->keputusan($reservasi_id, $status);
 		// add variable TO Load Dashboard and put DATABASE from resevasi to table
-        $data['konten']=$this->load->view('persetujuan_pemimpin', array(), TRUE);
+        $data['konten']=$this->load->view('menu_pimpinan/persetujuan', array(), TRUE);
 		// view layout with $data
 		$this->load->view('layouts/sidebar_pimpinan',$data);
     }
