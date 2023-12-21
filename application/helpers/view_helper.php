@@ -28,3 +28,39 @@ function view(&$content , string $name = ''): void
 	
 	echo $content;
 }
+
+function view_data(&$datas, ...$names): void
+{
+	if (empty($datas)) {
+		log_message('info', 'Data is not found or empty!');
+		$datas = array();
+		return;
+	}
+	
+	if (empty($names)) {
+		log_message('info', 'Name of data is not provided!');
+		return;
+	}
+	
+	$temps = $datas;
+	$result = null;
+	$datas = null;
+	
+	foreach ($temps as $data) {
+		$is_object = is_object($data);
+		
+		if ($is_object) {
+			foreach ($names as $name)
+				$result[$name] = $data->$name;
+		} else {
+			foreach ($names as $name)
+				$result[$name] = $data;
+		}
+		
+		$datas[] = (object) $result;
+		
+		if (!$is_object) {
+			break;
+		}
+	}
+}
