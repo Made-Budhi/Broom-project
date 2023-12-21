@@ -52,6 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
   function keputusan($reservasi_id, $status) {
     $this->db->set('status', $status)
+      ->set('date_assigned',date('Y-m-d', now()))
       ->where('Reservasi.reservasi_id', $reservasi_id)
       ->update('Reservasi');
       
