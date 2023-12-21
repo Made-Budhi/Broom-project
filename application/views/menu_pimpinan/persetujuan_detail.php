@@ -37,7 +37,7 @@
         
     </div>
     <!-- TODO preview pdf tapi apa yang harus diambil dari data? -->
-    <a target="_blank" href="<?= site_url('Cpemimpin/lihatPDF/' . $data->reservasi_id) ?>" class="btn btn-primary">lihat dokumen</a>
+    <a target="_blank" href="<?= site_url('Cpimpinan/lihatPDF/' . $data->reservasi_id) ?>" class="btn btn-primary">lihat dokumen</a>
     <a href="<?= site_url('Cpimpinan/keputusan/' . $data->reservasi_id) ?>/1" class="btn btn-primary">Terima</a>
     <a href="<?= site_url('Cpimpinan/keputusan/' . $data->reservasi_id) ?>/2" class="btn btn-primary">Tolak</a>
   </div>
