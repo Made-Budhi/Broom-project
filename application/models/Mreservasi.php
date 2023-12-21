@@ -7,12 +7,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 class Mreservasi extends CI_Model
 {
-	function tampildata(): string|array
+	private array $current_session;
+	
+	public function __construct()
 	{
-		$sessions = $this->session->get_userdata();
-		$hasil = array();
+		parent::__construct();
+		$this->current_session = $this->session->get_userdata();
+	}
+	
+	function tampildata($key): array
+	{
 		
-		$query= $this->db->select('*,
+		$hasil = array();
+		$query = $this->db->select('*,
 				Reservasi.status as reservasi_status')->from("Reservasi")
 				->join(
 				"Peminjam",
@@ -21,7 +28,8 @@ class Mreservasi extends CI_Model
 				->join(
 				"Ruangan",
 				"Reservasi.ruangan_id = Ruangan.id",
-				"inner")->where("peminjam_id",$sessions['id'])->get();
+				"inner")
+				->where($key, $this->current_session['id'])->get();
 		
 		// to check query database
 		foreach ($query->result() as $row) {
@@ -30,5 +38,31 @@ class Mreservasi extends CI_Model
 		
 		// return variable to get database
 		return $hasil;
+	}
+	
+	function get_data_assigned(): ?array
+	{
+		
+		$datas = $this->db->select('*,
+				Reservasi.status as reservasi_status,
+				Peminjam.name as peminjam_name')->from("Reservasi")
+				->join(
+						"Peminjam",
+						"Reservasi.peminjam_id = Peminjam.id",
+						"inner")
+				->join(
+						"Ruangan",
+						"Reservasi.ruangan_id = Ruangan.id",
+						"inner")
+				->where('pimpinan_id', $this->current_session['id'])->get();
+		$result = null;
+
+		foreach ($datas->result() as $data) {
+			if ($data->reservasi_status == StatusReservasi::DITERIMA) {
+				$result[] = $data;
+			}
+		}
+		
+		return $result;
 	}
 }
