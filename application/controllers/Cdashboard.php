@@ -28,13 +28,13 @@ class Cdashboard extends CI_Controller
 		// ps: we can use $data['hasil'] = array(); to store more than one value
 		switch ($role) {
 			case 'Peminjam':
-				$data['hasil'] = $this->reservasi->tampildata();
+				$data['hasil'] = $this->reservasi->tampildata('peminjam_id');
 				$view['content'] = 'menu_peminjam/dashboard';
 				$view['sidebar'] = 'layouts/sidebar';
 			break;
 
 			case 'Pimpinan':
-				$data['hasil'] = '';
+				$data['hasil'] = $this->reservasi->get_data_assigned();
 				$view['content'] = 'menu_pimpinan/dashboard';
 				$view['sidebar'] = 'layouts/sidebar_pimpinan';
 			break;
