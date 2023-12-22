@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * @property Mpdf $pdf
+ * @property Mnotification $notification
  * @property CI_Upload $uploadttd
  * @property CI_Upload $uploadlogokiri
  * @property CI_Upload $uploadlogokanan
@@ -13,6 +14,7 @@ class Creservasi extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Mpdf', 'pdf');
+		$this->load->model('Mnotification', 'notification');
 	}
 
 	function reservasi($message = ''): void
@@ -32,9 +34,19 @@ class Creservasi extends CI_Controller
 		$data['right-logo']			= $image['right-logo'];
 
 		// Perform the upload in models
-		$message = $this->pdf->pdfUpload($data);
+		$upload = $this->pdf->pdfUpload($data);
 
-		$this->reservasi($message);
+		if (!empty($upload['reservasi_id'])) {
+			// Set peminjam notification
+			$this->notification->setPeminjamNotification(
+				'101',
+				$upload['reservasi_id']->reservasi_id
+			);
+
+			// TODO: Set pimpinan notification here @Chain
+		}
+
+		$this->reservasi($upload['message']);
 	}
 
 	function previewpdf(): void
