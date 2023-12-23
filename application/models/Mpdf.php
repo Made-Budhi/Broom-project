@@ -39,7 +39,7 @@ class Mpdf extends CI_Model
 	 * @param array $data
 	 * @return string
 	 */
-	function pdfUpload(array $data): string
+	function pdfUpload(array $data): array
 	{
 		// Get peminjam id
 		$peminjam_id = $this->session->get_userdata();
@@ -76,11 +76,20 @@ class Mpdf extends CI_Model
 
 		$is_success = $this->db->insert('Reservasi', $newData);
 
+		// Return reservsai_id for notification purpose
 		if ($is_success) {
-			return $this->lang->line('database_insertion_success');
+			return array(
+				'message' 		=> $this->lang->line('database_insertion_success'),
+				'reservasi_id' 	=> $this->db->select('reservasi_id')->from('Reservasi')
+											->where('document_number', $newData['document_number'])
+											->get()->first_row()
+			);
 		}
 
-		return $this->lang->line('database_insertion_failed');
+		return array(
+			'message' 		=> $this->lang->line('database_insertion_failed'),
+			'reservasi_id' 	=> ''
+		);
 	}
 
 	/**
