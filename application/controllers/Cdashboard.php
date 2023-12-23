@@ -2,6 +2,8 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * @property Mreservasi $reservasi
+ * @property CI_Session $session
+ * @property CI_Loader $load
  */
 
 class Cdashboard extends CI_Controller
@@ -18,18 +20,23 @@ class Cdashboard extends CI_Controller
 	public function index(): void
 	{
 		$role = $this->current_session['role'];
-
+		$data = array();
+		$view = array();
+		
 		// Determine which page should be loaded.
 		// TODO: change the correct view to corresponding role
+		// ps: we can use $data['hasil'] = array(); to store more than one value
 		switch ($role) {
 			case 'Peminjam':
-				$data['hasil'] = $this->reservasi->tampildata();
-				$view = 'menu_peminjam/dashboard';
+				$data['hasil'] = $this->reservasi->tampildata('peminjam_id');
+				$view['content'] = 'menu_peminjam/dashboard';
+				$view['sidebar'] = 'layouts/sidebar';
 			break;
 
 			case 'Pimpinan':
-				$data[] = '';
-				$view = '';
+				$data['hasil'] = $this->reservasi->get_data_assigned();
+				$view['content'] = 'menu_pimpinan/dashboard';
+				$view['sidebar'] = 'layouts/sidebar_pimpinan';
 			break;
 
 			case 'Pengelola':
@@ -41,16 +48,8 @@ class Cdashboard extends CI_Controller
 			break;
 		}
 
-//		$view = match ($this->current_session['role']) {
-//			'Peminjam' => 'menu_peminjam/dashboard',
-//
-//			'Pimpinan' => 'pimpinan_mainviews',
-//
-//			'Pengelola' => 'pengelola_mainviews'
-//		};
-
 		$data['sessions'] = $this->session->userdata;
-		$html['roles_views'] = $this->load->view($view, $data, true);
-		$this->load->view('layouts/sidebar', $html);
+		$html['content'] = $this->load->view($view['content'], $data, true);
+		$this->load->view($view['sidebar'], $html);
 	}
 }

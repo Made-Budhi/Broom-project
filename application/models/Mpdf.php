@@ -47,30 +47,30 @@ class Mpdf extends CI_Model
 		$newData = array(
 			'reservasi_id'			=> '',
 			'peminjam_id'			=> $peminjam_id['id'],
-			'ruangan_id'			=> $data['id-ruangan'],
-			'pimpinan_id'			=> $data['id-pimpinan'],
+			'ruangan_id'			=> $data['ruangan_id'],
+			'pimpinan_id'			=> $data['pimpinan_id'],
 			
-			'organization_choice'	=> $data['pilihan-organisasi'],
-			'organization_name'		=> $data['nama-organisasi'],
-			'head_committee_name'	=> $data['nama-ketua-panitia'],
-			'head_committee_id' 	=> $data['id-ketua-panitia'],
-			'head_committee_sign'	=> $data['ttd-ketua-panitia'],
+			'organization_choice'	=> $data['organization_choice'],
+			'organization_name'		=> $data['organization_name'],
+			'head_committee_name'	=> $data['head_committee_name'],
+			'head_committee_id' 	=> $data['head_committee_id'],
+			'head_committee_sign'	=> $data['head_committee_sign'],
 			
-			'date_start'			=> $data['tanggal-mulai'],
-			'time_start'			=> $data['jam-mulai'],
-			'date_end'				=> $data['tanggal-selesai'],
-			'time_end'				=> $data['jam-selesai'],
+			'date_start'			=> $data['date_start'],
+			'time_start'			=> $data['time_start'],
+			'date_end'				=> $data['date_end'],
+			'time_end'				=> $data['time_end'],
 
-			'document_number'		=> $data['nomor-dokumen'],
-			'reservation_date'		=> $data['tanggal-pengajuan'],
-			'purpose'				=> $data['perihal'],
-			'attachment'			=> $data['lampiran'],
-			'event'					=> $data['kegiatan'],
-			'organizer'				=> $data['penyelenggara'],
-			'copy'					=> $data['tembusan'],
-			'pnb_logo_choice'		=> $data['pilihan-logo-pnb'],
-			'left_logo'				=> $data['left-logo'],
-			'right_logo'			=> $data['right-logo'],
+			'document_number'		=> $data['document_number'],
+			'reservation_date'		=> $data['reservation_date'],
+			'purpose'				=> $data['purpose'],
+			'attachment'			=> $data['attachment'],
+			'event'					=> $data['event'],
+			'organizer'				=> $data['organizer'],
+			'copy'					=> $data['copy'],
+			'pnb_logo_choice'		=> $data['pnb_logo_choice'],
+			'left_logo'				=> $data['left_logo'],
+			'right_logo'			=> $data['right_logo'],
 			'status'				=> $data['status']
 		);
 
@@ -93,7 +93,7 @@ class Mpdf extends CI_Model
 	}
 
 	/**
-	 *
+	 * Retrieve data from reservation form
 	 *
 	 * @return array
 	 */
@@ -107,32 +107,33 @@ class Mpdf extends CI_Model
 
 		return array(
 			// Header Data
-			'pilihan-logo-pnb'		=> $this->input->post('pilihan-logo-pnb'),
-			'pilihan-organisasi'	=> $this->input->post('pilihan-organisasi'),
-			'nama-organisasi'		=> $this->input->post('nama-organisasi'),
+			'pnb_logo_choice'		=> $this->input->post('pilihan-logo-pnb'),
+			'organization_choice'	=> $this->input->post('pilihan-organisasi'),
+			'organization_name'		=> $this->input->post('nama-organisasi'),
 
 			// Body Data
-			'tanggal-pengajuan' 	=> date('Y-m-d', now()),
-			'nomor-dokumen' 		=> $this->input->post('nomor-dokumen'),
-			'lampiran'				=> $this->input->post('lampiran'),
-			'perihal'				=> $this->input->post('perihal'),
-			'kegiatan'				=> $this->input->post('kegiatan'),
-			'penyelenggara'			=> $this->input->post('penyelenggara'),
-			'tanggal-mulai'			=> $this->input->post('tanggal-mulai'),
-			'jam-mulai'				=> $this->input->post('jam-mulai'),
-			'tanggal-selesai'		=> $this->input->post('tanggal-selesai'),
-			'jam-selesai'			=> $this->input->post('jam-selesai'),
-			'id-pimpinan'			=> $pimpinan->id,
-			'nama-pimpinan'			=> $pimpinan->name,
-			'jabatan-pimpinan'		=> $pimpinan->position,
-			'id-ruangan'			=> $ruangan->id,
-			'nama-ruangan'			=> $ruangan->name,
-			'nama-ketua-panitia'	=> $this->input->post('nama-ketua-panitia'),
-			'id-ketua-panitia'		=> $this->input->post('id-ketua-panitia'),
+			'reservation_date' 		=> date('Y-m-d', now()),
+			'document_number' 		=> $this->input->post('nomor-dokumen'),
+			'attachment'			=> $this->input->post('lampiran'),
+			'purpose'				=> $this->input->post('perihal'),
+			'event'					=> $this->input->post('kegiatan'),
+			'organizer'				=> $this->input->post('penyelenggara'),
+			'date_start'			=> $this->input->post('tanggal-mulai'),
+			'time_start'			=> $this->input->post('jam-mulai'),
+			'date_end'				=> $this->input->post('tanggal-selesai'),
+			'time_end'				=> $this->input->post('jam-selesai'),
+			'pimpinan_id'			=> $pimpinan->id,
+			'pimpinan_name'			=> $pimpinan->name,
+			'pimpinan_position'		=> $pimpinan->position,
+			'ruangan_id'			=> $ruangan->id,
+			'ruangan_name'			=> $ruangan->name,
+			'head_committee_name'	=> $this->input->post('nama-ketua-panitia'),
+			'head_committee_id'		=> $this->input->post('id-ketua-panitia'),
+			'head_committee_sign'	=> $this->input->post('ttd-ketua-panitia'),
 			'status'				=> 'Menunggu',
 
 			// Footer Data
-			'tembusan' 				=> $this->input->post('tembusan')
+			'copy'	 				=> $this->input->post('tembusan')
 		);
 	}
 }

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * @property Mrooms $rooms
+ * @property CI_Input $input
  */
 class Crooms extends CI_Controller
 {
@@ -15,8 +16,8 @@ class Crooms extends CI_Controller
 	function index(): void
 	{
 		$tampilgedung['hasil'] = $this->rooms->tampilgedung();
-		$data['konten'] = $this->load->view("menu_peminjam/roomlist", $tampilgedung, TRUE);
-		$this->load->view("layouts/sidebar", $data);
+		$html['content'] = $this->load->view("menu_peminjam/roomlist", $tampilgedung, TRUE);
+		$this->load->view("layouts/sidebar", $html);
 	}
 
 	function calendar($id): void
@@ -27,7 +28,7 @@ class Crooms extends CI_Controller
 			'id' => $id
 		);
 
-		$data['konten'] = $this->load->view('menu_peminjam/calendar', $data, true);
+		$data['content'] = $this->load->view('menu_peminjam/calendar', $data, true);
 		$this->load->view('layouts/sidebar', $data);
 	}
 
@@ -37,7 +38,7 @@ class Crooms extends CI_Controller
 			'id' => $this->input->get('id')
 		);
 
-		$data['konten'] = $this->load->view('menu_peminjam/calendar', $data, true);
+		$data['content'] = $this->load->view('menu_peminjam/calendar', $data, true);
 		$this->load->view('layouts/sidebar', $data);
 	}
 }

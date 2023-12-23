@@ -20,7 +20,7 @@ class Creservasi extends CI_Controller
 	function reservasi($message = ''): void
 	{
 		$data['message'] = $message;
-		$html['reservasi'] = $this->load->view('menu_peminjam/reservasi', $data, true);
+		$html['content'] = $this->load->view('menu_peminjam/reservasi', $data, true);
 		$this->load->view('layouts/sidebar', $html);
 	}
 
