@@ -23,4 +23,15 @@ class Cnotification extends CI_Controller
 		$html['konten'] = $this->load->view('menu_peminjam/notification', $data, true);
 		$this->load->view('layouts/sidebar', $html);
 	}
+
+	function pemimpin_notification()
+	{
+		$this->load->language('BRoomNotification');
+
+		$data['notifikasi'] = $this->notification->getPemimpinNotification();
+		$data['message']	= $this->lang->line('notification_empty');
+
+		$html['konten'] = $this->load->view('menu_pimpinan/notification', $data, true);
+		$this->load->view('layouts/sidebar_pimpinan', $html);
+	}
 }
