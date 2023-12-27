@@ -58,7 +58,8 @@ class Mreservasi extends CI_Model
 		$result = null;
 
 		foreach ($datas->result() as $data) {
-			if ($data->reservasi_status == StatusReservasi::DITERIMA) {
+			if ($data->reservasi_status == StatusReservasi::DITERIMA ||
+				$data->reservasi_status == StatusReservasi::DITOLAK) {
 				$result[] = $data;
 			}
 		}
