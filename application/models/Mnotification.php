@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mnotification extends CI_Model
 {
-	function setPeminjamNotification(int $type, int $reservasi_id)
+	function setPeminjamNotification(int $type, int $reservasi_id): void
 	{
 		$data = array(
 			'id'			=> '',
@@ -34,7 +34,7 @@ class Mnotification extends CI_Model
 		->get()->result();
 	}
 
-	function setPemimpinNotification(int $type, int $reservasi_id)
+	function setPimpinanNotification(int $type, int $reservasi_id): void
 	{
 		$data = array(
 			'id'			=> '',
@@ -59,7 +59,7 @@ class Mnotification extends CI_Model
 				position')
 		->from('Notification')
 		->join('Reservasi', 'Reservasi.reservasi_id = Notification.reservasi_id')
-		->where('peminjam_id', $id)
+		->where('pimpinan_id', $id)
 		->join('Ruangan', 'Ruangan.id = Reservasi.ruangan_id')
 		->join('Pimpinan', 'Pimpinan.id = Reservasi.pimpinan_id')
 		->get()->result();
