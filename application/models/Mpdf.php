@@ -71,7 +71,9 @@ class Mpdf extends CI_Model
 			'pnb_logo_choice'		=> $data['pnb_logo_choice'],
 			'left_logo'				=> $data['left_logo'],
 			'right_logo'			=> $data['right_logo'],
-			'status'				=> $data['status']
+			'status'				=> $data['status'],
+			'date_assigned'			=> '',
+			'status_message'		=> ''
 		);
 
 		$is_success = $this->db->insert('Reservasi', $newData);
