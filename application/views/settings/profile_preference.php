@@ -5,7 +5,9 @@
   
 <!-- Some preference settings -->
 	<div id="lightThemeBlock">
-		<img src="<?= base_url("assets/svg/light.svg") ?>" alt="">
+		<label for="lightThemeRadio">
+			<img src="<?= base_url("assets/svg/light.svg") ?>" alt="">
+		</label>
 		<div class="form-check">
 			<input
 				class="form-check-input"
@@ -13,14 +15,16 @@
 				name="themeRadio"
 				id="lightThemeRadio"
 			/>
-			<label class="form-check-label" for="">
+			<label class="form-check-label" for="lightThemeRadio">
 				Mode Terang
 			</label>
 		</div>
 	</div>
 	
 	<div id="darkThemeBlock">
-		<img src="<?= base_url("assets/svg/dark.svg") ?>" alt="">
+		<label for="darkThemeRadio">
+			<img src="<?= base_url("assets/svg/dark.svg") ?>" alt="">
+		</label>
 		<div class="form-check">
 			<input
 				class="form-check-input"
@@ -28,7 +32,7 @@
 				name="themeRadio"
 				id="darkThemeRadio"
 			/>
-			<label class="form-check-label" for="">
+			<label class="form-check-label" for="darkThemeRadio">
 				Mode Gelap
 			</label>
 		</div>
