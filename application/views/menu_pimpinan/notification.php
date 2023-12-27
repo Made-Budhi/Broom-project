@@ -12,7 +12,7 @@ if (!empty($notifikasi)) {
 		switch ($data->type) {
 
 			// Pengajuan reservasi berhasil diajukan
-			case 101:
+			case 201:
 			?>
 					<!-- Icon -->
 					<div style="background: #FFD43B; height: 85px; width: 85px; border-radius: 42.5px" class="d-flex justify-content-center align-items-center">
