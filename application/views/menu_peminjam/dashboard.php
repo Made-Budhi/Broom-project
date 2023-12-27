@@ -40,7 +40,7 @@
     <tbody>
       <?php
       $no = 1;
-      view_data($hasil, 'date_start', 'date_end', 'name', 'reservasi_status');
+      view_data($hasil, 'reservasi_id', 'date_start', 'date_end', 'name', 'reservasi_status');
       foreach ($hasil as $data):
       ?>
         <tr>
@@ -50,7 +50,7 @@
   
           <!-- TODO Detail mengarah ke arah PDF form -->
           <td class="text-center">
-            <button type="button" class="btn btn-sm btn-primary">Detail</button>
+			  <a target="_blank" href="<?= site_url('Cpimpinan/lihatPDF/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail dokumen</a>
           </td>
         </tr>
       <?php
@@ -59,3 +59,7 @@
       ?>
     </tbody>
 </table>
+
+<script>
+
+</script>
