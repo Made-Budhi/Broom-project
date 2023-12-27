@@ -14,6 +14,7 @@
     <br>
 
     <a class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start"
+				id="edit-preferences"
        onclick="loadDoc(edit_preference)">
       <i class="fa-regular fa-sliders fa-lg"></i> <span>Preferences</span>
     </a>

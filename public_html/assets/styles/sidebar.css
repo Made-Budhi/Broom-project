@@ -6,9 +6,6 @@ html{
 	-o-transition: all 1s ease-in-out, left 1.5s ease-in-out;
 	transition: all 1s ease-in-out, left 1.5s ease-in-out;
 }
-body{
-	background: linear-gradient(90deg, #FFF 8%, #F2F6FF 92%) !important;
-}
 ::-webkit-scrollbar {
 	width: 10px;
 }

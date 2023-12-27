@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * @property Mpdf $pdf
+ * @property Mnotification $notification
  * @property CI_Upload $uploadttd
  * @property CI_Upload $uploadlogokiri
  * @property CI_Upload $uploadlogokanan
@@ -13,12 +14,13 @@ class Creservasi extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Mpdf', 'pdf');
+		$this->load->model('Mnotification', 'notification');
 	}
 
 	function reservasi($message = ''): void
 	{
 		$data['message'] = $message;
-		$html['reservasi'] = $this->load->view('menu_peminjam/reservasi', $data, true);
+		$html['content'] = $this->load->view('menu_peminjam/reservasi', $data, true);
 		$this->load->view('layouts/sidebar', $html);
 	}
 
@@ -27,14 +29,28 @@ class Creservasi extends CI_Controller
 		$data = $this->pdf->retrieveData();
 
 		$image = $this->imageUploadHandler();
-		$data['ttd-ketua-panitia'] 	= $image['ttd-ketua-panitia'];
-		$data['left-logo']			= $image['left-logo'];
-		$data['right-logo']			= $image['right-logo'];
+		$data['head_committee_sign'] 	= $image['ttd-ketua-panitia'];
+		$data['left_logo']				= $image['left-logo'];
+		$data['right_logo']				= $image['right-logo'];
 
 		// Perform the upload in models
-		$message = $this->pdf->pdfUpload($data);
+		$upload = $this->pdf->pdfUpload($data);
 
-		$this->reservasi($message);
+		if (!empty($upload['reservasi_id'])) {
+			// Set peminjam notification
+			$this->notification->setPeminjamNotification(
+				'101',
+				$upload['reservasi_id']->reservasi_id
+			);
+
+			// Set Pimpinan Notification
+			$this->notification->setPimpinanNotification(
+				'201',
+				$upload['reservasi_id']->reservasi_id
+			);
+		}
+
+		$this->reservasi($upload['message']);
 	}
 
 	function previewpdf(): void
@@ -42,9 +58,9 @@ class Creservasi extends CI_Controller
 		$data = $this->pdf->retrieveData();
 
 		$image = $this->imageUploadHandler();
-		$data['ttd-ketua-panitia']	= $image['ttd-ketua-panitia'];
-		$data['left-logo']			= $image['left-logo'];
-		$data['right-logo']			= $image['right-logo'];
+		$data['head_committee_sign'] 	= $image['ttd-ketua-panitia'];
+		$data['left_logo']				= $image['left-logo'];
+		$data['right_logo']				= $image['right-logo'];
 
 		$this->pdf->pdfPreview($data);
 		

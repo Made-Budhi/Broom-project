@@ -9,18 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= base_url('assets/styles/sidebar.css')?>">
-  
-	<!-- Menu peminjam styles -->
-	<link rel="stylesheet" href="<?= base_url('assets/styles/peminjam/reservasi.css')?>">
-
+	
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
 	</style>
 
-
 </head>
 
-<body>
+<body data-bs-theme="">
     <div class="container-fluid vh-100 position-relative d-flex">
 
 		<!-- sidebar only  -->
@@ -38,36 +34,33 @@
 							<i class="fa fa-home fa-lg p-2"></i> <span>Dashboard</span>
 						</a>
 
-                        <a href="<?=  site_url('crooms') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
-							<i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span>
+                        <a href="<?=  site_url('Cpimpinan/reservasiV') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+							<i class="fa-solid fa-lg fa-file-signature p-2"></i> <span>Persetujuan</span>
 						</a>
 
-                        <a href="<?= site_url('creservasi/reservasi') ?>"
-					   	class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
-							<i class="fa-solid fa-file-circle-plus fa-lg p-2"></i> <span>Reservasi</span>
-						</a>
-
-                        <a href="<?= site_url('cnotification/peminjam_notification') ?>"
+                        <a href="<?= site_url('cnotification/pimpinan_notification') ?>"
 						   class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
-							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span></a>
+							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span>
+						</a>
                         <span class="flex-grow-1 hide"></span>
                   
 						<a onclick="" href="<?= site_url('settings') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
-        <i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
+       	 					<i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
+						</a>
                   
                         <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
-                          </i> <span>Logout</span></a>
+                          </i> <span>Logout</span>
+						</a>
                 </div>
         </div>
 
-        <!-- content  -->
-    
-        <div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
-            <?php view($content) ?>
-        </div>
+		<!-- content  -->
+
+		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
+			<?php view($content) ?>
+		</div>
 
     </div>
 
-<script src="<?= base_url('js/settings/init.js'); ?>"></script>
 </body>
 </html>

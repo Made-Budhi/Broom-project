@@ -38,38 +38,28 @@
     </thead>
 
     <tbody>
-
-    <?php
-		if(empty($hasil))
-		{
-			echo "Data Kosong";	
-		}
-		else
-		{
-			$no=1;
-			foreach ($hasil as $data):
-	?>
-
+      <?php
+      $no = 1;
+      view_data($hasil, 'reservasi_id', 'date_start', 'date_end', 'name', 'reservasi_status');
+      foreach ($hasil as $data):
+      ?>
         <tr>
-            <td class="text-center"><?php echo $data->date_start;?> <br> <?php echo $data->date_end ?></td>
-            <td class="text-center"><?php echo $data->name ?></td>
-            <td class="text-center"><?php echo $data->reservasi_status ?></td>
-
-            <!-- TODO Detail mengarah ke arah PDF form -->
-            <td class="text-center">
-                <button type="button" class="btn btn-sm btn-primary">Detail</button>
-            </td>
-
+          <td class="text-center"><?php echo $data->date_start;?> <br> <?php echo $data->date_end ?></td>
+          <td class="text-center"><?php echo $data->name ?></td>
+          <td class="text-center"><?php echo $data->reservasi_status ?></td>
+  
+          <!-- TODO Detail mengarah ke arah PDF form -->
+          <td class="text-center">
+			  <a target="_blank" href="<?= site_url('Cpimpinan/lihatPDF/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail dokumen</a>
+          </td>
         </tr>
-        
-        <?php
-	 		$no++;
-	 		endforeach;
-		}
-	 ?>
-
+      <?php
+      $no++;
+      endforeach;
+      ?>
     </tbody>
-
-
-
 </table>
+
+<script>
+
+</script>

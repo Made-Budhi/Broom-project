@@ -89,7 +89,9 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file', 'form', 'date', 'tanggal');
+
+$autoload['helper'] = array('url', 'file', 'form', 'date', 'tanggal', 'view',
+		'BRoomConst');
 
 /*
 | -------------------------------------------------------------------
