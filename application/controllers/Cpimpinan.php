@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @property Mpemimpin $pemimpin
  * @property Mpdf $pdf
+ * @property Mnotification $notification
  */
 
 class Cpimpinan extends CI_Controller
@@ -13,6 +14,7 @@ class Cpimpinan extends CI_Controller
         parent::__construct();
         $this->load->model('Mpemimpin', 'pemimpin');
         $this->load->model('Mpdf', 'pdf');
+		$this->load->model('Mnotification', 'notification');
     }
 
     function reservasiV(): void
@@ -38,19 +40,22 @@ class Cpimpinan extends CI_Controller
     function keputusan($reservasi_id, $status): void
     {
         $this->pemimpin->keputusan($reservasi_id, $status);
-		// add variable TO Load Dashboard and put DATABASE from resevasi to table
-        $data['konten']=$this->load->view('menu_pimpinan/persetujuan', array(), TRUE);
-		// view layout with $data
-		$this->load->view('layouts/sidebar_pimpinan',$data);
+
+		// Set notification to peminjam
+		$type = match ($status) {
+			'1' => 102,
+			'2' => 103
+		};
+		$this->notification->setPeminjamNotification($type, $reservasi_id);
+
+		redirect(base_url('cpimpinan/reservasiv'));
     }
 
     function lihatPDF($reservasi_id): void
     {
         $data = $this->pemimpin->getDocument($reservasi_id);
-        var_dump($data);
         $this->pdf->pdfPreview($data);
     }
-
 
 }
 
