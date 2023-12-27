@@ -34,6 +34,7 @@ CREATE TABLE Pimpinan
   name       VARCHAR(254) NOT NULL,
   position   VARCHAR(254) NOT NULL,
   account_id INT UNIQUE   NOT NULL,
+  signature  VARCHAR(254) NOT NULL,
 
   FOREIGN KEY (account_id) REFERENCES Account (account_id),
   PRIMARY KEY (id)
@@ -80,7 +81,7 @@ CREATE TABLE Reservasi
   date_start          DATE                                     NOT NULL,
   time_start          TIME                                     NOT NULL,
   date_end            DATE                                     NOT NULL,
-  time_end            time                                     NOT NULL,
+  time_end            TIME                                     NOT NULL,
 
   document_number     VARCHAR(100)                             NOT NULL,
   reservation_date    DATE                                     NOT NULL,
@@ -96,9 +97,9 @@ CREATE TABLE Reservasi
   -- Opsional
   right_logo          TINYTEXT,
 
-  status              ENUM ('Diterima', 'Ditolak', 'Menunggu') NOT NULL DEFAULT
-                                                                          'Menunggu',
-  date_assigned       DATE                                     Not NULL,
+  status              ENUM ('Diterima', 'Ditolak', 'Menunggu', 'Dibatalkan') NOT NULL DEFAULT 'Menunggu',
+  date_assigned       DATE                                     NOT NULL,
+  status_message 	  TEXT,
 
   PRIMARY KEY (reservasi_id),
   FOREIGN KEY (peminjam_id) REFERENCES Peminjam (id),
@@ -106,16 +107,70 @@ CREATE TABLE Reservasi
   FOREIGN KEY (pimpinan_id) REFERENCES Pimpinan (id)
 );
 
--- INSERT INTO account-- VALUES('', '2215354023@pnb.ac.id', '123', 'peminjam');
+CREATE TABLE Notification_Master
+(
+	id		INT,
+    name 	TINYTEXT,
+    
+    PRIMARY KEY (id)
+);
 
--- INSERT INTO account
--- VALUES('', 'budhi@gmail.com', '123', 'pimpinan');
+CREATE TABLE Notification
+(
+	id				INT AUTO_INCREMENT,
+    type			INT,
+    reservasi_id	INT,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (type) REFERENCES Notification_Master (id)
+);
 
--- INSERT INTO pimpinan
--- VALUES('565774878659087654', 'Prof. Dr. Budhi Jago, Ph.D.', 'Wakil Direktur III', '2');
+INSERT INTO Notification_Master
+VALUES
+('101', 'peminjam_mengajukan'),
+('102', 'peminjam_disetujui'),
+('103', 'peminjam_ditolak'),
+('104', 'peminjam_dibatalkan'),
 
--- INSERT INTO peminjam
--- VALUES('2215354023', 'I Made Bagus Mahatma Budhi', '08113978683', 'mahasiswa', '1');
+('201', 'pimpinan_diajukan'),
+
+('301', 'pengelola_dinotifikasi');
+
+# For testing purpose
+
+INSERT INTO Ruangan
+VALUES ('', 'Widya Guna-Guna', true, 'Gedung berukuran 50 meter persegi yang keren', ''),
+	   ('', 'Widya Padma', true, 'Gedung yang biasa digunakan sebagai gedung merayakan puncak acara suatu kegiatan', ''),
+	   ('', 'Widya Graha', true, 'Gedung rapat', '');
+
+-- Inserting peminjam account
+INSERT INTO Account
+VALUES ('', '2215354023@pnb.ac.id', '123', '', 'Peminjam', ''),
+       ('', 'made@gmail.com', '123', '', 'Peminjam', ''),
+	   ('', 'broom@gmail.com', '123', '', 'Peminjam', '');
+
+-- Inserting pimpinan account
+INSERT INTO Account
+VALUES ('', 'budhi@gmail.com', '123', '', 'Pimpinan', ''),
+       ('', 'pakbudhi@gmail.com', '123', '', 'Pimpinan', ''),
+       ('', 'gibran@gmail.com', '123', '', 'Pimpinan', '');
+
+-- Inserting pengelola account
+INSERT INTO Account
+VALUES ('', 'admin', 'admin', '', 'Pengelola', '');
+
+INSERT INTO Peminjam
+VALUES ('2215354023', 'I Made Bagus Mahatma Budhi', '08113978683', 'Mahasiswa', '1'),
+	   ('2215354043', 'Kadek Faraday Bhaskara Tantra', '08113978695', 'Mahasiswa', '2'),
+	   ('221535406390123222', 'Sir Aliffian Alexander, S. T., M.T.', '08113978483', 'Pegawai', '3');
+
+INSERT INTO Pimpinan
+VALUES ('565774878659087654', 'Prof. Dr. Budhi Jago, Ph.D.', 'Wakil Direktur III', '4', 'Tanda_Tangan.jpg'),
+	   ('565774878659056654', 'Dr. Stephen Strange, Ph.D.', 'Wakil Direktur II', '5', 'Tanda_Tangan.jpg'),
+	   ('565774878349087654', 'Gibran Rakabuming', 'Wakil Presiden RI', '6', 'Tanda_Tangan.jpg');
+
+INSERT INTO Pengelola
+VALUES ('788980098765744342', 'Akmin Budhi', '7');
 
 -- SELECT * FROM account;
 -- SELECT * FROM peminjam;
