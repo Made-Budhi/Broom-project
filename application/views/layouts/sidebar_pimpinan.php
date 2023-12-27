@@ -38,7 +38,7 @@
 							<i class="fa-solid fa-lg fa-file-signature p-2"></i> <span>Persetujuan</span>
 						</a>
 
-                        <a href="#"
+                        <a href="<?= site_url('cnotification/pimpinan_notification') ?>"
 						   class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span>
 						</a>
