@@ -28,8 +28,9 @@
 <table class="table table-bordered">
 
   <thead>
-  <th class="text-center" scope="col">Tanggal</th>
+  <th class="text-center" scope="col">Tanggal Ditetapkan</th>
   <th class="text-center" scope="col">Nama</th>
+  <th class="text-center" scope="col">Status</th>
   <th class="text-center" scope="col">Aksi</th>
   </thead>
 
@@ -41,10 +42,14 @@
     ?>
       <tr>
         <td class="text-center">
-        <?php echo $data->date_assigned;?>
+        	<?php echo format_indo($data->date_assigned); ?>
         </td>
-        <td class="text-center"><?php echo $data->peminjam_name ?></td>
-        
+        <td class="text-center">
+			<?php echo $data->peminjam_name ?>
+		</td>
+	  	<td>
+			<?php echo $data->reservasi_status ?>
+		</td>
         <td class="text-center">
           <button type="button" class="btn btn-sm btn-primary">Detail</button>
         </td>
