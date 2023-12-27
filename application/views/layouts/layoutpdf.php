@@ -145,7 +145,7 @@ $logo_pnb = 'data:image/' . $type . ';base64,' . base64_encode($content);
 	<p>Sehubung dengan diadakan kegiatan <?php echo $data['event'] ?> yang diselenggarakan
 		oleh <?php echo $data['organizer'] ?>.
 		Maka dengan ini kami selaku panitia pelaksana memohon izin untuk meminjam dan menggunakan
-		Ruangan <?php echo $data['ruangan_id'] ?>
+		Ruangan <?php echo $data['ruangan_name'] ?>
 		pada:</p>
 
 	<table class="tab">
@@ -184,12 +184,12 @@ $logo_pnb = 'data:image/' . $type . ';base64,' . base64_encode($content);
 		<?php
 
 		// Encode ttd-ketua-panitia image into base64
-		$path = base_url() . 'assets/images/signature_peminjam/' . $data['head_committee_signature'];
+		$path = base_url() . 'assets/images/signature_peminjam/' . $data['head_committee_sign'];
 		$type = pathinfo($path, PATHINFO_EXTENSION);
 		$content = file_get_contents($path);
 		$signature = 'data:image/' . $type . ';base64,' . base64_encode($content);
 
-		if ($data['status'] == 'disetujui') {
+		if ($data['status'] == 'Diterima') {
 			$path = base_url() . 'assets/images/signature_pimpinan/' . $data['pimpinan_signature'];
 			$type = pathinfo($path, PATHINFO_EXTENSION);
 			$content = file_get_contents($path);
@@ -199,7 +199,13 @@ $logo_pnb = 'data:image/' . $type . ';base64,' . base64_encode($content);
 		?>
 
 		<tr>
-			<td><?php echo $data['status'] == 'disetujui' ? $agreementsignature : '' ?></td>
+			<td><?php if ($data['status'] == 'Diterima') {
+
+				?>
+					<img style="width: 150px" src="<?= $agreementsignature ?>" alt="Pimpinan-Signature">
+				<?php
+
+				} ?></td>
 			<td><img style="width: 150px" src="<?php echo $signature ?>" alt=""></td>
 		</tr>
 
