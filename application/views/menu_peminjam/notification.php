@@ -15,7 +15,7 @@ if (!empty($notifikasi)) {
 			case 101:
 			?>
 					<!-- Icon -->
-					<div style="background: #FFD43B; height: 85px; width: 85px; border-radius: 42.5px" class="d-flex justify-content-center align-items-center">
+					<div style="background: #FFD43B; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
 						<i class="fa-regular fa-hourglass-half" style="color: #f8f8f8; font-size: 2rem"></i>
 					</div>
 
@@ -30,7 +30,7 @@ if (!empty($notifikasi)) {
 				// Pengajuan reservasi disetujui
 				case 102:
 			?>
-				<div style="background: #4CAF50; height: 85px; width: 85px; border-radius: 42.5px" class="d-flex justify-content-center align-items-center">
+				<div style="background: #4CAF50; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
 					<i class="fa-solid fa-check" style="color: #f8f8f8; font-size: 2.5rem"></i>
 				</div>
 
@@ -45,7 +45,7 @@ if (!empty($notifikasi)) {
 				// Pengajuan reservasi ditolak
 				case 103:
 			?>
-				<div style="background: #F44336; height: 85px; width: 85px; border-radius: 42.5px" class="d-flex justify-content-center align-items-center">
+				<div style="background: #F44336; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
 					<i class="fa-solid fa-xmark" style="color: #f8f8f8; font-size: 2.5rem"></i>
 				</div>
 
@@ -60,7 +60,7 @@ if (!empty($notifikasi)) {
 				// Pengajuan reservasi yang telak disetujui oleh pimpinan dibatalkan oleh admin
 				case 104:
 			?>
-				<div style="background: #F44336; height: 85px; width: 85px; border-radius: 42.5px" class="d-flex justify-content-center align-items-center">
+				<div style="background: #F44336; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
 					<i class="fa-solid fa-xmark" style="color: #f8f8f8; font-size: 2.5rem"></i>
 				</div>
 
