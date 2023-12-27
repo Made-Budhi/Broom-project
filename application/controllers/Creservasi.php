@@ -29,9 +29,9 @@ class Creservasi extends CI_Controller
 		$data = $this->pdf->retrieveData();
 
 		$image = $this->imageUploadHandler();
-		$data['ttd-ketua-panitia'] 	= $image['ttd-ketua-panitia'];
-		$data['left-logo']			= $image['left-logo'];
-		$data['right-logo']			= $image['right-logo'];
+		$data['head_committee_sign'] 	= $image['ttd-ketua-panitia'];
+		$data['left_logo']				= $image['left-logo'];
+		$data['right_logo']				= $image['right-logo'];
 
 		// Perform the upload in models
 		$upload = $this->pdf->pdfUpload($data);
@@ -54,9 +54,9 @@ class Creservasi extends CI_Controller
 		$data = $this->pdf->retrieveData();
 
 		$image = $this->imageUploadHandler();
-		$data['ttd-ketua-panitia']	= $image['ttd-ketua-panitia'];
-		$data['left-logo']			= $image['left-logo'];
-		$data['right-logo']			= $image['right-logo'];
+		$data['head_committee_sign'] 	= $image['ttd-ketua-panitia'];
+		$data['left_logo']				= $image['left-logo'];
+		$data['right_logo']				= $image['right-logo'];
 
 		$this->pdf->pdfPreview($data);
 		
