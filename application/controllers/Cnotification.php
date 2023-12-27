@@ -20,18 +20,18 @@ class Cnotification extends CI_Controller
 		$data['notifikasi'] = $this->notification->getPeminjamNotification();
 		$data['message']	= $this->lang->line('notification_empty');
 
-		$html['konten'] = $this->load->view('menu_peminjam/notification', $data, true);
+		$html['content'] = $this->load->view('menu_peminjam/notification', $data, true);
 		$this->load->view('layouts/sidebar', $html);
 	}
 
-	function pemimpin_notification()
+	function pimpinan_notification()
 	{
 		$this->load->language('BRoomNotification');
 
 		$data['notifikasi'] = $this->notification->getPemimpinNotification();
 		$data['message']	= $this->lang->line('notification_empty');
 
-		$html['konten'] = $this->load->view('menu_pimpinan/notification', $data, true);
+		$html['content'] = $this->load->view('menu_pimpinan/notification', $data, true);
 		$this->load->view('layouts/sidebar_pimpinan', $html);
 	}
 }
