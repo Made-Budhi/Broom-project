@@ -60,12 +60,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
   function getDocument($reservasi_id): array
   {
+  	// Reservation Data
     $data = $this->db->select()->from('Reservasi')
-    ->where('Reservasi.reservasi_id', $reservasi_id)
-    ->get()->result('array');
+		->where('Reservasi.reservasi_id', $reservasi_id)
+		->get()->first_row('array');
 
-    return $data[0];
-    
+	// Pimpinan Data
+  	$pimpinan = $this->db->select('name,position,signature')->from('Pimpinan')
+		->where('Pimpinan.id', $data['pimpinan_id'])
+		->get()->first_row('array');
+
+  	// Ruangan Data
+  	$ruangan = $this->db->select('name')->from('Ruangan')
+		->where('Ruangan.id', $data['ruangan_id'])
+		->get()->first_row('array');
+
+	$data['pimpinan_name'] 		= $pimpinan['name'];
+	$data['pimpinan_position'] 	= $pimpinan['position'];
+	$data['pimpinan_signature']	= $pimpinan['signature'];
+	$data['ruangan_name'] 		= $ruangan['name'];
+
+    return $data;
   }
 }
  
