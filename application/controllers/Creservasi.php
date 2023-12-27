@@ -43,7 +43,11 @@ class Creservasi extends CI_Controller
 				$upload['reservasi_id']->reservasi_id
 			);
 
-			// TODO: Set pimpinan notification here @Chain
+			// Set Pimpinan Notification
+			$this->notification->setPimpinanNotification(
+				'201',
+				$upload['reservasi_id']->reservasi_id
+			);
 		}
 
 		$this->reservasi($upload['message']);
