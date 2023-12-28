@@ -35,7 +35,14 @@ html{
 }
 .btn-primary,.btn-primary:hover,.btn-primary:active{
 	background-color: #1687A7 !important;
+	border: 0;
+	outline: 0;
 }
+.btn{
+	border: 0;
+	outline: 0;
+}
+
 .fs-7{
 	font-size: x-small;
 }
