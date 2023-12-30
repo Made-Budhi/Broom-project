@@ -49,13 +49,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'cviews/loginpage';
+$route['default_controller'] = 'Clogin';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// BRoom Main Controller
+// Broom Main Controller
 $route['settings'] = 'Csetting';
 $route['dashboard'] = 'Cdashboard';
+$route['login'] = 'Clogin';
+$route['register'] = 'Cregister';
+$route['logout'] = 'Clogin/logout';
+$route['rooms'] = 'Crooms';
+$route['reservation'] = 'Creservasi';
+$route['notifications'] = 'Cnotification';
 
-// BRoom Settings Controller
+// Broom Setting Controller
 $route['settings/(:any)'] = 'Csetting/$1';
+
+// Broom Dashboard Controller
+$route['dashboard/(:any)'] = 'Cdashboard/$1';
+
+// Broom Login Controller
+$route['login/(:any)/(:any)/(:any)'] = $route['login'].'/$1/$2/$3';
+$route['login/(:any)/(:any)'] = $route['login'].'/$1/$2';
+$route['login/(:any)'] = $route['login'].'/$1';
+
+// Broom Register Controller
+$route['register/(:any)/(:any)/(:any)'] = $route['register'].'/$1/$2/$3';
+$route['register/(:any)/(:any)'] = $route['register'].'/$1/$2';
+$route['register/(:any)'] = $route['register'].'/$1';
+
+// Broom Room Controller
+$route['rooms/(:any)/(:any)/(:any)'] = $route['rooms'].'/$1/$2/$3';
+$route['rooms/(:any)/(:any)'] = $route['rooms'].'/$1/$2';
+$route['rooms/(:any)'] = $route['rooms'].'/$1';
+
+// Broom Reservation Controller
+$route['reservation/(:any)/(:any)/(:any)'] = $route['reservation'].'/$1/$2/$3';
+$route['reservation/(:any)/(:any)'] = $route['reservation'].'/$1/$2';
+$route['reservation/(:any)'] = $route['reservation'].'/$1';
+
+// Broom Notification Controller
+$route['notifications/(:any)/(:any)/(:any)'] = $route['notifications'].'/$1/$2/$3';
+$route['notifications/(:any)/(:any)'] = $route['notifications'].'/$1/$2';
+$route['notifications/(:any)'] = $route['notifications'].'/$1';

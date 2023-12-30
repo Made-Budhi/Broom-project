@@ -12,7 +12,7 @@ if (!empty($notifikasi)) {
 		switch ($data->type) {
 
 			// Pengajuan reservasi berhasil diajukan
-			case 101:
+			case NotificationType::PEMINJAM_MENGAJUKAN:
 			?>
 					<!-- Icon -->
 					<div style="background: #FFD43B; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
@@ -28,7 +28,7 @@ if (!empty($notifikasi)) {
 				break;
 
 				// Pengajuan reservasi disetujui
-				case 102:
+        case NotificationType::PEMINJAM_DISETUJUI:
 			?>
 				<div style="background: #4CAF50; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
 					<i class="fa-solid fa-check" style="color: #f8f8f8; font-size: 2.5rem"></i>
@@ -43,7 +43,7 @@ if (!empty($notifikasi)) {
 				break;
 
 				// Pengajuan reservasi ditolak
-				case 103:
+        case NotificationType::PEMINJAM_DITOLAK:
 			?>
 				<div style="background: #F44336; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
 					<i class="fa-solid fa-xmark" style="color: #f8f8f8; font-size: 2.5rem"></i>
@@ -58,7 +58,7 @@ if (!empty($notifikasi)) {
 				break;
 
 				// Pengajuan reservasi yang telak disetujui oleh pimpinan dibatalkan oleh admin
-				case 104:
+				case NotificationType::PEMINJAM_DIBATALKAN:
 			?>
 				<div style="background: #F44336; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
 					<i class="fa-solid fa-xmark" style="color: #f8f8f8; font-size: 2.5rem"></i>

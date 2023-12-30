@@ -17,21 +17,10 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 	</ul>
 
 	<hr>
-
-	<?php
-
-	if ( ! empty($message)) {
-	?>
-
-		<div class="message">
-			<p><?= $message ?></p>
-		</div>
-
-	<?php
-
-	}
-
-	?>
+  
+  <div class="message">
+    <p><?php view_flashdata('message'); ?></p>
+  </div>
 
 	<?= form_open_multipart('', 'id="form-reservasi"') ?>
 	<div>

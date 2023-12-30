@@ -52,4 +52,10 @@ class Cdashboard extends CI_Controller
 		$html['content'] = $this->load->view($view['content'], $data, true);
 		$this->load->view($view['sidebar'], $html);
 	}
+	
+	function lihatPDF($reservasi_id): void
+	{
+		$data = $this->pemimpin->getDocument($reservasi_id);
+		$this->pdf->pdfPreview($data);
+	}
 }

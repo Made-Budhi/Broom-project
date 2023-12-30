@@ -4,9 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @property Mpdf $pdf
  * @property Mnotification $notification
+ * @property Mpemimpin $pemimpin
  * @property CI_Upload $uploadttd
  * @property CI_Upload $uploadlogokiri
  * @property CI_Upload $uploadlogokanan
+ * @property CI_Session $session
  */
 class Creservasi extends CI_Controller
 {
@@ -15,12 +17,12 @@ class Creservasi extends CI_Controller
 		parent::__construct();
 		$this->load->model('Mpdf', 'pdf');
 		$this->load->model('Mnotification', 'notification');
+		$this->load->model('Mpemimpin', 'pemimpin');
 	}
 
-	function reservasi($message = ''): void
+	function index(): void
 	{
-		$data['message'] = $message;
-		$html['content'] = $this->load->view('menu_peminjam/reservasi', $data, true);
+		$html['content'] = $this->load->view('menu_peminjam/reservasi', null, true);
 		$this->load->view('layouts/sidebar', $html);
 	}
 
@@ -28,36 +30,37 @@ class Creservasi extends CI_Controller
 	{
 		$data = $this->pdf->retrieveData();
 
-		$image = $this->imageUploadHandler();
+		$image = $this->_imageUploadHandler();
 		$data['head_committee_sign'] 	= $image['ttd-ketua-panitia'];
 		$data['left_logo']				= $image['left-logo'];
 		$data['right_logo']				= $image['right-logo'];
 
 		// Perform the upload in models
-		$upload = $this->pdf->pdfUpload($data);
+		$uploaded = $this->pdf->pdfUpload($data);
 
-		if (!empty($upload['reservasi_id'])) {
+		if (!empty($upload->reservasi_id)) {
 			// Set peminjam notification
-			$this->notification->setPeminjamNotification(
-				'101',
-				$upload['reservasi_id']->reservasi_id
+			$this->notification->setNotification(
+				NotificationType::PEMINJAM_MENGAJUKAN,
+					$uploaded->reservasi_id
 			);
 
 			// Set Pimpinan Notification
 			$this->notification->setPimpinanNotification(
-				'201',
-				$upload['reservasi_id']->reservasi_id
+					NotificationType::PIMPINAN_DIAJUKAN,
+					$uploaded->reservasi_id
 			);
 		}
-
-		$this->reservasi($upload['message']);
+		
+		$this->session->set_flashdata('message', $uploaded->message);
+		redirect(site_url('reservation'));
 	}
 
 	function previewpdf(): void
 	{
 		$data = $this->pdf->retrieveData();
 
-		$image = $this->imageUploadHandler();
+		$image = $this->_imageUploadHandler();
 		$data['head_committee_sign'] 	= $image['ttd-ketua-panitia'];
 		$data['left_logo']				= $image['left-logo'];
 		$data['right_logo']				= $image['right-logo'];
@@ -65,19 +68,25 @@ class Creservasi extends CI_Controller
 		$this->pdf->pdfPreview($data);
 		
 		if (!empty($image['ttd-ketua-panitia'])) {
-			$this->imageDeletion($data['ttd-ketua-panitia'], FCPATH .'assets/images/signature_peminjam/');
+			$this->_imageDeletion($data['ttd-ketua-panitia'], FCPATH .'assets/images/signature_peminjam/');
 		}
 		
 		if (!empty($image['left-logo'])) {
-			$this->imageDeletion($data['left-logo'], FCPATH.'assets/images/left_logo/');
+			$this->_imageDeletion($data['left-logo'], FCPATH.'assets/images/left_logo/');
 		}
 		
 		if (!empty($image['right-logo'])) {
-			$this->imageDeletion($data['right-logo'], FCPATH.'assets/images/right_logo/');
+			$this->_imageDeletion($data['right-logo'], FCPATH.'assets/images/right_logo/');
 		}
 	}
+	
+	function document($id): void
+	{
+		$data = $this->pemimpin->getDocument($id);
+		$this->pdf->pdfPreview($data);
+	}
 
-	function imageUploadHandler(): array
+	function _imageUploadHandler(): array
 	{
 		// Upload peminjam signature
 		$config1 = array(
@@ -145,7 +154,7 @@ class Creservasi extends CI_Controller
 		return $image;
 	}
 
-	function imageDeletion($image_name, $image_path): void
+	function _imageDeletion($image_name, $image_path): void
 	{
 		$full_path = $image_path . $image_name;
 

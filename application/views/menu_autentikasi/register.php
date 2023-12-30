@@ -8,7 +8,7 @@
     
 <div>
 	<h2>Halaman Daftar</h2>
-	<form name="formdaftar" method="post" action="<?php echo base_url('cregister/register'); ?>">
+	<form name="formdaftar" method="post" action="<?php echo site_url('register/add'); ?>">
 		<div>
 		  <label>Email</label>
 		  <input type="text" name="email">
@@ -44,7 +44,7 @@
 <script>
 	function login()
 	{
-		window.open("<?php echo base_url('cviews/loginpage')?>","_self");
+		window.open("<?php echo site_url()?>","_self");
 	}
 </script>
 

@@ -9,8 +9,13 @@
 <body>
 
 <div class="container mt-3">
-
-  <form name="*" method="post" action="<?php echo base_url('cforgot/forgot'); ?>">
+	<?php
+	// Shows error login message if there's any.
+	view_flashdata("loginerror");
+	view_flashdata("error");
+	?>
+  
+  <form name="*" method="post" action="<?= site_url('login/auth/otp'); ?>">
     <div class="mb-3 mt-3">
       <label>Email</label>
       <input type="email" class="form-control" name="email">

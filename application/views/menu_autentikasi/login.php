@@ -11,20 +11,10 @@
 
 	<?php
 	// Shows error login message if there's any.
-  // TODO: must create hooks
-	$errormsg = $this->session->flashdata('loginerror');
-	if (!is_null($errormsg)) {
-		?>
-
-		<div>
-			<?= $errormsg ?>
-		</div>
-
-		<?php
-	}
+  view_flashdata("loginerror");
 	?>
 
-	<form action="<?= site_url('clogin/loginauth') ?>" method="post">
+	<form action="<?= site_url('login/auth') ?>" method="post">
 		<label for="email">Enter E-mail</label>
 		<input type="text" name="email" id="email">
 
@@ -38,12 +28,12 @@
 
 	<button type="button" onClick="login()">Daftar</button>
 
-	<a href="<?= site_url('cviews/email') ?>">Lupa Password?</a>
+	<a href="<?= site_url('login/forgot/password') ?>">Lupa Password?</a>
 
 	<script>
 		function login()
 		{
-			window.open("<?= site_url('cviews/register')?>","_self");
+			window.open("<?= site_url('register')?>","_self");
 		}
 	</script>
 
