@@ -12,6 +12,12 @@
 	<div class="col-12 col-md-6 m-auto d-none d-md-block">
 		<img src="<?= base_url("./assets/images/forgotpass.svg") ?>" class="d-md-block d-none w-75 m-auto" alt="...">
 	</div>
+	
+	<?php
+	// Shows error login message if there's any.
+	view_flashdata("loginerror");
+	view_flashdata("error");
+	?>
 
 	<div class="col-12 col-md-6 d-flex flex-column justify-content-start align-items-center gap-5 border-md-start h-75 m-auto">
 		<h1>Broom</h1>

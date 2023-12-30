@@ -17,7 +17,6 @@ class Mreservasi extends CI_Model
 	
 	function tampildata($key): array
 	{
-		
 		$hasil = array();
 		$query = $this->db->select('*,
 				Reservasi.status as reservasi_status')->from("Reservasi")

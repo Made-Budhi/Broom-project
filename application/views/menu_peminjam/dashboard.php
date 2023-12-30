@@ -50,7 +50,7 @@
   
           <!-- TODO Detail mengarah ke arah PDF form -->
           <td class="text-center">
-			  <a target="_blank" href="<?= site_url('Cpimpinan/lihatPDF/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail dokumen</a>
+			  <a target="_blank" href="<?= site_url('reservation/document/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail dokumen</a>
           </td>
         </tr>
       <?php

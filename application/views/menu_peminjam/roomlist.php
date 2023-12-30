@@ -11,7 +11,7 @@ if (!empty($hasil)) {
 			<div class="card-body">
 				<h5 class="card-title"><?php echo $data->name ?></h5>
 				<p class="card-text"><?php echo $data->description ?></p>
-				<a href="<?php echo site_url('crooms/view?id=' . $data->id); ?>"
+				<a href="<?php echo site_url('rooms/view?id=' . $data->id); ?>"
 				   class="btn btn-primary">Lihat Detail</a>
 			</div>
 		</div>
