@@ -30,7 +30,7 @@
 				</div>
                 
                 <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
-                        <a href="<?= site_url('cdashboard') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100">
+                        <a href="<?= site_url('dashboard') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100">
 							<i class="fa fa-home fa-lg p-2"></i> <span>Dashboard</span>
 						</a>
 

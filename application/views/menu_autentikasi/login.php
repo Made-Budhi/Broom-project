@@ -57,7 +57,9 @@
 			</div>
 		
       <?php
-      // Shows error login message if there's any.
+      // Shows error/information messages if there is.
+      // TODO create a div or card board for messages
+      view_flashdata("email_verify");
       view_flashdata("loginerror");
       ?>
 
