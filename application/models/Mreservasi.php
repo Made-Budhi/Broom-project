@@ -21,10 +21,6 @@ class Mreservasi extends CI_Model
 		$query = $this->db->select('*,
 				Reservasi.status as reservasi_status')->from("Reservasi")
 				->join(
-				"Peminjam",
-				"Reservasi.peminjam_id = Peminjam.id",
-				"inner")
-				->join(
 				"Ruangan",
 				"Reservasi.ruangan_id = Ruangan.id",
 				"inner")
