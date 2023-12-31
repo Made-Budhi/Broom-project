@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * @property Maccount $account
+ * @property CI_Session $session
+ * @property CI_Input $input
  */
-class Chalaman extends CI_Controller
+class Chalaman extends Broom_Controller
 {
 	/**
 	 * Loading otp input page.

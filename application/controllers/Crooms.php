@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Mrooms $rooms
  * @property CI_Input $input
  */
-class Crooms extends CI_Controller
+class Crooms extends Broom_Controller
 {
 	public function __construct()
 	{

@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Mnotification $notification
  */
 
-class Cpimpinan extends CI_Controller
+class Cpimpinan extends Broom_Controller
 {
     public function __construct()
     {

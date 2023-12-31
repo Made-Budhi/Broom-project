@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Upload $uploadlogokanan
  * @property CI_Session $session
  */
-class Creservasi extends CI_Controller
+class Creservasi extends Broom_Controller
 {
 	public function __construct()
 	{

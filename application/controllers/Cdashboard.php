@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property CI_Loader $load
  */
 
-class Cdashboard extends CI_Controller
+class Cdashboard extends Broom_Controller
 {
 	private array $current_session;
 

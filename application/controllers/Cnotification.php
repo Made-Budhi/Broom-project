@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Lang $lang
  */
 
-class Cnotification extends CI_Controller
+class Cnotification extends Broom_Controller
 {
 	public function __construct()
 	{
