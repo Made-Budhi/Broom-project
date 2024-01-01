@@ -62,9 +62,9 @@
 
 		<!-- content  -->
 
-		<!-- <div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
-			<?php view($content) ?>
-		</div> -->
+		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
+			<?php view('content') ?>
+		</div>
 
     </div>
 
