@@ -40,7 +40,7 @@ class Cdashboard extends CI_Controller
 			break;
 
 			case 'Pengelola':
-				$view = '';
+				$view['sidebar'] = 'layouts/sidebar_pengelola';
 			break;
 
 			default:
