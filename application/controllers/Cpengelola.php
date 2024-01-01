@@ -10,6 +10,7 @@ class Cpengelola extends CI_Controller
 	public function __construct()
     {
         parent::__construct();
+		$this->load->model('Mpengelola', 'pengelola');
     }
 
 	//dummpy
@@ -17,6 +18,24 @@ class Cpengelola extends CI_Controller
 	{
 		$this->load->view('layouts/sidebar_pengelola');
 	}
+
+	function data_akun(): void
+	{
+		$peminjam['hasil'] = $this->pengelola->datasingkat();
+        $data['content']=$this->load->view('view_peminjam',$peminjam,TRUE);
+		$this->load->view('layouts/sidebar_pengelola',$data);
+	}
+
+	function jejak($id): void
+	{
+		$peminjam['hasil'] = $this->pengelola->jejakreservasi($id);
+        $data['content']=$this->load->view('reservasi_peminjam',$peminjam,TRUE);
+		$this->load->view('layouts/sidebar_pengelola',$data);
+	}
+	
+
+
+
 }
 
 ?>
