@@ -20,11 +20,11 @@ class BRoom_Verify extends BRoom_Libraries
 	
 	/**
 	 * @param string $email
-	 * @param string $token
+	 * @param &$token
 	 * @param bool $is_otp
 	 * @return bool
 	 */
-	public function send_email(string $email, string &$token,
+	public function send_email(string $email, &$token,
 							   bool   $is_otp = false): bool
 	{
 		$this->email->initialize($this->configs);
@@ -32,11 +32,18 @@ class BRoom_Verify extends BRoom_Libraries
 				->from($this->configs['from'], $this->configs['name']);
 		$this->email->to($email);
 		$this->email->subject($this->lang->line('email_verification_subject'));
-		$this->email->message($this->CI->load
-				->view('layouts/email', null, true));
 		
-		$token = $is_otp ?
-				$this->_create_random('otp') : $this->_create_random('token');
+		if ($is_otp) {
+			$token = $this->_create_random(Verification::OTP);
+			$data['type'] = Verification::OTP;
+		} else {
+			$token = $this->_create_random(Verification::REGISTER);
+			$data['type'] = Verification::REGISTER;
+		}
+		$data['code'] = $token;
+		
+		$this->email->message($this->CI->load
+				->view('layouts/email', $data, true));
 		
 		$send_status = $this->email->send();
 		
@@ -44,26 +51,25 @@ class BRoom_Verify extends BRoom_Libraries
 			$msg = $this->lang->line('log_send_email_failed');
 			$this->session->set_flashdata('error', $msg);
 			log_message('debug', $msg);
-			redirect('login/forgot/password');
+			redirect('login/forgot');
 		}
 		
 		log_message('debug', $this->lang->line('log_send_email_succeed'));
 		return $send_status;
 	}
 	
-	private function _create_random(string $type): string|bool
+	private function _create_random($type): string|bool
 	{
-		$type = strtolower($type);
 		$value = null;
 		
-		if ($type === 'otp') {
+		if ($type === Verification::OTP) {
 			try {
 				// random_int() are from PHP 7.0, beware for old project
 				$value = strval(random_int(100000, 999999));
 			} catch (Exception) {
 				return false;
 			}
-		} elseif ($type === 'token') {
+		} elseif ($type === Verification::REGISTER) {
 			$value = substr(str_shuffle(uniqid()), 0, 6);
 		}
 		

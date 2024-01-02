@@ -21,7 +21,9 @@ class Cregister extends CI_Controller
 	public function auth($case, $auth_token = ''): void
 	{
 		if ($case == 'email') {
-			$this->account->verify_email($auth_token);
+			if ( ! empty($auth_token)) {
+				$this->account->verify_email($auth_token);
+			}
 		}
 		
 		redirect(site_url());

@@ -29,3 +29,9 @@ class NotificationType
 	const PIMPINAN_DIAJUKAN = 201;
 	const PENGELOLA_DINOTIFIKASI = 301;
 }
+
+class Verification
+{
+	const REGISTER = 0;
+	const OTP = 1;
+}

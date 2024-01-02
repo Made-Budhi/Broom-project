@@ -19,7 +19,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 	<hr>
   
   <div class="message">
-    <p><?php view_flashdata('message'); ?></p>
+    <p><?php div_alert_info('message'); ?></p>
   </div>
 
 	<?= form_open_multipart('', 'id="form-reservasi"') ?>

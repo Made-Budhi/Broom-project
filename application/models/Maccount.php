@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Input $input
  * @property CI_Session $session
  * @property CI_DB $db
+ * @property CI_Lang $lang
  */
 class Maccount extends CI_Model
 {
@@ -14,6 +15,8 @@ class Maccount extends CI_Model
 	{
 		parent::__construct();
 		$this->load->library('accounts/BRoom_Verify', null, 'account_verify');
+		// TODO must add language mechanism
+		$this->load->language('BRoomAuth', 'indonesia');
 	}
 	
 	/**
@@ -45,7 +48,7 @@ class Maccount extends CI_Model
 			if (!$accountData->is_verif) {
 				$this->session->set_flashdata(
 						'loginerror',
-						'Email belum terverifikasi!.'
+						$this->lang->line('email_not_verified')
 				);
 				redirect(site_url());
 			}
@@ -69,7 +72,7 @@ class Maccount extends CI_Model
 		} else {
 			$this->session->set_flashdata(
 					'loginerror',
-					'Invalid e-mail or password.'
+					$this->lang->line('login_failed')
 			);
 			redirect(site_url());
 		}
@@ -96,8 +99,7 @@ class Maccount extends CI_Model
 				"email" => $email,
 				"password" => $password,
 				"token" => $token,
-			// TODO: can set default value from Database
-				"role" => "Peminjam"
+				"role" => AccountRole::PEMINJAM
 		);
 		unset($token);
 		$this->db->insert('Account', $data);
@@ -113,13 +115,14 @@ class Maccount extends CI_Model
 				"id" => $id,
 				"name" => $name,
 				"phone" => $phone,
-			// TODO: can set default value from Database
-				"role" => "Mahasiswa",
+				"role" => PeminjamRole::MAHASISWA,
 				"account_id" => $fkid
 		);
 		$this->db->insert('Peminjam', $data);
 		
-		echo "<script>alert('Data sudah disimpan, Silahkan Verifikasi');</script>";
+		$this->session->set_flashdata('email_verify',
+				$this->lang->line('register_success'));
+		redirect(site_url());
 	}
 	
 	/**
@@ -140,19 +143,20 @@ class Maccount extends CI_Model
 				->get();
 		
 		if ($query->num_rows() > 0) {
+			$this->account_verify->send_email($email, $otp, true);
 			$array = array(
 					'email' => $email,
-					'token' => $otp
+					'token' => $otp,
+					'has_verification' => true
 			);
 			
-			$this->account_verify->send_email($email, $otp, true);
-			$this->session->set_userdata($array);
+			$this->session->set_tempdata($array, null, 3600);
 		} else {
 			$this->session->set_flashdata(
 					'loginerror',
-					'Invalid e-mail or password.'
+					$this->lang->line('forgot_pass_failed')
 			);
-			redirect(site_url('login/forgot/password'));
+			redirect('login/forgot');
 		}
 	}
 	
@@ -179,10 +183,10 @@ class Maccount extends CI_Model
 			
 			$this->session->sess_destroy();
 			
-			redirect('cviews/loginpage');
+			redirect('login');
 		} else {
 			echo "failed";
-			redirect('chalaman/reset');
+			redirect('login/forgot');
 		}
 		
 	}
@@ -224,11 +228,11 @@ class Maccount extends CI_Model
 	
 	function verify_email(string $token): void
 	{
-		$this->db->set('is_verified', true)->where('Token', $token)
-				->update('tbdosen');
+		$this->db->set('is_verif', 1)->where('token', $token)
+				->update('Account');
 	}
 	
-	public function logout()
+	public function logout(): void
 	{
 		$this->session->sess_destroy();
 	}

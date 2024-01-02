@@ -12,12 +12,6 @@
 	<div class="col-12 col-md-6 m-auto d-none d-md-block">
 		<img src="<?= base_url("./assets/images/forgotpass.svg") ?>" class="d-md-block d-none w-75 m-auto" alt="...">
 	</div>
-	
-	<?php
-	// Shows error login message if there's any.
-	view_flashdata("loginerror");
-	view_flashdata("error");
-	?>
 
 	<div class="col-12 col-md-6 d-flex flex-column justify-content-start align-items-center gap-5 border-md-start h-75 m-auto">
 		<h1>Broom</h1>
@@ -26,11 +20,16 @@
 			<h3>Lupa Password</h3>
 			<small>Silahkan lengkapi informasi dibawah ini</small>
 		</div>
-		<form name="*" method="post" action="<?php echo site_url('login/auth/otp'); ?>" class="w-75 d-flex flex-column gap-5">
-			<div class="mb-3 mt-3">
-				<label>Alamat Email</label>
-				<input type="email" class="form-control" name="email">
-				<small><strong>Tip : </strong>Pastikan alamat email anda benar</small>
+		<form name="*" method="post" action="<?php echo site_url('login/forgot/otp'); ?>" class="w-75 d-flex flex-column gap-5">
+      <?php
+      div_alert_error('loginerror');
+      div_alert_error('error');
+      ?>
+
+      <div class="mb-3 mt-3">
+        <label>Alamat Email</label>
+        <input type="email" class="form-control" name="email">
+        <small><strong>Tip : </strong>Pastikan alamat email anda benar dan sudah diverifikasi</small>
 			</div>
 		 
 			<div class="gap-2 d-flex flex-column">
