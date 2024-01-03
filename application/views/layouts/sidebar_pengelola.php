@@ -30,20 +30,20 @@
 				</div>
                 
                 <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
-						<a href="<?= site_url('Cnotification/pengelola_notification') ?>"
+						<a href="<?= site_url('cdashboard') ?>"
 						class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span>
 						</a>
 
-                        <a href="<?= site_url('cdashboard') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100">
+                        <a href="<?= site_url('#') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100">
 							<i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span>
 						</a>
 
-                        <a href="<?=  site_url('Cpengelola/data_akun') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+                        <a href="<?=  site_url('#') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa-solid fa-users-gear fa-lg p-2"></i> <span>Data Akun</span>
 						</a>
 
-						<a href="<?= site_url('Cpengelola/reservasi') ?>"
+						<a href="<?= site_url('creservasi/pengelolaReservation') ?>"
 					   	class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa-solid fa-file-circle-plus fa-lg p-2"></i> <span>Reservasi</span>
 						</a>
@@ -62,11 +62,13 @@
 
 		<!-- content  -->
 
-		<!-- <div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
-			<?php view($content) ?>
-		</div> -->
+		<div class="content ps-4 pt-4 flex-grow-1 overflow-auto">
+			<?php view($content)  ?>
+		</div>
 
     </div>
 
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
