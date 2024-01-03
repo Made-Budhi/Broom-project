@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Mpdf $pdf
  * @property Mnotification $notification
  * @property Mpemimpin $pemimpin
+ * @property Mreservasi $reservasi
  * @property CI_Upload $uploadttd
  * @property CI_Upload $uploadlogokiri
  * @property CI_Upload $uploadlogokanan
@@ -17,7 +18,32 @@ class Creservasi extends Broom_Controller
 		parent::__construct();
 		$this->load->model('Mpdf', 'pdf');
 		$this->load->model('Mnotification', 'notification');
-		$this->load->model('Mpemimpin', 'pemimpin');
+		$this->load->model('Mreservasi', 'reservasi');
+    $this->load->model('Mpemimpin', 'pemimpin');
+	}
+
+	/**
+	 * Reservation data for pengelola
+	 *
+	 * @return void
+	 */
+	function pengelolaReservation(): void
+	{
+		$data['reservation'] 	= $this->reservasi->getAllReservation();
+		$html['content']		= $this->load->view('menu_pengelola/reservation', $data, true);
+		$this->load->view('layouts/sidebar_pengelola', $html);
+	}
+
+	function cancelReservation()
+	{
+		$id 		= $this->input->post('reservasi_id');
+		$message	= $this->input->post('message');
+
+		$this->reservasi->cancelReservation($id, $message);
+		$this->notification->setNotification(302, $id);
+		$this->notification->setNotification(104, $id);
+
+		redirect(site_url().'creservasi/pengelolaReservation');
 	}
 
 	function index(): void
@@ -46,7 +72,7 @@ class Creservasi extends Broom_Controller
 			);
 
 			// Set Pimpinan Notification
-			$this->notification->setPimpinanNotification(
+			$this->notification->setNotification(
 					NotificationType::PIMPINAN_DIAJUKAN,
 					$uploaded->reservasi_id
 			);

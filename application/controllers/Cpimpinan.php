@@ -46,7 +46,13 @@ class Cpimpinan extends Broom_Controller
 			'1' => 102,
 			'2' => 103
 		};
-		$this->notification->setPeminjamNotification($type, $reservasi_id);
+
+		// Notify pengelola when a reservation is approved
+		if ($type == 102)
+			$this->notification->setNotification(301, $reservasi_id);
+
+		// Notify peminjam
+		$this->notification->setNotification($type, $reservasi_id);
 
 		redirect(base_url('cpimpinan/reservasiv'));
     }

@@ -133,7 +133,8 @@ VALUES ('101', 'peminjam_mengajukan'),
 
        ('201', 'pimpinan_diajukan'),
 
-       ('301', 'pengelola_dinotifikasi');
+('301', 'pengelola_dinotifikasi'),
+('302', 'pengelola_membatalkan');
 
 # For testing purpose
 
