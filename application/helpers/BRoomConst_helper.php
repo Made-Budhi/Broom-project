@@ -5,6 +5,7 @@ class StatusReservasi
 	const DITERIMA = 'Diterima';
 	const DITOLAK = 'Ditolak';
 	const MENUNGGU = 'Menunggu';
+	const DIBATALKAN = 'Dibatalkan';
 }
 
 class AccountRole
