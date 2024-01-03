@@ -9,7 +9,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
  class Mpemimpin extends CI_Model
  {
 
-    function pesetujuan(){
+    function pesetujuan(): array
+	{
+		$session = $this->session->get_userdata();
+		$id = $session['id'];
 
 		$hasil = array();
 
@@ -18,7 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           "Ruangan",
 				  "Reservasi.ruangan_id = Ruangan.id",
 				  "inner"
-        )->where('Reservasi.status',"Menunggu")->get();
+        )->where("Reservasi.status = '" . StatusReservasi::MENUNGGU . "' AND pimpinan_id = " . $id)->get();
 
         // to check query database
 		  foreach ($query->result() as $row) 
