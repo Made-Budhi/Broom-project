@@ -55,23 +55,15 @@
 				<h3>Welcome!</h3>
 				<small>Sign in by entering information below</small>
 			</div>
+		
+      <?php
+      // Shows error/information messages if there is.
+      // TODO create a div or card board for messages
+	    div_alert_info("email_verify");
+	    div_alert_error('loginerror');
+      ?>
 
-			<?php
-			// Shows error login message if there's any.
-			// TODO: must create hooks
-			$errormsg = $this->session->flashdata('loginerror');
-			if (!is_null($errormsg)) {
-				?>
-
-				<div>
-					<?= $errormsg ?>
-				</div>
-
-				<?php
-			}
-			?>
-
-			<form action="<?= site_url('clogin/loginauth') ?>" method="post" class="d-flex flex-column gap-4 w-50">
+			<form action="<?= site_url('login/auth') ?>" method="post" class="d-flex flex-column gap-4 w-50">
 				<div>
 					<label for="email" class="d-block">E-mail</label>
 					<input type="text" name="email" id="email" class="w-100 rounded-2 border-1 opacity-10 form-control">
@@ -81,9 +73,9 @@
 					<input type="password" name="password" id="password" class="w-100 rounded-2 border-1 opacity-10 form-control">
 				</div>
 
-				<a href="<?= site_url('cviews/email') ?>" class="text-end d-block text-decoration-none text-info">Lupa Password?</a>
+				<a href="<?= site_url('login/forgot') ?>" class="text-end d-block text-decoration-none text-info">Lupa Password?</a>
 				<input type="submit" value="Sign in" class="btn btn-primary d-block w-100 form-control mt-4">
-				<p class="fw-light text-center"> Tidak memiliki akun? <a href="<?= site_url('cviews/register') ?>" class="text-decoration-none text-body fw-normal">Buat akun</a>
+				<p class="fw-light text-center"> Tidak memiliki akun? <a href="<?= site_url('register') ?>" class="text-decoration-none text-body fw-normal">Buat akun</a>
 			</form>
 			
 			</p>

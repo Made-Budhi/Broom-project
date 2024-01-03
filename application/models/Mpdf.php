@@ -32,14 +32,14 @@ class Mpdf extends CI_Model
 
 		createpdf($html);
 	}
-
+	
 	/**
 	 * Upload the reservation data to database.
 	 *
 	 * @param array $data
-	 * @return string
+	 * @return object
 	 */
-	function pdfUpload(array $data): array
+	function pdfUpload(array $data): object
 	{
 		// Get peminjam id
 		$peminjam_id = $this->session->get_userdata();
@@ -72,23 +72,21 @@ class Mpdf extends CI_Model
 			'left_logo'				=> $data['left_logo'],
 			'right_logo'			=> $data['right_logo'],
 			'status'				=> $data['status'],
-			'date_assigned'			=> '',
-			'status_message'		=> ''
 		);
 
 		$is_success = $this->db->insert('Reservasi', $newData);
 
 		// Return reservsai_id for notification purpose
 		if ($is_success) {
-			return array(
+			return (object) array(
 				'message' 		=> $this->lang->line('database_insertion_success'),
-				'reservasi_id' 	=> $this->db->select('reservasi_id')->from('Reservasi')
+				'reservasi_id' 	=> (int) $this->db->select('reservasi_id')->from('Reservasi')
 											->where('document_number', $newData['document_number'])
-											->get()->first_row()
+											->get()->first_row()->reservasi_id
 			);
 		}
 
-		return array(
+		return (object) array(
 			'message' 		=> $this->lang->line('database_insertion_failed'),
 			'reservasi_id' 	=> ''
 		);

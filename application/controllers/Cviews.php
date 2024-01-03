@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property Mreservasi $reservasi
+ */
+
 class Cviews extends CI_Controller
 {
 	/**
@@ -8,12 +12,12 @@ class Cviews extends CI_Controller
 	 *
 	 * @return void
 	 */
-	function loginpage()
+	function broom_login_page(): void
 	{
 		$this->load->view('loginpage');
 	}
  
-	function register()
+	function broom_register_page(): void
 	{
 		$this->load->view('Register');
 	}
@@ -24,22 +28,8 @@ class Cviews extends CI_Controller
 	 *
 	 * @return void
 	 */
-	function email()
+	function email(): void
 	{
 		$this->load->view('email');
 	}
-
-	function dashboard()
-	{
-		// Load Model to get Reservasi DATABASE
-		$this->load->model('Mreservasi');
-		// add variable and get DATABASE reservasi
-		$tableR['hasil'] = $this->Mreservasi->tampildata();
-		// add variable TO Load Dashboard and put DATABASE from resevasi to table
-        $data['content']=$this->load->view('menu_peminjam/dashboard',$tableR,TRUE);
-		// view layout with $data
-		$this->load->view('layouts/sidebar',$data);
-	}
-
-	
 }
