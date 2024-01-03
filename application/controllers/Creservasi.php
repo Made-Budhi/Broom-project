@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Upload $uploadttd
  * @property CI_Upload $uploadlogokiri
  * @property CI_Upload $uploadlogokanan
+ * @property Mreservasi $reservasi
  */
 class Creservasi extends CI_Controller
 {
@@ -15,6 +16,31 @@ class Creservasi extends CI_Controller
 		parent::__construct();
 		$this->load->model('Mpdf', 'pdf');
 		$this->load->model('Mnotification', 'notification');
+		$this->load->model('Mreservasi', 'reservasi');
+	}
+
+	/**
+	 * Reservation data for pengelola
+	 *
+	 * @return void
+	 */
+	function pengelolaReservation(): void
+	{
+		$data['reservation'] 	= $this->reservasi->getAllReservation();
+		$html['content']		= $this->load->view('menu_pengelola/reservation', $data, true);
+		$this->load->view('layouts/sidebar_pengelola', $html);
+	}
+
+	function cancelReservation()
+	{
+		$id 		= $this->input->post('reservasi_id');
+		$message	= $this->input->post('message');
+
+		$this->reservasi->cancelReservation($id, $message);
+		$this->notification->setNotification(302, $id);
+		$this->notification->setNotification(104, $id);
+
+		redirect(site_url().'creservasi/pengelolaReservation');
 	}
 
 	function reservasi($message = ''): void
@@ -38,13 +64,13 @@ class Creservasi extends CI_Controller
 
 		if (!empty($upload['reservasi_id'])) {
 			// Set peminjam notification
-			$this->notification->setPeminjamNotification(
+			$this->notification->setNotification(
 				'101',
 				$upload['reservasi_id']->reservasi_id
 			);
 
 			// Set Pimpinan Notification
-			$this->notification->setPimpinanNotification(
+			$this->notification->setNotification(
 				'201',
 				$upload['reservasi_id']->reservasi_id
 			);
