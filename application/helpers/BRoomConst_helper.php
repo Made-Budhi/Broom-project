@@ -5,6 +5,7 @@ class StatusReservasi
 	const DITERIMA = 'Diterima';
 	const DITOLAK = 'Ditolak';
 	const MENUNGGU = 'Menunggu';
+	const DIBATALKAN = 'Dibatalkan';
 }
 
 class AccountRole
@@ -28,4 +29,11 @@ class NotificationType
 	const PEMINJAM_DIBATALKAN = 104;
 	const PIMPINAN_DIAJUKAN = 201;
 	const PENGELOLA_DINOTIFIKASI = 301;
+	const PENGELOLA_MEMBATALKAN = 302;
+}
+
+class Verification
+{
+	const REGISTER = 0;
+	const OTP = 1;
 }

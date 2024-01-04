@@ -21,10 +21,6 @@ class Mreservasi extends CI_Model
 		$query = $this->db->select('*,
 				Reservasi.status as reservasi_status')->from("Reservasi")
 				->join(
-				"Peminjam",
-				"Reservasi.peminjam_id = Peminjam.id",
-				"inner")
-				->join(
 				"Ruangan",
 				"Reservasi.ruangan_id = Ruangan.id",
 				"inner")
@@ -64,5 +60,33 @@ class Mreservasi extends CI_Model
 		}
 		
 		return $result;
+	}
+
+	/**
+	 * Get all reservation for pengelola's reservation menu
+	 *
+	 * @return array|object
+	 */
+	function getAllReservation(): array|object
+	{
+		return $this->db->select('*, 
+		Reservasi.status as reservasi_status,
+		Peminjam.name as peminjam,
+		Pimpinan.name as pimpinan,
+		Ruangan.name as ruangan')
+			->from('Reservasi')
+			->join('Peminjam', 'Peminjam.id = peminjam_id')
+			->join('Pimpinan', 'Pimpinan.id = pimpinan_id')
+			->join('Ruangan', 'Ruangan.id = ruangan_id')
+			->get()->result();
+	}
+
+	function cancelReservation($id, $message)
+	{
+		$this->db
+			->set('status', statusReservasi::DIBATALKAN)
+			->set('status_message', $message)
+			->where('reservasi_id', $id)
+			->update('Reservasi');
 	}
 }

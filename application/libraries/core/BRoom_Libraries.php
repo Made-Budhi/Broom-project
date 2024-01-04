@@ -2,7 +2,6 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * @property CI_Controller $CI
  * @property CI_Email $email
  * @property CI_Config $config
  * @property CI_Lang $lang
@@ -10,15 +9,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 abstract class BRoom_Libraries
 {
+	protected CI_Controller $CI;
+	
 	public function __construct()
 	{
 		$this->CI = &get_instance();
-		$this->email = &load_class('Email');
-		$this->config = &load_class('Config', 'core');
-		$this->lang = &load_class('Lang', 'core');
-		
-		if (isset($this->CI->session)) {
-			$this->session = $this->CI->session;
+	}
+	
+	public function __get(string $name)
+	{
+		if (!property_exists($this->CI, $name)) {
+			show_error('property: <strong>' .$name . '</strong> not exist.');
 		}
+		
+		return $this->CI->$name;
 	}
 }

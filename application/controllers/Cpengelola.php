@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * 
  */
 
-class Cpengelola extends CI_Controller
+class Cpengelola extends Broom_Controller
 {
 	public function __construct()
     {
