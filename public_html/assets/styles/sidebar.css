@@ -85,14 +85,14 @@ html{
 		@media screen and (max-width:575px){
 			*:not(i){
 				width: 100%;
-				font-size: 80%;
+				font-size: 90%;
 
 			}
 
 			@media screen and (max-width:575px){
 				*:not(i){
 					width: 100%;
-					font-size: 75%;
+					font-size: 85%;
 					overflow-x:hidden;
 				}
 				
@@ -105,7 +105,7 @@ html{
 				@media screen and (max-width:365px){
 					*:not(i){
 						width: 100%;
-						font-size: 70%;
+						font-size: 80%;
 						overflow-x:hidden;
 					}
 					

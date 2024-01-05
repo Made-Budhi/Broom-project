@@ -39,9 +39,15 @@
 							<i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span>
 						</a>
 
-                        <a href="<?=  site_url('Cpengelola/data_akun') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
-							<i class="fa-solid fa-users-gear fa-lg p-2"></i> <span>Data Akun</span>
-						</a>
+						<div class="dropdown">
+							<button class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fa-solid fa-users-gear fa-lg p-2"></i> <span>Data Akun</span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="<?=  site_url('Cpengelola/data_pimpinan') ?>"">Data Pimpinan</a></li>
+								<li><a class="dropdown-item" href="<?=  site_url('Cpengelola/data_peminjam') ?>"">Data Peminjam</a></li>
+							</ul>
+						</div>
 
 						<a href="<?= site_url('Cpengelola/reservasi') ?>"
 					   	class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
