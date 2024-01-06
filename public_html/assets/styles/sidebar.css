@@ -10,12 +10,12 @@ html{
 	width: 10px;
 }
 ::-webkit-scrollbar-thumb {
-	background: #ddd; 
+	background: #ddd;
 	border-radius: 100px;
 	height: 5%;
 }
 ::-webkit-scrollbar-thumb:hover {
-	background: #333; 
+	background: #333;
 }
 
 .gabarito{
@@ -51,16 +51,9 @@ html{
 	width: fit-content;
 	height: fit-content;
 }
-.dropdown-menus{
-	position: absolute;
-	top: 0 !important;
-}
-.dropdown-center{
-	position: relative;
-}
 
 @media screen and (max-width:1280px){
-	.tablet-mode, .menubutton>a>span, .dropdown-center>a>span{
+	.tablet-mode, .menubutton>a>span{
 		display: none !important;
 	}
 	.menubar{
