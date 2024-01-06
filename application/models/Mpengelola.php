@@ -23,12 +23,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     function jejakreservasi($id){
 		$hasil = array();
-        $query = $this->db->select()->from('Reservasi')
+        $query = $this->db->select('*, 
+		Reservasi.status as reservasi_status'
+        )->from('Reservasi')
                 ->join(
                     "Ruangan",
                     "Reservasi.ruangan_id = Ruangan.id",
                     "inner"
-                )->where('Reservasi.peminjam_id',$id)->get();
+                )
+                ->where('Reservasi.peminjam_id',$id)->get();
   
 		foreach ($query->result() as $row) 
 		{
