@@ -16,6 +16,7 @@ class Cdashboard extends Broom_Controller
 		parent::__construct();
 		$this->load->model('Mreservasi', 'reservasi');
 		$this->load->model('Mnotification', 'notification');
+		$this->load->language('BRoomNotification');
 		$this->current_session = $this->session->get_userdata();
 	}
 
@@ -27,7 +28,6 @@ class Cdashboard extends Broom_Controller
 		$html['current_uri'] 	= "dashboard";
 		
 		// Determine which page should be loaded.
-		// TODO: change the correct view to corresponding role
 		// ps: we can use $data['hasil'] = array(); to store more than one value
 		switch ($role) {
 			case 'Peminjam':
@@ -43,15 +43,13 @@ class Cdashboard extends Broom_Controller
 			break;
 
 			case 'Pengelola':
-				$this->load->language('BRoomNotification');
-
 				$data['hasil']		= array(
 					'notifikasi'	=> $this->notification->getPengelolaNotification(),
 					'message'		=> $this->lang->line('notification_empty')
 				);
 				$view['content'] 	= 'menu_pengelola/notification';
 				$view['sidebar'] 	= 'layouts/sidebar_pengelola';
-				$html['current_uri'] 	= "notification";
+				$html['current_uri'] 	= "notifikasi";
 			break;
 
 			default:
