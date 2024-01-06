@@ -26,35 +26,23 @@ class Cdashboard extends Broom_Controller
 		$view = array();
 		
 		// Determine which page should be loaded.
-		// TODO: change the correct view to corresponding role
 		// ps: we can use $data['hasil'] = array(); to store more than one value
 		switch ($role) {
-			case 'Peminjam':
+			case AccountRole::PEMINJAM:
 				$data['hasil'] 		= $this->reservasi->tampildata('peminjam_id');
 				$view['content'] 	= 'menu_peminjam/dashboard';
 				$view['sidebar'] 	= 'layouts/sidebar';
-			break;
+				break;
 
-			case 'Pimpinan':
+			case AccountRole::PIMPINAN:
 				$data['hasil'] 		= $this->reservasi->get_data_assigned();
 				$view['content'] 	= 'menu_pimpinan/dashboard';
 				$view['sidebar'] 	= 'layouts/sidebar_pimpinan';
-			break;
+				break;
 
-			case 'Pengelola':
-				$this->load->language('BRoomNotification');
-
-				$data['hasil']		= array(
-					'notifikasi'	=> $this->notification->getPengelolaNotification(),
-					'message'		=> $this->lang->line('notification_empty')
-				);
-				$view['content'] 	= 'menu_pengelola/notification';
-				$view['sidebar'] 	= 'layouts/sidebar_pengelola';
-			break;
-
-			default:
-				// TODO: direct to login views & give warn
-			break;
+			case AccountRole::PENGELOLA:
+				redirect('notifications');
+				break;
 		}
 
 		$data['sessions'] = $this->session->userdata;

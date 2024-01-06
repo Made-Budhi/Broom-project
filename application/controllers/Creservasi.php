@@ -10,46 +10,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Upload $uploadlogokiri
  * @property CI_Upload $uploadlogokanan
  * @property CI_Session $session
+ * @property CI_Input $input
  */
 class Creservasi extends Broom_Controller
 {
+	private array $current_session;
+	
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Mpdf', 'pdf');
 		$this->load->model('Mnotification', 'notification');
 		$this->load->model('Mreservasi', 'reservasi');
-    $this->load->model('Mpemimpin', 'pemimpin');
+    	$this->load->model('Mpemimpin', 'pemimpin');
+		$this->current_session = $this->session->get_userdata();
 	}
-
+	
 	/**
 	 * Reservation data for pengelola
 	 *
 	 * @return void
 	 */
-	function pengelolaReservation(): void
-	{
-		$data['reservation'] 	= $this->reservasi->getAllReservation();
-		$html['content']		= $this->load->view('menu_pengelola/reservation', $data, true);
-		$this->load->view('layouts/sidebar_pengelola', $html);
-	}
-
-	function cancelReservation()
-	{
-		$id 		= $this->input->post('reservasi_id');
-		$message	= $this->input->post('message');
-
-		$this->reservasi->cancelReservation($id, $message);
-		$this->notification->setNotification(302, $id);
-		$this->notification->setNotification(104, $id);
-
-		redirect(site_url().'creservasi/pengelolaReservation');
-	}
-
 	function index(): void
 	{
-		$html['content'] = $this->load->view('menu_peminjam/reservasi', null, true);
-		$this->load->view('layouts/sidebar', $html);
+		$role = $this->current_session['role'];
+		$data = array();
+		$view = array();
+		
+		// Determine which page should be loaded.
+		switch ($role) {
+			case AccountRole::PEMINJAM:
+				$view['content'] 	= 'menu_peminjam/reservasi';
+				$view['sidebar'] 	= 'layouts/sidebar';
+				break;
+				
+			case AccountRole::PIMPINAN:
+				// add variable and get DATABASE reservasi
+				$data['hasil'] = $this->pemimpin->pesetujuan();
+				$view['content'] = 'menu_pimpinan/persetujuan';
+				$view['sidebar'] 	= 'layouts/sidebar_pimpinan';
+				break;
+			
+			case AccountRole::PENGELOLA:
+				$data['reservation']	= $this->reservasi->getAllReservation();
+				$view['content'] 		= 'menu_pengelola/reservation';
+				$view['sidebar'] 		= 'layouts/sidebar_pengelola';
+				break;
+		}
+		
+		$html['content'] = $this->load->view($view['content'], $data, true);
+		$this->load->view($view['sidebar'], $html);
 	}
 
 	function uploadpdf(): void
@@ -64,7 +74,7 @@ class Creservasi extends Broom_Controller
 		// Perform the upload in models
 		$uploaded = $this->pdf->pdfUpload($data);
 
-		if (!empty($upload->reservasi_id)) {
+		if (!empty($uploaded->reservasi_id)) {
 			// Set peminjam notification
 			$this->notification->setNotification(
 				NotificationType::PEMINJAM_MENGAJUKAN,
@@ -110,6 +120,52 @@ class Creservasi extends Broom_Controller
 	{
 		$data = $this->pemimpin->getDocument($id);
 		$this->pdf->pdfPreview($data);
+	}
+	
+	function detail($reservasi_id): void
+	{
+		// add variable and get DATABASE reservasi
+		$data['hasil'] = $this->pemimpin->lengkap($reservasi_id);
+		$data['content']=$this->load->view('menu_pimpinan/persetujuan_detail',$data,TRUE);
+		$this->load->view('layouts/sidebar_pimpinan',$data);
+	}
+	
+	function cancel(): void
+	{
+		$id 		= $this->input->post('reservasi_id');
+		$message	= $this->input->post('message');
+		
+		$this->reservasi->cancel($id, $message);
+		$this->notification->setNotification(
+				NotificationType::PENGELOLA_MEMBATALKAN,
+				$id);
+		$this->notification->setNotification(
+				NotificationType::PEMINJAM_DIBATALKAN,
+				$id);
+		
+		redirect('reservation');
+	}
+	
+	function decision($reservasi_id, $status): void
+	{
+		$this->pemimpin->keputusan($reservasi_id, $status);
+		
+		// Set notification to peminjam
+		$type = match ($status) {
+			'accept' => NotificationType::PEMINJAM_DISETUJUI,
+			'deny' => NotificationType::PEMINJAM_DITOLAK
+		};
+		
+		// Notify pengelola when a reservation is approved
+		if ($type == NotificationType::PEMINJAM_DISETUJUI) {
+			$this->notification->setNotification(
+					NotificationType::PENGELOLA_DINOTIFIKASI, $reservasi_id);
+		}
+		
+		// Notify peminjam
+		$this->notification->setNotification($type, $reservasi_id);
+		
+		redirect(base_url('reservation'));
 	}
 
 	function _imageUploadHandler(): array

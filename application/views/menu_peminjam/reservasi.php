@@ -210,12 +210,12 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		const buttonpengajuan 	= document.getElementById('pengajuan-reservasi');
 
 		buttonpreview.addEventListener('click', function(e) {
-			form.action = "<?php echo site_url('creservasi/previewpdf') ?>";
+			form.action = "<?php echo site_url('reservation/previewpdf') ?>";
 			form.submit();
 		});
 
 		buttonpengajuan.addEventListener('click', function(e) {
-			form.action = "<?php echo site_url('creservasi/uploadpdf') ?>";
+			form.action = "<?php echo site_url('reservation/uploadpdf') ?>";
 			form.submit();
 		});
 

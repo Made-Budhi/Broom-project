@@ -31,13 +31,16 @@ class BRoom_Verify extends BRoom_Libraries
 		$this->email
 				->from($this->configs['from'], $this->configs['name']);
 		$this->email->to($email);
-		$this->email->subject($this->lang->line('email_verification_subject'));
 		
 		if ($is_otp) {
 			$token = $this->_create_random(Verification::OTP);
+			$this->email->subject($this->lang
+					->line('email_verification_otp'));
 			$data['type'] = Verification::OTP;
 		} else {
 			$token = $this->_create_random(Verification::REGISTER);
+			$this->email->subject($this->lang
+					->line('email_verification_register'));
 			$data['type'] = Verification::REGISTER;
 		}
 		$data['code'] = $token;

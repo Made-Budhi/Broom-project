@@ -1,46 +1,43 @@
 <?php
 /**
  * @property CI_DB $db
+ * @property CI_Input $input
  */
 class Mrooms extends CI_Model {
 
-    function tampildata($id)
+    function tampildata($id): array|string
     {
+        $hasil = array();
         $start=$this->input->post('tgl');
-        $sql="SELECT * FROM Reservasi WHERE ('$start' BETWEEN date_start AND date_end) AND ruangan_id = '$id';";
-        $query=$this->db->query($sql);
-        if ($query->num_rows()>0)
-        {
-            foreach ($query->result() as $row)
-            {
+        $query = $this->db->select()->from('Reservasi')
+                ->where_in('date_start', $start)->where_in('date_end', $start)
+                ->where('ruangan_id', $id)->get();
+        
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
                 $hasil[]=$row;
-            }	
-        }
-        else
-        {
+            }
+        } else {
             $hasil="";	
         }
-        return $hasil;	
+        
+        return $hasil;
     }
 
-    function tampilgedung()
+    function tampilgedung(): array|string
     {
-        $sql="SELECT * FROM Ruangan";
-        $query=$this->db->query($sql);
-        if ($query->num_rows()>0)
-        {
-            foreach ($query->result() as $row)
-            {
+        $hasil = array();
+        $query=$this->db->select()->from('Ruangan')->get();
+        
+        if ($query->num_rows()>0) {
+            foreach ($query->result() as $row) {
                 $hasil[]=$row;
             }	
-        }
-        else
-        {
+        } else {
             $hasil="";	
         }
-        return $hasil;	
+        
+        return $hasil;
     }
 
 }
-
-?>

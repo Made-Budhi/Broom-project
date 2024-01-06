@@ -57,7 +57,7 @@ if ( ! function_exists('view_data')) {
 	{
 		if (empty($datas)) {
 			log_message('info', 'Data is not found or empty!');
-			unset($datas);
+			$datas = array();
 			return;
 		}
 		
@@ -69,14 +69,12 @@ if ( ! function_exists('view_data')) {
 		
 		$temps = $datas;
 		$result = null;
-		$datas = null;
 		
 		if (is_object($temps)) {
 			foreach ($names as $name)
 				$result[$name] = $temps->$name;
 			
 			$datas = (object)$result;
-			return;
 		} else if (is_array($temps)) {
 			foreach ($temps as $data) {
 				$is_object = is_object($data);
@@ -95,10 +93,7 @@ if ( ! function_exists('view_data')) {
 					break;
 				}
 			}
-			return;
 		}
-		
-		$datas = $temps;
 	}
 }
 

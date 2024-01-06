@@ -30,7 +30,7 @@
 				</div>
                 
                 <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
-						<a href="<?= site_url('cdashboard') ?>"
+						<a href="<?= site_url('notifications') ?>"
 						class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span>
 						</a>
@@ -44,7 +44,7 @@
 							<i class="fa-solid fa-users-gear fa-lg p-2"></i> <span>Data Akun</span>
 						</a>
 
-						<a href="<?= site_url('creservasi/pengelolaReservation') ?>"
+						<a href="<?= site_url('reservation') ?>"
 					   	class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
 							<i class="fa-solid fa-file-circle-plus fa-lg p-2"></i> <span>Reservasi</span>
 						</a>
@@ -55,7 +55,7 @@
        	 					<i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
 						</a>
                   
-                        <a href="#" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
+                        <a href="<?= site_url('logout') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
                           </i> <span>Logout</span>
 						</a>
                 </div>

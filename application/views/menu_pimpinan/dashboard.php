@@ -37,7 +37,7 @@
   <tbody>
     <?php
     $no = 1;
-    view_data($hasil, 'date_assigned', 'reservasi_status', 'peminjam_name');
+    view_data($hasil, 'date_assigned', 'peminjam_name', 'reservasi_status');
     foreach ($hasil as $data):
     ?>
       <tr>

@@ -81,7 +81,7 @@ class Mreservasi extends CI_Model
 			->get()->result();
 	}
 
-	function cancelReservation($id, $message)
+	function cancel($id, $message): void
 	{
 		$this->db
 			->set('status', statusReservasi::DIBATALKAN)
