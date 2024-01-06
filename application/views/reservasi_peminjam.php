@@ -15,7 +15,7 @@
 view_data($hasil, 'name', 'purpose', 'reservasi_status', 'reservasi_id');
 if($hasil == NULL){
   echo "data kosong";
-}
+} else {
 ?>
 
 <table class="table table-bordered" >
@@ -54,7 +54,8 @@ foreach ($hasil as $data):
 
 <?php
 $no++;
-endforeach;
+endforeach; 
+}
 ?>
 
   </tbody>
