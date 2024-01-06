@@ -23,6 +23,7 @@ class Cnotification extends Broom_Controller
 		$data['message']	= $this->lang->line('notification_empty');
 		
 		$html['content'] = $this->load->view('menu_peminjam/notification', $data, true);
+		$html['current_uri'] 	= "notification";
 		$this->load->view('layouts/sidebar', $html);
 	}
 
@@ -33,6 +34,7 @@ class Cnotification extends Broom_Controller
 		$data['message']	= $this->lang->line('notification_empty');
 
 		$html['content'] = $this->load->view('menu_peminjam/notification', $data, true);
+		$html['current_uri'] 	= "notification";
 		$this->load->view('layouts/sidebar', $html);
 	}
 
@@ -42,6 +44,7 @@ class Cnotification extends Broom_Controller
 		$data['message']	= $this->lang->line('notification_empty');
 
 		$html['content'] = $this->load->view('menu_pimpinan/notification', $data, true);
+		$html['current_uri'] 	= "notification";
 		$this->load->view('layouts/sidebar_pimpinan', $html);
 	}
 
@@ -53,6 +56,7 @@ class Cnotification extends Broom_Controller
 		$data['message']	= $this->lang->line('notification_empty');
 
 		$html['content'] = $this->load->view('menu_pengelola/notification', $data, true);
+		$html['current_uri'] 	= "notification";
 		$this->load->view('layouts/sidebar_pengelola', $html);
 	}
 }

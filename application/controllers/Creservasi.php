@@ -19,7 +19,7 @@ class Creservasi extends Broom_Controller
 		$this->load->model('Mpdf', 'pdf');
 		$this->load->model('Mnotification', 'notification');
 		$this->load->model('Mreservasi', 'reservasi');
-    $this->load->model('Mpemimpin', 'pemimpin');
+    	$this->load->model('Mpemimpin', 'pemimpin');
 	}
 
 	/**
@@ -31,6 +31,7 @@ class Creservasi extends Broom_Controller
 	{
 		$data['reservation'] 	= $this->reservasi->getAllReservation();
 		$html['content']		= $this->load->view('menu_pengelola/reservation', $data, true);
+		$html['current_uri'] 	= "reservasi";
 		$this->load->view('layouts/sidebar_pengelola', $html);
 	}
 
@@ -49,6 +50,7 @@ class Creservasi extends Broom_Controller
 	function index(): void
 	{
 		$html['content'] = $this->load->view('menu_peminjam/reservasi', null, true);
+		$html['current_uri'] 	= "reservasi";
 		$this->load->view('layouts/sidebar', $html);
 	}
 

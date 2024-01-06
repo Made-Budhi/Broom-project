@@ -11,6 +11,9 @@
 		crossorigin="anonymous"
 	/>
     <link rel="stylesheet" href="<?= base_url('assets/styles/sidebar.css')?>">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
+	</style>
 	<title>Login Page</title>
 </head>
 <body>

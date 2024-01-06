@@ -24,6 +24,7 @@ class Cpimpinan extends Broom_Controller
 		// add variable TO Load Dashboard and put DATABASE from resevasi to table
         $data['content']=$this->load->view('menu_pimpinan/persetujuan',$reservasiM,TRUE);
 		// view layout with $data
+		$data['current_uri'] 	= "persetujuan";
 		$this->load->view('layouts/sidebar_pimpinan',$data);
 	}
 
@@ -34,6 +35,7 @@ class Cpimpinan extends Broom_Controller
 		// add variable TO Load Dashboard and put DATABASE from resevasi to table
         $data['content']=$this->load->view('menu_pimpinan/persetujuan_detail',$reservasiM,TRUE);
 		// view layout with $data
+		$data['current_uri'] 	= "persetujuan";
 		$this->load->view('layouts/sidebar_pimpinan',$data);
 	}
 

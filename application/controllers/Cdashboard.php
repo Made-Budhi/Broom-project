@@ -24,6 +24,7 @@ class Cdashboard extends Broom_Controller
 		$role = $this->current_session['role'];
 		$data = array();
 		$view = array();
+		$html['current_uri'] 	= "dashboard";
 		
 		// Determine which page should be loaded.
 		// TODO: change the correct view to corresponding role
@@ -50,6 +51,7 @@ class Cdashboard extends Broom_Controller
 				);
 				$view['content'] 	= 'menu_pengelola/notification';
 				$view['sidebar'] 	= 'layouts/sidebar_pengelola';
+				$html['current_uri'] 	= "notification";
 			break;
 
 			default:

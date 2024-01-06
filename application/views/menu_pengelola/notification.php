@@ -3,6 +3,7 @@
 <div class="d-flex flex-column-reverse">
 
 	<?php
+	//helper for sidebar style
 
 	if (!empty($hasil['notifikasi'])) {
 		foreach ($hasil['notifikasi'] as $data) {

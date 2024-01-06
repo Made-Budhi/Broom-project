@@ -23,6 +23,7 @@ class Cpengelola extends Broom_Controller
 	{
 		$peminjam['hasil'] = $this->pengelola->datasingkat();
         $data['content']=$this->load->view('view_peminjam',$peminjam,TRUE);
+		$data['current_uri'] 	= "data_akun";
 		$this->load->view('layouts/sidebar_pengelola',$data);
 	}
 
@@ -30,6 +31,7 @@ class Cpengelola extends Broom_Controller
 	{
 		$peminjam['hasil'] = $this->pengelola->jejakreservasi($id);
         $data['content']=$this->load->view('reservasi_peminjam',$peminjam,TRUE);
+		$data['current_uri'] 	= "reservasi";
 		$this->load->view('layouts/sidebar_pengelola',$data);
 	}
 	
