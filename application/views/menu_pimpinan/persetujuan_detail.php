@@ -8,8 +8,8 @@
 	</style>
 
 <?php
-    view_data($hasil);
-		foreach ($hasil as $data):
+view_data($hasil);
+foreach ($hasil as $data):
 ?>
 
 <div class="card mb-3 w-90 mx-auto" style="justify-content-center">

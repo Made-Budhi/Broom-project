@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Input $input
  * @property CI_Session $session
  * @property CI_DB $db
+ * @property CI_Lang $lang
  */
 class Maccount extends CI_Model
 {
@@ -14,6 +15,8 @@ class Maccount extends CI_Model
 	{
 		parent::__construct();
 		$this->load->library('accounts/BRoom_Verify', null, 'account_verify');
+		// TODO must add language mechanism
+		$this->load->language('BRoomAuth', 'indonesia');
 	}
 	
 	/**
@@ -29,7 +32,8 @@ class Maccount extends CI_Model
 		
 		// Fetching from database
 		$data = $this->db->select()->from('Account')
-				->where('email', $email)->where('password', $password)->get();
+				->where('email', $email)
+				->where('password', $password)->get();
 		
 		/*
 		 * Checking whether the data exists or not.
@@ -40,6 +44,14 @@ class Maccount extends CI_Model
 		if ($data->num_rows() > 0) {
 			
 			$accountData = $data->first_row();
+			
+			if (!$accountData->is_verif) {
+				$this->session->set_flashdata(
+						'loginerror',
+						$this->lang->line('email_not_verified')
+				);
+				redirect(site_url());
+			}
 			
 			// Join table account with related role
 			$roleData = $this->db->select()->from($accountData->role)->join(
@@ -60,9 +72,9 @@ class Maccount extends CI_Model
 		} else {
 			$this->session->set_flashdata(
 					'loginerror',
-					'Invalid e-mail or password.'
+					$this->lang->line('login_failed')
 			);
-			redirect(base_url());
+			redirect(site_url());
 		}
 	}
 	
@@ -87,8 +99,7 @@ class Maccount extends CI_Model
 				"email" => $email,
 				"password" => $password,
 				"token" => $token,
-			// TODO: can set default value from Database
-				"role" => "Peminjam"
+				"role" => AccountRole::PEMINJAM
 		);
 		unset($token);
 		$this->db->insert('Account', $data);
@@ -104,13 +115,14 @@ class Maccount extends CI_Model
 				"id" => $id,
 				"name" => $name,
 				"phone" => $phone,
-			// TODO: can set default value from Database
-				"role" => "Mahasiswa",
+				"role" => PeminjamRole::MAHASISWA,
 				"account_id" => $fkid
 		);
 		$this->db->insert('Peminjam', $data);
 		
-		echo "<script>alert('Data sudah disimpan, Silahkan Verifikasi');</script>";
+		$this->session->set_flashdata('email_verify',
+				$this->lang->line('register_success'));
+		redirect(site_url());
 	}
 	
 	/**
@@ -127,22 +139,24 @@ class Maccount extends CI_Model
 		
 		// Make sure the email has been verified before perform change password
 		$query = $this->db->select()->from('Account')
-				->where('email', $email)->where('token', 1)
+				->where('email', $email)->where('is_verif', 1)
 				->get();
 		
 		if ($query->num_rows() > 0) {
-			// TODO: can implement $this->CI->input->post() (equal to $_POST)
-			// TODO: -but must create form following Database field sequence
+			$this->account_verify->send_email($email, $otp, true);
 			$array = array(
 					'email' => $email,
-					'token' => $otp
+					'token' => $otp,
+					'has_verification' => true
 			);
 			
-			$this->account_verify->send_email($email, $otp, true);
-			$this->session->set_userdata($array);
+			$this->session->set_tempdata($array, null, 3600);
 		} else {
-			// TODO: need implement view
-			echo "<script>alert('Email belum terverifikasi!');</script>";
+			$this->session->set_flashdata(
+					'loginerror',
+					$this->lang->line('forgot_pass_failed')
+			);
+			redirect('login/forgot');
 		}
 	}
 	
@@ -169,10 +183,10 @@ class Maccount extends CI_Model
 			
 			$this->session->sess_destroy();
 			
-			redirect('cviews/loginpage');
+			redirect('login');
 		} else {
 			echo "failed";
-			redirect('chalaman/reset');
+			redirect('login/forgot');
 		}
 		
 	}
@@ -180,17 +194,17 @@ class Maccount extends CI_Model
 	/**
 	 * Get current user data's of session
 	 *
-	 * @return array|null
+	 * @return object
 	 */
-	public function get_current_account_data(): ?array
+	public function get_current_account_data(): object
 	{
-		$currentRole = $this->session->userdata('role');
+		$currentSession = $this->session->get_userdata();
 		
-		return $this->db->select()->from($currentRole)->join(
+		return $this->db->select()->from($currentSession['role'])->join(
 				'Account',
-				"Account.account_id = " . $currentRole . ".account_id",
+				"Account.account_id = " . $currentSession['role'] . ".account_id",
 				'inner'
-		)->get()->first_row('array');
+		)->where('id', $currentSession['id'])->get()->first_row();
 	}
 	
 	/**
@@ -203,12 +217,24 @@ class Maccount extends CI_Model
 	 */
 	public function edit(array $data): void
 	{
+		// TODO need refactor this logic
 		$currentSessionData = $this->session->userdata;
 		
 		$this->db->set('name', $data['account_name'])
 				->set('phone', $data['account_phone'])
 				->where('id', $currentSessionData['id'])
 				->update($currentSessionData['role']);
+	}
+	
+	function verify_email(string $token): void
+	{
+		$this->db->set('is_verif', 1)->where('token', $token)
+				->update('Account');
+	}
+	
+	public function logout(): void
+	{
+		$this->session->sess_destroy();
 	}
 }
 

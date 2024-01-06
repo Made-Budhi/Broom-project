@@ -10,7 +10,7 @@
 
 <div class="container mt-3">
 
-  <form name="*" method="post" action="<?php echo base_url('chalaman/newpass'); ?>">
+  <form name="*" method="post" action="<?= site_url('login/change_password'); ?>">
     <div class="mb-3 mt-3">
       <label>New Pass</label>
       <input type="text" class="form-control" name="password">

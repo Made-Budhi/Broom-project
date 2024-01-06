@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="<?= base_url('assets/styles/sidebar.css')?>">
+  <style>
+		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
+	</style>
 </head>
 <body>
 
@@ -20,11 +24,16 @@
 			<h3>Lupa Password</h3>
 			<small>Silahkan lengkapi informasi dibawah ini</small>
 		</div>
-		<form name="*" method="post" action="<?php echo base_url('cforgot/forgot'); ?>" class="w-75 d-flex flex-column gap-5">
-			<div class="mb-3 mt-3">
-				<label>Alamat Email</label>
-				<input type="email" class="form-control" name="email">
-				<small><strong>Tip : </strong>Pastikan alamat email anda benar</small>
+		<form name="*" method="post" action="<?php echo site_url('login/forgot/otp'); ?>" class="w-75 d-flex flex-column gap-5">
+      <?php
+      div_alert_error('loginerror');
+      div_alert_error('error');
+      ?>
+
+      <div class="mb-3 mt-3">
+        <label>Alamat Email</label>
+        <input type="email" class="form-control" name="email">
+        <small><strong>Tip : </strong>Pastikan alamat email anda benar dan sudah diverifikasi</small>
 			</div>
 		 
 			<div class="gap-2 d-flex flex-column">

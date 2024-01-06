@@ -1,13 +1,10 @@
 <?php
-
-if (empty($id))
-	$id = '';
-
+view_data($id);
 ?>
 
 <body>
 <div>
-    <form method="post" action="<?php echo site_url('crooms/calendar/' . $id) ?>">
+    <form method="post" action="<?php echo site_url('rooms/calendar/' . $id) ?>">
         <div class="mb-3">
             <label for="tgl">Input Tanggal</label>
             <input type="date" class="form-control w-50" name="tgl" id="tgl">
@@ -18,10 +15,6 @@ if (empty($id))
 </div>
 
 <div class="container" id="jadwal">
-	<?php
-	if (!empty($tabel)) {
-		echo $tabel;
-	}
-	?>
+	<?php view("tabel") ?>
 </div>
 </body>

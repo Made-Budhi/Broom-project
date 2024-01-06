@@ -11,3 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/userguide3/general/hooks.html
 |
 */
+
+$hook['session_check'][] = array(
+		'class'    => 'Session_validation',
+		'function' => 'check_session',
+		'filename' => 'Session_validation.php',
+		'filepath' => 'hooks',
+);

@@ -1,9 +1,7 @@
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 		rel="stylesheet"
@@ -11,7 +9,10 @@
 		crossorigin="anonymous"
 	/>
     <link rel="stylesheet" href="<?= base_url('assets/styles/sidebar.css')?>">
-	<title>Login Page</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
+	</style>
+    <title>Register Page</title>
 </head>
 <body>
 	<div class="container row vh-100 m-auto geologica">
@@ -53,7 +54,7 @@
 			<img src="<?= base_url("./assets/images/office.svg") ?>" class="d-md-none w-50 m-auto" alt="...">
 			<div class="d-block w-50">
 				<h3>Welcome!</h3>
-				<small>Sign in by entering information below</small>
+				<small>Sign Up by entering information below</small>
 			</div>
 
 			<?php
@@ -71,28 +72,43 @@
 			}
 			?>
 
-			<form action="<?= site_url('clogin/loginauth') ?>" method="post" class="d-flex flex-column gap-4 w-50">
+			<form name="formdaftar" method="post" action="<?php echo site_url('register/add'); ?>" class="d-flex flex-column gap-4 w-50">
 				<div>
 					<label for="email" class="d-block">E-mail</label>
 					<input type="text" name="email" id="email" class="w-100 rounded-2 border-1 opacity-10 form-control">
 				</div>
+
 				<div>
 					<label for="password" class="d-block">Password</label>
 					<input type="password" name="password" id="password" class="w-100 rounded-2 border-1 opacity-10 form-control">
 				</div>
 
-				<a href="<?= site_url('cviews/email') ?>" class="text-end d-block text-decoration-none text-info">Lupa Password?</a>
-				<input type="submit" value="Sign in" class="btn btn-primary d-block w-100 form-control mt-4">
-				<p class="fw-light text-center"> Tidak memiliki akun? <a href="<?= site_url('cviews/register') ?>" class="text-decoration-none text-body fw-normal">Buat akun</a>
-			</form>
-			
-			</p>
+				<div>
+					<label for="nomorinduk" class="d-block">Nomor Induk</label>
+					<input type="text" name="id" class="w-100 rounded-2 border-1 opacity-10 form-control">
+				</div>
 
+				<div>
+					<label for="nama" class="d-block">Nama</label>
+					<input type="text" name="name" class="w-100 rounded-2 border-1 opacity-10 form-control">
+				</div>
+				
+				<div>
+					<label for="phone" class="d-block">Telp</label>
+					<input type="text" name="phone" class="w-100 rounded-2 border-1 opacity-10 form-control">
+				</div>
+
+				<input type="submit" value="Sign up" class="btn btn-primary d-block w-100 form-control mt-4">
+				<p class="fw-light text-center"> Sudah memiliki akun? <a href="<?= site_url('login') ?>" class="text-decoration-none text-body fw-normal">Masuk Sekarang</a>
+			</form>
 		</div>
 	</div>
+<script>
+	function login()
+	{
+		window.open("<?php echo site_url()?>","_self");
+	}
+</script>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-	<script src="<?= base_url('js/settings/init.js'); ?>"></script>
-	
 </body>
 </html>

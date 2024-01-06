@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Mrooms $rooms
  * @property CI_Input $input
  */
-class Crooms extends CI_Controller
+class Crooms extends Broom_Controller
 {
 	public function __construct()
 	{
@@ -17,6 +17,7 @@ class Crooms extends CI_Controller
 	{
 		$tampilgedung['hasil'] = $this->rooms->tampilgedung();
 		$html['content'] = $this->load->view("menu_peminjam/roomlist", $tampilgedung, TRUE);
+		$html['current_uri'] 	= "ruangan";
 		$this->load->view("layouts/sidebar", $html);
 	}
 

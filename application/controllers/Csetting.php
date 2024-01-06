@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property CI_Session $session
  * @property Maccount $account
  */
-class Csetting extends CI_Controller
+class Csetting extends Broom_Controller
 {
 	
 	private array $current_session;
@@ -33,6 +33,7 @@ class Csetting extends CI_Controller
 		
 		$data['sessions'] = $this->session->userdata;
 		$html['content'] = $this->load->view('settings/index', $data, true);
+		$html['current_uri'] 	= "pengaturan";
 		$this->load->view($view['sidebar'], $html);
 	}
 	
