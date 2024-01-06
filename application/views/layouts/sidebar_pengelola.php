@@ -47,7 +47,7 @@
 					</button>
 					<ul class="dropdown-menu gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100">
 						<li><a class="dropdown-item" href="<?=  site_url('Cpengelola/data_pimpinan') ?>">Data Pimpinan</a></li>
-						<li><a class="dropdown-item" href="<?=  site_url('Cpengelola/data_peminjam') ?>">Data Peminjam</a></li>
+						<li><a class="dropdown-item" href="<?=  site_url('Cpengelola/data_akun') ?>">Data Peminjam</a></li>
 					</ul>
 				</div>
 
