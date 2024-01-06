@@ -9,31 +9,49 @@
 
 <h1>Data Peminjam</h1>
 
+<br>
+
+<table class="table table-bordered" >
+
+  <thead>
+  <th class="text-center" scope="col">No</th>
+  <th class="text-center" scope="col">Nama Lengkap</th>
+  <th class="text-center" scope="col">NIM</th>
+  <th class="text-center" scope="col">Telepon</th>
+  <th class="text-center" scope="col">Aksi</th>
+  </thead>
+
 <?php
 view_data($hasil, 'name', 'id', 'phone');
 $no=1;
 foreach ($hasil as $data):
 ?>
 
-<div class="card mb-3 w-90 mx-auto" style="justify-content-center">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h4> NIM : <?php echo $data->id ?></h4>
-            <p class="card-text">Nama : <?php echo $data->name ?></p>
-            <p class="card-text">Telp : <?php echo $data->phone ?></p>
-          </div>
+  <tbody>
+
+      <tr>
+        <td class="text-center">
+          <?php echo $no ?>
+        </td>
+        <td class="text-center">
+          <?php echo $data->name ?>
+        </td>
+        <td class="text-center">
+          <?php echo $data->id ?>
+        </td>
+        <td class="text-center">
+          <?php echo $data->phone ?>
+        </td>
+        <td class="text-center">
           <a href="<?= site_url('Cpengelola/jejak/' . $data->id) ?>" class="btn btn-primary">Daftar Reservasi</a>
-        </div>
-    </div>
-  </div>
-</div>
+        </td>
+      </tr>
 
 <?php
 $no++;
 endforeach;
 ?>
+
+  </tbody>
+</table>
+
