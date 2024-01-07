@@ -25,7 +25,7 @@ class Creservasi extends Broom_Controller
     	$this->load->model('Mpemimpin', 'pemimpin');
 		$this->current_session = $this->session->get_userdata();
 	}
-	
+
 	/**
 	 * Reservation data for pengelola
 	 *

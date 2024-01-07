@@ -44,6 +44,7 @@ class Cnotification extends Broom_Controller
 				break;
 		}
 		
+		$html['current_uri'] = "notification";
 		$data['notifikasi'] = $this->notification->getNotification();
 		$data['message'] = $this->lang->line('notification_empty');
 		$html['content'] = $this->load->view($view['content'], $data, true);

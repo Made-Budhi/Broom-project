@@ -44,7 +44,8 @@ class Cdashboard extends Broom_Controller
 				redirect('notifications');
 				break;
 		}
-
+		
+		$html['current_uri'] = "dashboard";
 		$data['sessions'] = $this->session->userdata;
 		$html['content'] = $this->load->view($view['content'], $data, true);
 		$this->load->view($view['sidebar'], $html);

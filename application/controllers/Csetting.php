@@ -31,6 +31,7 @@ class Csetting extends Broom_Controller
 		
 		$data['sessions'] = $this->session->userdata;
 		$html['content'] = $this->load->view('settings/index', $data, true);
+		$html['current_uri'] 	= "pengaturan";
 		$this->load->view($view['sidebar'], $html);
 	}
 	

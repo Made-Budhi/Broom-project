@@ -7,26 +7,31 @@
   @import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
 </style>
 
-<h1>Data Peminjam</h1>
+<h1>Data Reservasi Peminjam</h1>
 
 <br>
+
+<?php
+view_data($hasil, 'name', 'purpose', 'reservasi_status', 'reservasi_id');
+if($hasil == NULL){
+  echo "data kosong";
+} else {
+?>
 
 <table class="table table-bordered" >
 
   <thead>
   <th class="text-center" scope="col">No</th>
-  <th class="text-center" scope="col">Nama Lengkap</th>
-  <th class="text-center" scope="col">NIM</th>
-  <th class="text-center" scope="col">Telepon</th>
+  <th class="text-center" scope="col">Nama Ruangan</th>
+  <th class="text-center" scope="col">Waktu</th>
+  <th class="text-center" scope="col">Status</th>
   <th class="text-center" scope="col">Aksi</th>
   </thead>
 
 <?php
-view_data($hasil, 'name', 'id', 'phone');
 $no=1;
 foreach ($hasil as $data):
 ?>
-
   <tbody>
 
       <tr>
@@ -37,19 +42,20 @@ foreach ($hasil as $data):
           <?php echo $data->name ?>
         </td>
         <td class="text-center">
-          <?php echo $data->id ?>
+          <?php echo $data->date_start ?>
         </td>
         <td class="text-center">
-          <?php echo $data->phone ?>
+          <?php echo $data->reservasi_status ?>
         </td>
         <td class="text-center">
-          <a href="<?= site_url('Cpengelola/jejak/' . $data->id) ?>" class="btn btn-primary">Daftar Reservasi</a>
+          <a target="_blank" href="<?= site_url('reservation/document/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail dokumen</a>
         </td>
       </tr>
 
 <?php
 $no++;
-endforeach;
+endforeach; 
+}
 ?>
 
   </tbody>

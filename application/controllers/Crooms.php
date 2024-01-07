@@ -17,6 +17,7 @@ class Crooms extends Broom_Controller
 	{
 		$tampilgedung['hasil'] = $this->rooms->tampilgedung();
 		$html['content'] = $this->load->view("menu_peminjam/roomlist", $tampilgedung, TRUE);
+		$html['current_uri'] 	= "ruangan";
 		$this->load->view("layouts/sidebar", $html);
 	}
 

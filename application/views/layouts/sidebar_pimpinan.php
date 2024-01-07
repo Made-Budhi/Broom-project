@@ -30,21 +30,21 @@
 				</div>
                 
                 <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
-                        <a href="<?= site_url('dashboard') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100">
+                        <a href="<?= site_url('dashboard') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'dashboard') ? 'btn-primary' : '' ?>">
 							<i class="fa fa-home fa-lg p-2"></i> <span>Dashboard</span>
 						</a>
 
-                        <a href="<?=  site_url('reservation') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+                        <a href="<?=  site_url('reservation') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'persetujuan') ? 'btn-primary' : '' ?>">
 							<i class="fa-solid fa-lg fa-file-signature p-2"></i> <span>Persetujuan</span>
 						</a>
 
                         <a href="<?= site_url('notifications') ?>"
-						   class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+						   class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'notifikasi') ? 'btn-primary' : '' ?>">
 							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span>
 						</a>
                         <span class="flex-grow-1 hide"></span>
                   
-						<a onclick="" href="<?= site_url('settings') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 ">
+						<a onclick="" href="<?= site_url('settings') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'pengaturan') ? 'btn-primary' : '' ?>">
        	 					<i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
 						</a>
                   
@@ -62,5 +62,7 @@
 
     </div>
 
+<script src="<?= base_url('js/settings/init.js'); ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
