@@ -58,6 +58,7 @@ class Creservasi extends Broom_Controller
 				break;
 		}
 		
+		$html['current_uri'] = "reservasi";
 		$html['content'] = $this->load->view($view['content'], $data, true);
 		$this->load->view($view['sidebar'], $html);
 	}

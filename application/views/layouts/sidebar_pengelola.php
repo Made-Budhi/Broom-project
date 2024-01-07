@@ -47,7 +47,7 @@
 					</button>
 					<ul class="dropdown-menu gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100">
 						<li><a class="dropdown-item" href="<?=  site_url('Cpengelola/data_pimpinan') ?>">Data Pimpinan</a></li>
-						<li><a class="dropdown-item" href="<?=  site_url('Cpengelola/data_akun') ?>">Data Peminjam</a></li>
+						<li><a class="dropdown-item" href="<?=  site_url('account/peminjam') ?>">Data Peminjam</a></li>
 					</ul>
 				</div>
 
@@ -62,7 +62,7 @@
 					<i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
 				</a>
 
-				<a href="<?= site_url('logout') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
+				<a href="<?= site_url('logout') ?>" class="btn gabarito btn-danger py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
 				  </i> <span>Logout</span>
 				</a>
 			</div>

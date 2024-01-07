@@ -33,31 +33,34 @@
 					</div>
 				</div>
                 
-                <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
-                        <a href="<?= site_url('dashboard') ?>" class="btn gabarito btn-primary py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'dashboard') ? 'btn-primary' : '' ?>">
+          <div class="menubutton mt-4 h-100 text-center d-flex flex-md-column text-md-center">
+            <a href="<?= site_url('dashboard') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'dashboard') ? 'btn-primary' : '' ?>">
 							<i class="fa fa-home fa-lg p-2"></i> <span>Dashboard</span>
 						</a>
 
-                        <a href="<?=  site_url('rooms') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'ruangan') ? 'btn-primary' : '' ?>">
+            <a href="<?=  site_url('rooms') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'ruangan') ? 'btn-primary' : '' ?>">
 							<i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span>
 						</a>
 
-                        <a href="<?= site_url('reservation') ?>"
+            <a href="<?= site_url('reservation') ?>"
 					   	class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'reservasi') ? 'btn-primary' : '' ?>">
 							<i class="fa-solid fa-file-circle-plus fa-lg p-2"></i> <span>Reservasi</span>
 						</a>
 
-                        <a href="<?= site_url('notifications') ?>"
+            <a href="<?= site_url('notifications') ?>"
 						   class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'notifikasi') ? 'btn-primary' : '' ?>">
-							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span></a>
-                        <span class="flex-grow-1 hide"></span>
+							<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span>
+            </a>
+            <span class="flex-grow-1 hide"></span>
                   
 						<a onclick="" href="<?= site_url('settings') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 <?= ((!empty($current_uri)) && $current_uri == 'pengaturan') ? 'btn-primary' : '' ?>">
-        				<i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
+              <i class="fa fa-gear px-2"></i> <span>Pengaturan</span>
+            </a>
                   
-                        <a href="<?= site_url('logout') ?>" class="btn gabarito py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
-                          </i> <span>Logout</span></a>
-                </div>
+              <a href="<?= site_url('logout') ?>" class="btn gabarito btn-danger py-2 mb-3 fs-5 rounded-3 text-start w-100 hide"><i class="fa-solid fa-right-from-bracket p-2">
+                </i> <span>Logout</span>
+              </a>
+          </div>
         </div>
 
         <!-- content  -->

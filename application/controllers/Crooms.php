@@ -15,6 +15,7 @@ class Crooms extends Broom_Controller
 
 	function index(): void
 	{
+		// TODO separate rooms controller each role
 		$tampilgedung['hasil'] = $this->rooms->tampilgedung();
 		$html['content'] = $this->load->view("menu_peminjam/roomlist", $tampilgedung, TRUE);
 		$html['current_uri'] 	= "ruangan";
