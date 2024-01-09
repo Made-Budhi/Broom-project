@@ -139,12 +139,11 @@ VALUES ('101', 'peminjam_mengajukan'),
 # For testing purpose
 
 INSERT INTO Ruangan
-VALUES (DEFAULT, 'Widya Guna-Guna', DEFAULT,
-        'Gedung berukuran 50 meter persegi yang keren', ''),
-       (DEFAULT, 'Widya Padma', DEFAULT,
-        'Gedung yang biasa digunakan sebagai gedung merayakan puncak acara suatu kegiatan',
-        ''),
-       (DEFAULT, 'Widya Graha', DEFAULT, 'Gedung rapat', '');
+VALUES (DEFAULT, 'Widya Guna-Guna', DEFAULT, '',
+        'Gedung berukuran 50 meter persegi yang keren'),
+       (DEFAULT, 'Widya Padma', DEFAULT, '',
+        'Gedung yang biasa digunakan sebagai gedung merayakan puncak acara suatu kegiatan'),
+       (DEFAULT, 'Widya Graha', DEFAULT, '','Gedung rapat');
 
 
 -- Inserting peminjam account
