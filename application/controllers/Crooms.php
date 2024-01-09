@@ -9,41 +9,68 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Crooms extends Broom_Controller
 {
+	private array $current_session;
+	private array $data = array();
+	private array $view = array();
+	private array $html = array('current_uri' => 'ruangan');
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model("Mrooms", "rooms");
+		$this->current_session = $this->session->get_userdata();
+		
+		$role = $this->current_session['role'];
+		
+		// Determine which page should be loaded.
+		switch ($role) {
+			case AccountRole::PEMINJAM:
+				$this->data['hasil'] = $this->rooms->tampilgedung();
+				$this->view['content'] = 'menu_peminjam/roomlist';
+				$this->view['sidebar'] = 'layouts/sidebar';
+				break;
+			
+			case AccountRole::PIMPINAN:
+				redirect('dashboard');
+				break;
+			
+			case AccountRole::PENGELOLA:
+				$this->data['hasil'] = $this->rooms->tampilgedung();
+				$this->view['content'] = 'menu_pengelola/roomlist';
+				$this->view['sidebar'] = 'layouts/sidebar_pengelola';
+				break;
+		}
 	}
 
 	function index(): void
 	{
-		// TODO separate rooms controller each role
-		$tampilgedung['hasil'] = $this->rooms->tampilgedung();
-		$html['content'] = $this->load->view("menu_peminjam/roomlist", $tampilgedung, TRUE);
-		$html['current_uri'] 	= "ruangan";
-		$this->load->view("layouts/sidebar", $html);
+		$this->html['content'] = $this->load
+				->view($this->view['content'], $this->data, true);
+		$this->load->view($this->view['sidebar'], $this->html);
 	}
 
 	function calendar($id): void
 	{
 		$tampildata['hasil'] = $this->rooms->tampildata($id);
-		$data = array(
+		$this->data = array(
 			'tabel' => $this->load->view('menu_peminjam/schedule', $tampildata, TRUE),
 			'id' => $id
 		);
 
-		$data['content'] = $this->load->view('menu_peminjam/calendar', $data, true);
-		$this->load->view('layouts/sidebar', $data);
+		$this->data['content'] = $this->load
+				->view('menu_peminjam/calendar', $this->data, true);
+		$this->load->view($this->view['sidebar'], $this->data);
 	}
 
 	function view(): void
 	{
-		$data = array(
+		$this->data = array(
 			'id' => $this->input->get('id')
 		);
 
-		$data['content'] = $this->load->view('menu_peminjam/calendar', $data, true);
-		$this->load->view('layouts/sidebar', $data);
+		$this->data['content'] = $this->load
+				->view('menu_peminjam/calendar', $this->data, true);
+		$this->load->view($this->view['sidebar'], $this->data);
 	}
 	
 	function search(): void
