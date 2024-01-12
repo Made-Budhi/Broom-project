@@ -40,7 +40,8 @@
 					<a target="_blank" href="<?= site_url('reservation/document/' . $data->reservasi_id) ?>" class="btn btn-primary">Lihat Dokumen</a>
 
 					<!-- Button trigger modal-->
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?= $data->reservasi_id ?>">
+					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?= $data->reservasi_id ?>"
+					<?= $data->reservasi_status === StatusReservasi::DIBATALKAN ? 'disabled' : '' ?>>
 						Batalkan Reservasi
 					</button>
 				</td>
