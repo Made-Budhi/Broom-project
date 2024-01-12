@@ -81,6 +81,29 @@ class Mreservasi extends CI_Model
 			->get()->result();
 	}
 
+	/**
+	 * Checking 'Reservasi' date collision in between date the 'Peminjam' set
+	 * when filling the Reservation form.
+	 *
+	 * @param array $data
+	 * @return bool
+	 */
+	function check_reservation_collide(array $data)
+	{
+		$where = "Reservasi.ruangan_id = " . $data['ruangan'] . " AND (Reservasi.date_start 
+					BETWEEN '" . $data['dateStart'] . "' AND '" . $data['dateEnd'] . "'  
+					OR Reservasi.date_end BETWEEN '" . $data['dateStart'] . "' AND '" . $data['dateEnd'] . "') 
+					AND Reservasi.status = '" . StatusReservasi::DITERIMA . "'";
+
+		$data = $this->db->select()->from('Reservasi')
+			->where($where)->get()->num_rows();
+
+		if ($data > 0)
+			return false;
+		else
+			return true;
+	}
+
 	function cancel($id, $message): void
 	{
 		$this->db
