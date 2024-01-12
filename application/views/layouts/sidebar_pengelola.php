@@ -35,7 +35,7 @@
 					<i class="fa fa-bell fa-lg p-2"></i> <span>Notifikasi</span>
 				</a>
 
-				<a href="<?= site_url('#') ?>" class="btn gabarito  py-2 mb-3 fs-5 rounded-3 text-start w-100
+				<a href="<?= site_url('rooms') ?>" class="btn gabarito  py-2 mb-3 fs-5 rounded-3 text-start w-100
 					<?= ((!empty($current_uri)) && $current_uri == 'ruangan') ? 'btn-primary' : '' ?>">
 					<i class="fa-solid fa-xl fa-building p-2"></i> <span>Ruangan</span>
 				</a>

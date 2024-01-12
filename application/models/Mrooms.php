@@ -2,6 +2,8 @@
 /**
  * @property CI_DB $db
  * @property CI_Input $input
+ * @property CI_Loader $load
+ * @property CI_Upload $upload
  */
 class Mrooms extends CI_Model {
 
@@ -40,4 +42,22 @@ class Mrooms extends CI_Model {
         return $hasil;
     }
 
+	function search($searchStr): void
+	{
+		$searchStr = str_replace('%20', ' ', $searchStr);
+		
+		$results = $this->db->select('name, id')->from('Ruangan')
+				->like('name', $searchStr)->get()->result();
+		
+		livesearch($searchStr, $results);
+	}
+	
+	function add_room($data): void
+	{
+		$data['name'] = $this->input->post('name', true);
+		$data['status'] = $this->input->post('status', true);
+		$data['description'] = $this->input->post('description', true);
+
+		$this->db->insert('Ruangan', $data);
+	}
 }
