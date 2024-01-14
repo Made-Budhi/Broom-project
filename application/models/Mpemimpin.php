@@ -85,6 +85,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     return $data;
   }
+  
+  function get_data_pimpinan($id) 
+  {
+    return $this->db->select('Account.email, Pimpinan.name, Pimpinan.position, Pimpinan.id, Account.account_id, Account.password')
+      ->from('Account')
+      ->join('Pimpinan',
+              'Pimpinan.account_id = Account.account_id')
+      ->where('Account.account_id', $id)->get()->result();
+  }
+
 }
  
- ?>
+?>

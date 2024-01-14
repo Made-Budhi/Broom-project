@@ -26,7 +26,7 @@
 		</div>
 		<form name="*" method="post" action="<?php echo site_url('login/forgot/otp'); ?>" class="w-75 d-flex flex-column gap-5">
       <?php
-      div_alert_error('loginerror');
+      div_alert_error('login_error');
       div_alert_error('error');
       ?>
 

@@ -13,6 +13,9 @@
 	<!-- Menu peminjam styles -->
 	<link rel="stylesheet" href="<?= base_url('assets/styles/peminjam/reservasi.css')?>">
 
+	<!-- Jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
 	</style>
