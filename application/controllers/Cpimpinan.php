@@ -56,7 +56,7 @@ class Cpimpinan extends Broom_Controller
 		// Notify peminjam
 		$this->notification->setNotification($type, $reservasi_id);
 
-		redirect(base_url('cpimpinan/reservasiv'));
+		redirect(site_url('cpimpinan/reservasiv'));
     }
 
     function lihatPDF($reservasi_id): void
