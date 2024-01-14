@@ -9,7 +9,11 @@ class Mrooms extends CI_Model {
     {
         $hasil = array();
         $start=$this->input->post('tgl');
-        $query = $this->db->select()->from('Reservasi')
+        $query = $this->db->select('*, phone')->from('Reservasi')
+                ->join("Peminjam",
+                        "Reservasi.peminjam_id = Peminjam.id",
+                        "inner"
+                        )
                 ->where_in('date_start', $start)->where_in('date_end', $start)
                 ->where('ruangan_id', $id)->get();
         
