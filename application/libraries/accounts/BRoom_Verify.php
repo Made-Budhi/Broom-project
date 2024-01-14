@@ -20,11 +20,11 @@ class BRoom_Verify extends BRoom_Libraries
 	
 	/**
 	 * @param string $email
-	 * @param &$token
+	 * @param $generated_token
 	 * @param bool $is_otp
 	 * @return bool
 	 */
-	public function send_email(string $email, &$token,
+	public function send_email(string $email, $generated_token,
 							   bool   $is_otp = false): bool
 	{
 		$this->email->initialize($this->configs);
@@ -33,17 +33,15 @@ class BRoom_Verify extends BRoom_Libraries
 		$this->email->to($email);
 		
 		if ($is_otp) {
-			$token = $this->_create_random(Verification::OTP);
 			$this->email->subject($this->lang
 					->line('email_verification_otp'));
 			$data['type'] = Verification::OTP;
 		} else {
-			$token = $this->_create_random(Verification::REGISTER);
 			$this->email->subject($this->lang
 					->line('email_verification_register'));
 			$data['type'] = Verification::REGISTER;
 		}
-		$data['code'] = $token;
+		$data['code'] = $generated_token;
 		
 		$this->email->message($this->CI->load
 				->view('layouts/email', $data, true));
@@ -61,7 +59,7 @@ class BRoom_Verify extends BRoom_Libraries
 		return $send_status;
 	}
 	
-	private function _create_random($type): string|bool
+	public function create_random($type): string|bool
 	{
 		$value = null;
 		

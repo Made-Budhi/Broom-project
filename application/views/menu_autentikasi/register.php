@@ -58,18 +58,7 @@
 			</div>
 
 			<?php
-			// Shows error login message if there's any.
-			// TODO: must create hooks
-			$errormsg = $this->session->flashdata('loginerror');
-			if (!is_null($errormsg)) {
-				?>
-
-				<div>
-					<?= $errormsg ?>
-				</div>
-
-				<?php
-			}
+			div_alert_error('register_error');
 			?>
 
 			<form name="formdaftar" method="post" action="<?php echo site_url('register/add'); ?>" class="d-flex flex-column gap-4 w-50">

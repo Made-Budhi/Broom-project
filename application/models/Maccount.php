@@ -91,26 +91,34 @@ class Maccount extends CI_Model
 		$id = $this->input->post('id');
 		$name = $this->input->post("name");
 		$phone = $this->input->post("phone");
-		$token = '';
+		$token = $this->account_verify->create_random(Verification::REGISTER);
+		
+		// Check duplicate id
+		$duplicate_entry = $this->db->select()->from('Peminjam')
+				->where('id', $id)->get()->num_rows();
+		if (!empty($duplicate_entry)) {
+			$this->session
+					->set_flashdata('register_error',
+							$this->lang->line('register_duplicate_id'));
+			redirect('register');
+		}
 		
 		// Insert data email, password, and generated token to table account
-		$this->account_verify->send_email($email, $token);
 		$data = array(
 				"email" => $email,
 				"password" => $password,
 				"token" => $token,
 				"role" => AccountRole::PEMINJAM
 		);
-		unset($token);
 		$this->db->insert('Account', $data);
 		
-		// Build a variable to get account_id FROM table account
+		// Get account_id FROM table account
 		$fkdata = $this->db->select()->from('Account')
 				->where('email', $email)->where('password', $password)
 				->get()->first_row();
 		$fkid = $fkdata->account_id;
 		
-		// Insert data id, name, phone, & (account_id FROM variable $fkdata) TO table peminjam
+		// Insert data id, name, phone, & (id FROM Account) to table peminjam
 		$data = array(
 				"id" => $id,
 				"name" => $name,
@@ -120,8 +128,10 @@ class Maccount extends CI_Model
 		);
 		$this->db->insert('Peminjam', $data);
 		
+		$this->account_verify->send_email($email, $token);
 		$this->session->set_flashdata('email_verify',
 				$this->lang->line('register_success'));
+		
 		redirect(site_url());
 	}
 	
