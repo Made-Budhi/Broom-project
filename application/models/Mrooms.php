@@ -6,40 +6,20 @@
  * @property CI_Upload $upload
  */
 class Mrooms extends CI_Model {
-
-    function tampildata($id): array|string
+	/**
+	 * Shows all Ruangan
+	 *
+	 * @param string $id
+	 * @return string|object
+	 */
+    function tampilgedung($id = ""): array|object
     {
-        $hasil = array();
-        $start=$this->input->post('tgl');
-        $query = $this->db->select()->from('Reservasi')
-                ->where_in('date_start', $start)->where_in('date_end', $start)
-                ->where('ruangan_id', $id)->get();
-        
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $hasil[]=$row;
-            }
-        } else {
-            $hasil="";	
-        }
-        
-        return $hasil;
-    }
-
-    function tampilgedung(): array|string
-    {
-        $hasil = array();
-        $query=$this->db->select()->from('Ruangan')->get();
-        
-        if ($query->num_rows()>0) {
-            foreach ($query->result() as $row) {
-                $hasil[]=$row;
-            }	
-        } else {
-            $hasil="";	
-        }
-        
-        return $hasil;
+		if (empty($id))
+			return $this->db->select()->from('Ruangan')
+				->get()->result();
+		else
+			return $this->db->select()->from('Ruangan')
+				->where('id', $id)->get()->first_row();
     }
 
 	function search($searchStr): void
