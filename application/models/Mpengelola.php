@@ -62,8 +62,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			return $hasil;	
 		}
 
-		public function simpandata(): void
-		{
+	public function simpandata($data): void
+	{
 		// Retrieving data from user input post
 		$account_id = $this->input->post('account_id');
 		$id = $this->input->post('id');
@@ -71,86 +71,88 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		$email = $this->input->post("email");
 		$position = $this->input->post("position");
 		$password = $this->input->post("password");
+		$signature = $data['image'];
 		$token = '';
 		
-		if($account_id=="")
-		{
-		// Insert data email, password, and generated token to table account
-		$data = array(
+		if($account_id=="") {
+			// Insert data email, password, and generated token to table account
+			$data = array(
+					"email" => $email,
+					"password" => $password,
+					"token" => $token,
+					"role" => AccountRole::PIMPINAN,
+					"is_verif" => 1
+			);
+			unset($token);
+			$this->db->insert('Account', $data);
+			
+			// Build a variable to get account_id FROM table account
+			$fkdata = $this->db->select()->from('Account')
+					->where('email', $email)->where('password', $password)
+					->get()->first_row();
+			$fkid = $fkdata->account_id;
+			
+			// Insert data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
+			$data = array(
+					"id" => $id,
+					"name" => $name,
+					"position" => $position,
+					"account_id" => $fkid,
+					"signature" => $signature
+			);
+			$this->db->insert('Pimpinan', $data);
+			
+			echo "<script>alert ('data telah disimpan');</script>";
+			redirect(site_url('cpengelola/view_data_pimpinan'));
+		} else {
+			// Update data email, password, and generated token to table account
+			$data = array(
 				"email" => $email,
 				"password" => $password,
 				"token" => $token,
-				"role" => AccountRole::PIMPINAN,
-				"is_verif" => 1
-		);
-		unset($token);
-		$this->db->insert('Account', $data);
+				"role" => AccountRole::PIMPINAN
+			);
+			unset($token);
+			$this->db->where('account_id',$account_id);
+			$this->db->update('Account', $data);
 		
-		// Build a variable to get account_id FROM table account
-		$fkdata = $this->db->select()->from('Account')
-				->where('email', $email)->where('password', $password)
-				->get()->first_row();
-		$fkid = $fkdata->account_id;
-		
-		// Insert data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
-		$data = array(
+			// Update data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
+			$data = array(
 				"id" => $id,
 				"name" => $name,
 				"position" => $position,
-				"account_id" => $fkid
-		);
-		$this->db->insert('Pimpinan', $data);
-		
-		echo "<script>alert ('data telah disimpan');</script>";
-		redirect(site_url('cpengelola/view_data_pimpinan'));
-		} else {
-			// Update data email, password, and generated token to table account
-		$data = array(
-			"email" => $email,
-			"password" => $password,
-			"token" => $token,
-			"role" => AccountRole::PIMPINAN
-		);
-		unset($token);
-		$this->db->where('account_id',$account_id);
-		$this->db->update('Account', $data);
-	
-		// Update data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
-		$data = array(
-			"id" => $id,
-			"name" => $name,
-			"position" => $position
-		);
-		$this->db->where('account_id', $account_id);
-		$this->db->update('Pimpinan', $data);
-		
-		echo "<script>alert ('Data telah diedit');</script>";
-		redirect(site_url('cpengelola/view_data_pimpinan'));	
+				"signature" => $data['image']
+			);
+			$this->db->where('account_id', $account_id);
+			$this->db->update('Pimpinan', $data);
+			
+			echo "<script>alert ('Data telah diedit');</script>";
+			redirect(site_url('cpengelola/view_data_pimpinan'));	
 		}	
-		}
+	}
 
-		public function hapusdata($account_id)
+	public function hapusdata($account_id)
 	{
-    // Start a database transaction
-    $this->db->trans_start();
+		// Start a database transaction
+		$this->db->trans_start();
 
-    // Delete rows from the dependent table (pimpinan) first
-    $this->db->delete('pimpinan', array('account_id' => $account_id));
+		// Delete rows from the dependent table (pimpinan) first
+		$this->db->delete('pimpinan', array('account_id' => $account_id));
 
-    // Now, delete the row from the main table (Account)
-    $this->db->delete('Account', array('account_id' => $account_id));
+		// Now, delete the row from the main table (Account)
+		$this->db->delete('Account', array('account_id' => $account_id));
 
-    // Complete the transaction
-    $this->db->trans_complete();
+		// Complete the transaction
+		$this->db->trans_complete();
 
-    // Check for transaction success
-    if ($this->db->trans_status() === FALSE) {
-        // Something went wrong, handle the error
-        show_error('Error deleting data', 500);
-    } else {
-        // Transaction was successful, redirect
-        redirect('cpengelola/view_data_pimpinan','refresh');
-    }
+		// Check for transaction success
+		if ($this->db->trans_status() === FALSE) {
+			// Something went wrong, handle the error
+			show_error('Error deleting data', 500);
+		} else {
+			// Transaction was successful, redirect
+			redirect('cpengelola/view_data_pimpinan','refresh');
+		}
 	}
  }
  
