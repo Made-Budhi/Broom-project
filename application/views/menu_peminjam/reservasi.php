@@ -4,8 +4,6 @@ date_default_timezone_set('Asia/Makassar');
 $current_date = now();
 $formatted_date = format_indo(date('Y-m-d', $current_date));
 
-
-
 ?>
 
 <section class="reservasi">
@@ -45,23 +43,23 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		<br><br>
 
 		<label for="penyelenggara">Penyelenggara<span class="keterangan">*</span></label>
-		<input type="text" name="penyelenggara" id="penyelenggara">
+		<input type="text" name="penyelenggara" id="penyelenggara" required>
 
 		<br><br>
 
 		<div class="ketua-panitia">
 			<label for="nama-ketua-panitita">Ketua Panitia<span class="keterangan">*</span></label>
-			<input type="text" name="nama-ketua-panitia" id="nama-ketua-panitia">
+			<input type="text" name="nama-ketua-panitia" id="nama-ketua-panitia" required>
 
 			<br><br>
 
 			<label for="id-ketua-panitia">Nomor Induk Ketua Panitia<span class="keterangan">*</span></label>
-			<input type="text" name="id-ketua-panitia" id="id-ketua-panitia">
+			<input type="text" name="id-ketua-panitia" id="id-ketua-panitia" required>
 
 			<br><br>
 
 			<label for="ttd-ketua-panitia">Spesimen Tanda Tangan Ketua Panitia<span class="keterangan">*</span></label>
-			<input type="file" name="ttd-ketua-panitia" id="ttd-ketua-panitia">
+			<input type="file" name="ttd-ketua-panitia" id="ttd-ketua-panitia" required>
 		</div>
 
 		<br><hr><br>
@@ -70,7 +68,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		<h3>Ruangan</h3>
 
 		<label for="ruangan">Ruangan<span class="keterangan">*</span></label>
-		<select name="ruangan" id="ruangan">
+		<select name="ruangan" id="ruangan" required>
 			<option value="" selected disabled>Pilih Ruangan</option>
 
 			<?php
@@ -92,18 +90,18 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 		<div class="waktu-mulai">
 			<label for="tanggal-mulai">Tanggal Mulai<span class="keterangan">*</span></label>
-			<input type="date" name="tanggal-mulai" id="tanggal-mulai">
+			<input type="date" name="tanggal-mulai" id="tanggal-mulai" required>
 
 			<label for="jam-mulai">Jam<span class="keterangan">*</span></label>
-			<input type="time" name="jam-mulai" id="jam-mulai">
+			<input type="time" name="jam-mulai" id="jam-mulai" required>
 		</div>
 
 		<div class="waktu-selesai">
 			<label for="tanggal-selesai">Tanggal Selesai<span class="keterangan">*</span></label>
-			<input type="date" name="tanggal-selesai" id="tanggal-selesai">
+			<input type="date" name="tanggal-selesai" id="tanggal-selesai" required>
 
 			<label for="jam-selesai">Jam<span class="keterangan">*</span></label>
-			<input type="time" name="jam-selesai" id="jam-selesai">
+			<input type="time" name="jam-selesai" id="jam-selesai" required>
 		</div>
 
 		<br>
@@ -125,28 +123,28 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			<br>
 
 			<label for="nomor-dokumen">Nomor Dokumen<span class="keterangan">*</span></label>
-			<input type="text" name="nomor-dokumen" id="nomor-dokumen">
+			<input type="text" name="nomor-dokumen" id="nomor-dokumen" required>
 
 			<br>
 
 			<label for="lampiran">Lampiran<span class="keterangan">*</span></label>
-			<input type="text" name="lampiran" id="lampiran">
+			<input type="text" name="lampiran" id="lampiran" required>
 
 			<br>
 
 			<label for="perihal">Perihal<span class="keterangan">*</span></label>
-			<input type="text" name="perihal" id="perihal">
+			<input type="text" name="perihal" id="perihal" required>
 
 			<br>
 
 			<label for="kegiatan">Kegiatan<span class="keterangan">*</span></label>
-			<input type="text" name="kegiatan" id="kegiatan">
+			<input type="text" name="kegiatan" id="kegiatan" required>
 
 
 			<br><br>
 
 			<label for="pimpinan">Persetujuan Pimpinan<span class="keterangan">*</span></label>
-			<select name="pimpinan" id="pimpinan">
+			<select name="pimpinan" id="pimpinan" required>
 				<option value="" disabled selected>Pilih Pimpinan</option>
 
 				<?php
@@ -167,7 +165,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 		<div>
 			<label for="tembusan">Tembusan<span class="keterangan">*</span> (pisahkan dengan koma, tanpa spasi)</label><br>
-			<textarea name="tembusan" id="tembusan" cols="30" rows="10"></textarea>
+			<textarea name="tembusan" id="tembusan" cols="30" rows="10" required></textarea>
 		</div>
 
 		<br>
@@ -205,8 +203,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 	<br>
 
+	<input type="submit" value="Submit Button" id="submit-button" hidden>
 	<button type="submit" name="preview-doc" id="preview-doc" formtarget="_blank">Document Preview</button>
-	<input type="button" name="pengajuan-reservasi" id="pengajuan-reservasi" value="Ajukan Reservasi">
+	<input type="submit" name="pengajuan-reservasi" id="pengajuan-reservasi" value="Ajukan Reservasi">
 	<?= form_close() ?>
 
 	<script>
@@ -214,15 +213,16 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		const form 				= document.getElementById('form-reservasi');
 		const buttonpreview 	= document.getElementById('preview-doc');
 		const buttonpengajuan 	= document.getElementById('pengajuan-reservasi');
+		const submitButton		= document.getElementById('submit-button');
 
-		buttonpreview.addEventListener('click', function(e) {
+		buttonpreview.addEventListener('click', function() {
 			form.action = "<?php echo site_url('reservation/previewpdf') ?>";
-			form.submit();
+			submitButton.click();
 		});
 
-		buttonpengajuan.addEventListener('click', function(e) {
+		buttonpengajuan.addEventListener('click', function() {
 			form.action = "<?php echo site_url('reservation/uploadpdf') ?>";
-			form.submit();
+			submitButton.click();
 		});
 
 		// For Kostumisasi Lanjutan dropdown
@@ -230,7 +230,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		const labelKostumisasi 	= document.getElementById('label-kostumisasi');
 		const iconDropdown 		= document.getElementById('icon-dropdown');
 
-		labelKostumisasi.addEventListener('click', function(e) {
+		labelKostumisasi.addEventListener('click', function() {
 			console.log(iconDropdown)
 
 			if (checkKostumisasi.checked) {
@@ -244,8 +244,13 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		const pilihanLogoPnb 	= document.getElementById('pilihan-logo-pnb-ya');
 		const inputLogoKiri 	= document.getElementById('logo-kiri');
 
-		const pilihanOrganisasi = document.getElementById('pilihan-organisasi-tidak');
-		const namaOrganisasi	= document.getElementById('nama-organisasi');
+		const pilihanOrganisasi 	= document.getElementById('pilihan-organisasi-tidak');
+		const pilihanOrganisasiYa 	= document.getElementById('pilihan-organisasi-ya');
+		const namaOrganisasi		= document.getElementById('nama-organisasi');
+
+		pilihanOrganisasiYa.addEventListener('click', function () {
+			namaOrganisasi.setAttribute('required', 'true')
+		})
 
 		pilihanLogoPnb.addEventListener('click', function () {
 			inputLogoKiri.value = null;
@@ -253,6 +258,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 		pilihanOrganisasi.addEventListener('click', function () {
 			namaOrganisasi.value = null;
+			namaOrganisasi.removeAttribute('required')
 		});
 
 		$(document).ready(function() {
