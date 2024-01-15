@@ -9,17 +9,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cpengelola extends Broom_Controller
 {
+	private array $current_session;
+	private array $data = array();
+	private array $view = array();
+	private array $html = array('current_uri' => 'ruangan');
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Mpengelola', 'pengelola');
 		$this->load->model('Mpemimpin', 'pimpinan');
+		$this->current_session = $this->session->get_userdata();
+		
+		$role = $this->current_session['role'];
+		
+		// Determine which page should be loaded.
+		switch ($role) {
+			case AccountRole::PEMINJAM:
+				redirect('dashboard');
+				break;
+			
+			case AccountRole::PIMPINAN:
+				redirect('dashboard');
+				break;
+			
+			case AccountRole::PENGELOLA:
+				$this->data['hasil'] = $this->pengelola->tampildata();
+				$this->view['content'] = 'menu_pengelola/roomlist';
+				$this->view['sidebar'] = 'layouts/sidebar_pengelola';
+				break;
+		}
 	}
 	
 	//dummpy
 	function index(): void
 	{
-		$this->load->view('layouts/sidebar_pengelola');
+		$this->html['content'] = $this->load
+				->view($this->view['content'], $this->data, true);
+		$this->load->view($this->view['sidebar'], $this->html);
 	}
 	
 	function data_akun(): void
@@ -52,10 +79,21 @@ class Cpengelola extends Broom_Controller
 		echo json_encode($data);
 	}
 
-	function simpandata(): void
-	{
-		$this->pengelola->simpandata();
+	function simpandata(){
+		$config = array(
+			'upload_path' 	=> FCPATH . 'assets/images/signature_pimpinan/',
+			'allowed_types' => 'jpg|png',
+			'max_size' 		=> 0,
+			'max_width'		=> 0,
+			'max_height'	=> 0
+		);
+		
+		$this->load->library('upload', $config);
+		$data['image'] = upload_handler($this->upload, $config,
+				$this->view, 'signature');
 
+		var_dump($data);
+		$this->pengelola->simpandata($data);
 	}
 
 	function hapusdata($account_id): void
