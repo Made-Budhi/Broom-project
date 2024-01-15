@@ -6,7 +6,22 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 ?>
 
-<section class="reservasi">
+
+<div class="overflow-hidden h-100 row d-flex w-75 m-auto justify-content-center align-items-center" id="intro-reservasi">
+	<div class="align-items-start d-flex">
+		<div class="col">
+			<img src="<?= base_url("assets/svg/reservation-img.svg") ?>" alt="">
+		</div>
+		<div class="col d-flex gap-2 flex-column">
+			<h2>Ajukan reservasi hanya dalam genggaman</h2>
+			<p class="">Dapatkan kemudahan dalam mengakses jadwal peminjaman dan meminjam gedung yang tersedia di Kampus Politeknik Negeri Bali.</p>
+            <button class="text-center btn gabarito my-4 py-2 mb-3 fs-5 rounded-3 text-start w-100 btn-primary" onClick="toggleUnhide()">Buat Reservasi Baru</button>
+		</div>
+	</div>
+</div>
+
+<section class="reservasi d-none row gap-5 overflow-hidden">
+
 	<h1>Formulir</h1>
 	<p>Keterangan:</p>
 	<ul>
@@ -21,200 +36,237 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 	</div>
 
 	<?= form_open_multipart('', 'id="form-reservasi"') ?>
+
 	<div>
-		<!-- Data Peminjam: organisasi (opsional), penyelenggara, ketua-panitia (nama, id, ttd)  -->
-		<h3>Data Peminjam</h3>
-
-		<div class="pilihan-organisasi">
-			<label for="organisasi">Organisasi Mahasiswa?<span class="keterangan">*</span></label>
-
-			<label for="pilihan-organisasi-ya">Ya</label>
-			<input type="radio" name="pilihan-organisasi" id="pilihan-organisasi-ya" value="<?= true ?>">
-
-			<label for="pilihan-organisasi-tidak">Tidak</label>
-			<input type="radio" name="pilihan-organisasi" id="pilihan-organisasi-tidak" value="<?= false ?>" checked>
-
-			<div class="organisasi-tidak">
-				<label for="nama-organisasi">Nama Organisasi<span class="keterangan">**</span></label>
-				<input type="text" name="nama-organisasi" id="nama-organisasi">
-			</div>
+		<h1>Formulir</h1>
+		<p>Keterangan:</p>
+		<ul>
+			<li><span class="keterangan">*</span> : wajib</li>
+			<li><span class="keterangan">**</span> : wajib jika kondisi sebelumnya adalah iya/benar</li>
+		</ul>
+		
+		<div class="message">
+			<p><?php div_alert_info('message'); ?></p>
 		</div>
+	</div>
+	
+	<?= form_open_multipart('', 'id="form-reservasi" class="form-reservasi col-12 col-md-8  position-relative"') ?>
+	
+	<div class="wizard-v1-content">
+	<div class="wizard-form">
+	<form class="form-reservasi" id="form-reservasi" action="#" method="post">
+		        	<div id="form-total">
+		        		<!-- SECTION 1 -->
+			            <h2>
+			            	<span class="step-icon"><i class="fa-solid fa-check"></i></span>
+			            	<span class="step-number text-reset">Langkah 1</span>
+			            	<span class="step-text text-reset">Data Peminjam</span>
+			            </h2>
+			            <section>
+							<h3>Data Peminjam</h3>
 
-		<br><br>
+							<div class="pilihan-organisasi">
+								<label for="organisasi">Organisasi Mahasiswa?<span class="keterangan">*</span></label>
 
-		<label for="penyelenggara">Penyelenggara<span class="keterangan">*</span></label>
-		<input type="text" name="penyelenggara" id="penyelenggara" required>
+								<label for="pilihan-organisasi-ya">Ya</label>
+								<input type="radio" name="pilihan-organisasi" id="pilihan-organisasi-ya" value="<?= true ?>">
 
-		<br><br>
+								<label for="pilihan-organisasi-tidak">Tidak</label>
+								<input type="radio" name="pilihan-organisasi" id="pilihan-organisasi-tidak" value="<?= false ?>" checked>
 
-		<div class="ketua-panitia">
-			<label for="nama-ketua-panitia">Ketua Panitia<span class="keterangan">*</span></label>
-			<input type="text" name="nama-ketua-panitia" id="nama-ketua-panitia" required>
+								<div class="organisasi-tidak">
+									<label for="nama-organisasi">Nama Organisasi<span class="keterangan">**</span></label>
+									<input class="w-100 form-control" type="text" name="nama-organisasi" id="nama-organisasi">
+								</div>
+							</div>
 
-			<br><br>
+							<label for="penyelenggara">Penyelenggara<span class="keterangan">*</span></label>
+							<input class="w-100 form-control" type="text" name="penyelenggara" id="penyelenggara" required>
 
-			<label for="id-ketua-panitia">Nomor Induk Ketua Panitia<span class="keterangan">*</span></label>
-			<input type="text" name="id-ketua-panitia" id="id-ketua-panitia" required>
+							<div class="ketua-panitia">
+								<label for="nama-ketua-panitita">Ketua Panitia<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="text" name="nama-ketua-panitia" id="nama-ketua-panitia" required>
 
-			<br><br>
+								<label for="id-ketua-panitia">Nomor Induk Ketua Panitia<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="text" name="id-ketua-panitia" id="id-ketua-panitia" required>
 
-			<label for="ttd-ketua-panitia">Spesimen Tanda Tangan Ketua Panitia<span class="keterangan">*</span></label>
-			<input type="file" name="ttd-ketua-panitia" id="ttd-ketua-panitia" required>
-		</div>
+								<label for="ttd-ketua-panitia">Spesimen Tanda Tangan Ketua Panitia<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="file" name="ttd-ketua-panitia" id="ttd-ketua-panitia" required>
+							</div>
 
-		<br>
-		<hr>
-		<br>
-
-		<!-- Ruangan: ruangan, tanggal-mulai, jam-mulai, tanggal-selesai, jam-selesai -->
-		<h3>Ruangan</h3>
+							<!-- Ruangan: ruangan, tanggal-mulai, jam-mulai, tanggal-selesai, jam-selesai -->
 
 		<label for="ruangan">Ruangan<span class="keterangan">*</span></label>
 		<select name="ruangan" id="ruangan" required>
 			<option value="" selected disabled>Pilih Ruangan</option>
 
-			<?php
 
-			$dataruangan = $this->db->get('Ruangan')->result();
+							<h3>Ruangan</h3>
 
-			foreach ($dataruangan as $ruangan) {
+							<label for="ruangan">Ruangan<span class="keterangan">*</span></label>
+							<select class="w-100 form-control" name="ruangan" id="ruangan">
+								<option value="" selected disabled>Pilih Ruangan</option>
 
-				?>
 				<option value="<?= $ruangan->id ?>"><?= $ruangan->name ?></option>
 				<?php
+              $dataruangan = $this->db->get('Ruangan')->result();
+								foreach ($dataruangan as $ruangan) {
 
-			}
+								?>
+									<option value="<?= $ruangan->id ?>"><?= $ruangan->name ?></option>
+								<?php
 
-			?>
-		</select>
+								}
 
-		<br><br>
-
-		<div class="waktu-mulai">
-			<label for="tanggal-mulai">Tanggal Mulai<span class="keterangan">*</span></label>
-			<input type="date" name="tanggal-mulai" id="tanggal-mulai" required>
-
-			<label for="jam-mulai">Jam<span class="keterangan">*</span></label>
-			<input type="time" name="jam-mulai" id="jam-mulai" required>
-		</div>
-
-		<div class="waktu-selesai">
-			<label for="tanggal-selesai">Tanggal Selesai<span class="keterangan">*</span></label>
-			<input type="date" name="tanggal-selesai" id="tanggal-selesai" required>
-
-			<label for="jam-selesai">Jam<span class="keterangan">*</span></label>
-			<input type="time" name="jam-selesai" id="jam-selesai" required>
-		</div>
-
-		<br>
-		<div class="ketersediaan-ruangan" hidden>
-			<p id="ruangan-message"></p>
-			<p id="reservasi-message"></p>
-		</div>
-
-		<br>
-		<hr>
-		<br>
-
-		<!-- Data Dokumen -->
-
-		<h3>Data Dokumen</h3>
-
-		<div>
-			<label for="tanggal-pengajuan">Tanggal Pengajuan</label>
-			<input type="text" name="tanggal-pengajuan" value="<?= $formatted_date ?>" disabled>
-
-			<br>
-
-			<label for="nomor-dokumen">Nomor Dokumen<span class="keterangan">*</span></label>
-			<input type="text" name="nomor-dokumen" id="nomor-dokumen" required>
-
-			<br>
-
-			<label for="lampiran">Lampiran<span class="keterangan">*</span></label>
-			<input type="text" name="lampiran" id="lampiran" required>
-
-			<br>
-
-			<label for="perihal">Perihal<span class="keterangan">*</span></label>
-			<input type="text" name="perihal" id="perihal" required>
-
-			<br>
-
-			<label for="kegiatan">Kegiatan<span class="keterangan">*</span></label>
-			<input type="text" name="kegiatan" id="kegiatan" required>
+								?>
+							</select>
 
 
-			<br><br>
+							<div class="waktu-mulai">
+								<label for="tanggal-mulai">Tanggal Mulai<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="date" name="tanggal-mulai" id="tanggal-mulai" required>
 
-			<label for="pimpinan">Persetujuan Pimpinan<span class="keterangan">*</span></label>
-			<select name="pimpinan" id="pimpinan" required>
-				<option value="" disabled selected>Pilih Pimpinan</option>
+								<label for="jam-mulai">Jam<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="time" name="jam-mulai" id="jam-mulai" required>
+							</div>
 
-				<?php
+							<div class="waktu-selesai">
+								<label for="tanggal-selesai">Tanggal Selesai<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="date" name="tanggal-selesai" id="tanggal-selesai" required>
 
-				$datapimpinan = $this->db->get('Pimpinan')->result();
+								<label for="jam-selesai">Jam<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="time" name="jam-selesai" id="jam-selesai">
+							</div>
 
-				foreach ($datapimpinan as $pimpinan) {
-					?>
-					<option value="<?= $pimpinan->id ?>"><?= $pimpinan->position ?></option>
-					<?php
-				}
+							<br>
+							<div class="ketersediaan-ruangan" hidden>
+								<p id="ruangan-message"></p>
+								<p id="reservasi-message"></p>
+							</div>
 
-				?>
+						</section>		
+						<!-- SECTION 2 -->
+			            <h2>
+			            	<span class="step-icon"><i class="fa-solid fa-check"></i></span>
+			            	<span class="step-number text-reset">Langkah 2</span>
+			            	<span class="step-text text-reset">Data Dokumen</span>
+			            </h2>
+			            <section>
+							<h3>Data Dokumen</h3>
 
-			</select>
+							<div>
+								<label for="tanggal-pengajuan">Tanggal Pengajuan</label>
+								<input class="w-100 form-control" type="text" name="tanggal-pengajuan" value="<?= $formatted_date ?>" disabled>
 
-		</div>
 
-		<div>
-			<label for="tembusan">Tembusan<span class="keterangan">*</span> (pisahkan dengan koma, tanpa
-				spasi)</label><br>
-			<textarea name="tembusan" id="tembusan" cols="30" rows="10" required></textarea>
-		</div>
+								<label for="nomor-dokumen">Nomor Dokumen<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="text" name="nomor-dokumen" id="nomor-dokumen" required>
 
-		<br>
 
-		<!-- Kostumisasi Lanjutan: Kustom logo kiri dan kanan (default: logo kiri pnb, logo kanan kosong) -->
-		<h3>
-			<label for="kostumisasi-lanjutan" id="label-kostumisasi">
-				Kostumisasi Lanjutan
-				<i style="transition: .3s ease; transform: rotateZ(180deg)" class="fa-solid fa-caret-up"
-				   id="icon-dropdown"></i>
-			</label>
-		</h3>
-		<input type="checkbox" name="kostumisasi-lanjutan" id="kostumisasi-lanjutan">
+								<label for="lampiran">Lampiran<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="text" name="lampiran" id="lampiran" required>
 
-		<div class="kostumisasi-lanjutan">
-			<label for="logo-pnb">Sertakan Logo PNB</label>
 
-			<label for="pilihan-logo-pnb-ya">Ya</label>
-			<input type="radio" name="pilihan-logo-pnb" id="pilihan-logo-pnb-ya" value="<?= true ?>" checked>
+								<label for="perihal">Perihal<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="text" name="perihal" id="perihal" required>
 
-			<label for="pilihan-logo-pnb-tidak">Tidak</label>
-			<input type="radio" name="pilihan-logo-pnb" id="pilihan-logo-pnb-tidak" value="<?= false ?>">
+								<label for="kegiatan">Kegiatan<span class="keterangan">*</span></label>
+								<input class="w-100 form-control" type="text" name="kegiatan" id="kegiatan" required>
 
-			<div class="logo-kiri">
-				<label for="logo-kiri">Input Logo</label>
-				<input type="file" name="logo-kiri" id="logo-kiri">
+								<label for="pimpinan">Persetujuan Pimpinan<span class="keterangan">*</span></label>
+								<select class="w-100 form-control" name="pimpinan" id="pimpinan" required>
+									<option value="" disabled selected>Pilih Pimpinan</option>
+
+									<?php
+									$datapimpinan = $this->db->get('Pimpinan')->result();
+
+									foreach ($datapimpinan as $pimpinan) {
+									?>
+										<option value="<?= $pimpinan->id ?>"><?= $pimpinan->position ?></option>
+									<?php
+									}
+
+									?>
+
+								</select>
+
+							<div>
+								<label for="tembusan">Tembusan<span class="keterangan">*</span> (pisahkan dengan koma, tanpa spasi)</label><br>
+								<textarea class="w-100 form-control" name="tembusan" id="tembusan" cols="30" rows="10" required></textarea>
+							</div>
+
+							<h3>
+								<label for="kostumisasi-lanjutan" id="label-kostumisasi">
+									Kostumisasi Lanjutan
+									<i style="transition: .3s ease; transform: rotateZ(180deg)" class="fa-solid fa-caret-up" id="icon-dropdown"></i>
+								</label>
+							</h3>
+							<input class="w-100 form-control" type="checkbox" name="kostumisasi-lanjutan" id="kostumisasi-lanjutan">
+
+
+							<div class="kostumisasi-lanjutan">
+								<label for="logo-pnb">Sertakan Logo PNB</label>
+
+								<label for="pilihan-logo-pnb-ya">Ya</label>
+								<input class="" type="radio" name="pilihan-logo-pnb" id="pilihan-logo-pnb-ya" value="<?= true ?>" checked>
+
+								<label for="pilihan-logo-pnb-tidak">Tidak</label>
+								<input class="" type="radio" name="pilihan-logo-pnb" id="pilihan-logo-pnb-tidak" value="<?= false ?>">
+
+								<div class="logo-kiri">
+									<label for="logo-kiri">Input Logo</label>
+									<input class="w-100 form-control" type="file" name="logo-kiri" id="logo-kiri">
+								</div>
+
+								<br><br>
+
+								<label for="logo-kanan">Input Logo Kanan Header</label>
+								<input class="w-100 form-control" type="file" name="logo-kanan" id="logo-kanan">
+							</div>
+			            </section>
+			            
+		        	</div>
+		        </form>
 			</div>
-
-			<br><br>
-
-			<label for="logo-kanan">Input Logo Kanan Header</label>
-			<input type="file" name="logo-kanan" id="logo-kanan">
 		</div>
-
-	</div>
-
 	<br>
 
-	<input type="submit" value="Submit Button" id="submit-button" hidden>
-	<button type="submit" name="preview-doc" id="preview-doc" formtarget="_blank">Document Preview</button>
-	<input type="submit" name="pengajuan-reservasi" id="pengajuan-reservasi" value="Ajukan Reservasi">
+	<div class="col-md-3 col-12 text-center position-absolute top-50 end-0 translate-middle-y gap-4 me-5 fit-content p-3 ">
+		<img src="<?= base_url("assets/svg/reservation-note-img.svg") ?>" alt="">
+		<div class="d-flex flex-column gap-1">
+			<button class="btn btn-secondary w-100" type="submit" name="preview-doc" id="preview-doc" formtarget="_blank">Document Preview</button>
+			<button class="btn btn-primary w-100" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >Ajukan Reservasi</button>
+		</div>
+	</div>
+	<div class="modal fade border-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header d-flex flex-column text-center">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<img src="<?= base_url("assets/svg/reservation-upload-img.svg") ?>" alt="">
+				<h5 class="modal-title" id="exampleModalLabel">Reservasi akan diajukan</h5>
+			</div>
+			<div class="modal-body text-center w-100">
+				<p>Reservasi akan diajukan ke pimpinan. Konfirmasi dengan menekan tombol dibawah dan cek status di Dashboard</p>
+			</div>
+			<div class="modal-footer m-auto">
+				<button type="button" class="btn btn-primary" data-bs-dismiss="modal" name="pengajuan-reservasi" id="pengajuan-reservasi">Konfirmasi Pengajuan</button>
+			</div>
+			</div>
+		</div>
+	</div>
+
 	<?= form_close() ?>
 
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="<?= base_url('js/reservasi-steps/jquery.steps.js'); ?>"></script>
+	<script src="<?= base_url('js/reservasi-steps/main.js'); ?>"></script>
 	<script>
+
+		const toggleUnhide = () => {
+			document.querySelector("#intro-reservasi").classList.toggle("d-none");
+			document.querySelector(".reservasi").classList.toggle("d-none");
+		}
 		// Create different form action depending on user input
 		const form = document.getElementById('form-reservasi');
 		const buttonpreview = document.getElementById('preview-doc');
