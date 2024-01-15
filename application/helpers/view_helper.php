@@ -57,7 +57,7 @@ if ( ! function_exists('view_data')) {
 	{
 		if (empty($datas)) {
 			log_message('info', 'Data is not found or empty!');
-			unset($datas);
+			$datas = array();
 			return;
 		}
 		
@@ -69,14 +69,12 @@ if ( ! function_exists('view_data')) {
 		
 		$temps = $datas;
 		$result = null;
-		$datas = null;
 		
 		if (is_object($temps)) {
 			foreach ($names as $name)
 				$result[$name] = $temps->$name;
 			
 			$datas = (object)$result;
-			return;
 		} else if (is_array($temps)) {
 			foreach ($temps as $data) {
 				$is_object = is_object($data);
@@ -95,10 +93,7 @@ if ( ! function_exists('view_data')) {
 					break;
 				}
 			}
-			return;
 		}
-		
-		$datas = $temps;
 	}
 }
 
@@ -123,5 +118,30 @@ if ( ! function_exists('view_flashdata')) {
 		}
 		
 		return null;
+	}
+}
+
+if ( ! function_exists('livesearch')) {
+	function livesearch($searchStr, $results): void
+	{
+		//lookup all links from the xml file if length of q>0
+		if (strlen($searchStr) > 0) {
+			$hint = "";
+			foreach ($results as $data) {
+				//find a link matching the search text
+				$hint .= '<li><a class="dropdown-item" href="'.site_url('rooms/view?id='.$data->id).'">'.$data->name.'</a></li>';
+			}
+		}
+		
+		// Set output to "no suggestion" if no hint was found
+		// or to the correct values
+		if (empty($hint)) {
+			$response = '<li><span class="dropdown-item-text">no suggestion</span></li>';
+		} else {
+			$response = $hint;
+		}
+		
+		//output the response
+		echo $response;
 	}
 }

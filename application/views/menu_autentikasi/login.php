@@ -63,7 +63,7 @@
       // Shows error/information messages if there is.
       // TODO create a div or card board for messages
 	    div_alert_info("email_verify");
-	    div_alert_error('loginerror');
+	    div_alert_error('login_error');
       ?>
 
 			<form action="<?= site_url('login/auth') ?>" method="post" class="d-flex flex-column gap-4 w-50">

@@ -18,73 +18,18 @@ class Mnotification extends CI_Model
 		$this->db->insert('Notification', $data);
 	}
 	
-	function getNotification(): array
+	function getNotification(): object|array
 	{
 		$id = $this->session->userdata('id');
-		$role = strtolower( $this->session->userdata('role'));
-		$result = $this->db->select(
-				'Notification.type,
-				reservation_date,
-				reservation_date,
-				date_start,
-				date_end,
-				Ruangan.name,
-				position'
-		)->from('Notification')
-				->join('Reservasi',
-						'Reservasi.reservasi_id = Notification.reservasi_id')
-				->join('Ruangan',
-						'Ruangan.id = Reservasi.ruangan_id')
-				->join('Pimpinan',
-						'Pimpinan.id = Reservasi.pimpinan_id')
-				->where($role.'_id', $id)
-				->get()->result();
+		$role = $this->session->userdata('role');
 		
-		return $result;
+		return match ($role) {
+			AccountRole::PENGELOLA => $this->_getPengelolaNotification(),
+			default => $this->_getDefaultNotification($role, $id)
+		};
 	}
-
-	function getPeminjamNotification(): object|array
-	{
-		$currentSession = $this->session->get_userdata();
-		$id = $currentSession['id'];
-
-		return $this->db->select(
-		'Notification.type, 
-				reservation_date,
-				date_start, 
-				date_end, 
-				Ruangan.name,
-				position')
-				->from('Notification')
-				->join('Reservasi',
-						'Reservasi.reservasi_id = Notification.reservasi_id')
-				->join('Ruangan', 'Ruangan.id = Reservasi.ruangan_id')
-				->join('Pimpinan', 'Pimpinan.id = Reservasi.pimpinan_id')
-				->where('peminjam_id', $id)
-				->get()->result();
-	}
-
-	function getPemimpinNotification(): object|array
-	{
-		$session = $this->session->get_userdata();
-		$id = $session['id'];
-
-		return $this->db->select(
-		'Notification.type, 
-				reservation_date,
-				date_start, 
-				date_end, 
-				Ruangan.name,
-				position')
-		->from('Notification')
-		->join('Reservasi', 'Reservasi.reservasi_id = Notification.reservasi_id')
-		->where('pimpinan_id', $id)
-		->join('Ruangan', 'Ruangan.id = Reservasi.ruangan_id')
-		->join('Pimpinan', 'Pimpinan.id = Reservasi.pimpinan_id')
-		->get()->result();
-	}
-
-	function getPengelolaNotification(): object|array
+	
+	function _getPengelolaNotification(): object|array
 	{
 		return $this->db->select(
 		'*, Notification.type as type,
@@ -93,11 +38,33 @@ class Mnotification extends CI_Model
 				Peminjam.name as peminjam,
 				Pimpinan.name as pimpinan')
 		->from('Notification')
-		->where('type = 301 OR type = 302')
+		->where('type = 301')->or_where('type = 302')
 		->join('Reservasi', 'Reservasi.reservasi_id = Notification.reservasi_id')
 		->join('Ruangan', 'Ruangan.id = Reservasi.ruangan_id')
 		->join('Peminjam', 'Peminjam.id = Reservasi.peminjam_id')
 		->join('Pimpinan', 'Pimpinan.id = Reservasi.pimpinan_id')
 		->get()->result();
+	}
+	
+	function _getDefaultNotification($role, $id): object|array
+	{
+		return $this->db->select(
+				'Notification.type,
+				reservation_date,
+				date_start,
+				date_end,
+				Ruangan.name,
+				position')
+				->from('Notification')
+				->join('Reservasi',
+						'Reservasi.reservasi_id = Notification.reservasi_id')
+				->join('Ruangan',
+						'Ruangan.id = Reservasi.ruangan_id')
+				->join('Pimpinan',
+						'Pimpinan.id = Reservasi.pimpinan_id')
+				->join('Peminjam',
+						'Peminjam.id = Reservasi.peminjam_id')
+				->where(strtolower($role).'_id', $id)
+				->get()->result();
 	}
 }

@@ -23,8 +23,6 @@ class Csetting extends Broom_Controller
 		$role = $this->current_session['role'];
 		
 		// Determine which page should be loaded.
-		// TODO: change the correct view to corresponding role
-
 		$view['sidebar'] = match ($role) {
 			'Peminjam' => 'layouts/sidebar',
 			'Pimpinan' => 'layouts/sidebar_pimpinan',

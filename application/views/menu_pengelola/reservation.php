@@ -18,13 +18,16 @@
 	<tbody>
 	<?php
 	$no = 1;
-
-	if (empty($reservation))
-		echo "<h3>Tidak Ada Reservasi</h3>";
-	else {
-
-		foreach ($reservation as $data):
-			?>
+  view_data($reservation);
+  ?>
+  
+	<?php
+  if (empty($reservation))
+    echo "<h3>Tidak Ada Reservasi</h3>";
+  ?>
+		
+  
+		<?php foreach ($reservation as $data): ?>
 			<tr>
 				<td class="text-center"><?php echo $data->peminjam ?></td>
 				<td class="text-center"><?php echo $data->ruangan ?></td>
@@ -34,20 +37,16 @@
 
 				<!-- Action -->
 				<td class="text-center">
-					<a target="_blank" href="<?= site_url('Cpimpinan/lihatPDF/' . $data->reservasi_id) ?>" class="btn btn-primary">Lihat Dokumen</a>
+					<a target="_blank" href="<?= site_url('reservation/document/' . $data->reservasi_id) ?>" class="btn btn-primary">Lihat Dokumen</a>
 
 					<!-- Button trigger modal-->
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?= $data->reservasi_id ?>">
+					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?= $data->reservasi_id ?>"
+					<?= $data->reservasi_status === StatusReservasi::DIBATALKAN ? 'disabled' : '' ?>>
 						Batalkan Reservasi
 					</button>
 				</td>
 			</tr>
-			<?php
-			$no++;
-		endforeach;
-
-	}
-	?>
+    <?php endforeach ?>
 	</tbody>
 </table>
 
@@ -60,7 +59,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form action="<?= site_url('creservasi/cancelReservation') ?>" method="post">
+				<form action="<?= site_url('reservation/cancel') ?>" method="post">
 					<input type="text" name="reservasi_id" class="form-control" id="reservasi_id" hidden>
 
 					<div class="mb-3">

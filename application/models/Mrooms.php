@@ -1,46 +1,81 @@
 <?php
 /**
  * @property CI_DB $db
+ * @property CI_Input $input
+ * @property CI_Loader $load
+ * @property CI_Upload $upload
  */
 class Mrooms extends CI_Model {
 
-    function tampildata($id)
+    function tampildata($id): array|string
     {
+        $hasil = array();
         $start=$this->input->post('tgl');
-        $sql="SELECT * FROM Reservasi WHERE ('$start' BETWEEN date_start AND date_end) AND ruangan_id = '$id';";
-        $query=$this->db->query($sql);
-        if ($query->num_rows()>0)
-        {
-            foreach ($query->result() as $row)
-            {
+        $query = $this->db->select('*, phone')->from('Reservasi')
+                ->join("Peminjam",
+                        "Reservasi.peminjam_id = Peminjam.id",
+                        "inner"
+                        )
+                ->where_in('date_start', $start)->where_in('date_end', $start)
+                ->where('ruangan_id', $id)->get();
+        
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
                 $hasil[]=$row;
-            }	
-        }
-        else
-        {
+            }
+        } else {
             $hasil="";	
         }
-        return $hasil;	
+        
+        return $hasil;
     }
 
-    function tampilgedung()
+    function tampilgedung(): array|string
     {
-        $sql="SELECT * FROM Ruangan";
-        $query=$this->db->query($sql);
-        if ($query->num_rows()>0)
-        {
-            foreach ($query->result() as $row)
-            {
+        $hasil = array();
+        $query=$this->db->select()->from('Ruangan')->get();
+        
+        if ($query->num_rows()>0) {
+            foreach ($query->result() as $row) {
                 $hasil[]=$row;
             }	
-        }
-        else
-        {
+        } else {
             $hasil="";	
         }
-        return $hasil;	
+        
+        return $hasil;
     }
+
+	function search($searchStr): void
+	{
+		$searchStr = str_replace('%20', ' ', $searchStr);
+
+		$results = $this->db->select('name, id')->from('Ruangan')
+				->like('name', $searchStr)->get()->result();
+
+		livesearch($searchStr, $results);
+	}
+
+	function add_room($data): void
+	{
+		$data['name'] = $this->input->post('name', true);
+		$data['status'] = $this->input->post('status', true);
+		$data['description'] = $this->input->post('description', true);
+
+		$this->db->insert('Ruangan', $data);
+	}
+
+	/**
+	 * Checking the number of reservation a 'Ruangan' has.
+	 *
+	 * @param array $data
+	 * @return int
+	 */
+	function check_ruangan_availability(array $data): int
+	{
+		return $this->db->select()->from('Reservasi')
+			->where('ruangan_id', $data['ruangan'])
+			->get()->num_rows();
+	}
 
 }
-
-?>

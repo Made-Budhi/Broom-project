@@ -106,6 +106,12 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			<input type="time" name="jam-selesai" id="jam-selesai">
 		</div>
 
+		<br>
+		<div class="ketersediaan-ruangan" hidden>
+			<p id="ruangan-message"></p>
+			<p id="reservasi-message"></p>
+		</div>
+
 		<br><hr><br>
 
 		<!-- Data Dokumen -->
@@ -210,12 +216,12 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		const buttonpengajuan 	= document.getElementById('pengajuan-reservasi');
 
 		buttonpreview.addEventListener('click', function(e) {
-			form.action = "<?php echo site_url('creservasi/previewpdf') ?>";
+			form.action = "<?php echo site_url('reservation/previewpdf') ?>";
 			form.submit();
 		});
 
 		buttonpengajuan.addEventListener('click', function(e) {
-			form.action = "<?php echo site_url('creservasi/uploadpdf') ?>";
+			form.action = "<?php echo site_url('reservation/uploadpdf') ?>";
 			form.submit();
 		});
 
@@ -247,6 +253,63 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 		pilihanOrganisasi.addEventListener('click', function () {
 			namaOrganisasi.value = null;
+		});
+
+		$(document).ready(function() {
+
+
+			// Triggered when user select Ruangan
+			$('#ruangan').change(function () {
+				let ruangan 	= $(this).val();
+
+				$.post("<?= site_url('creservasi/check_ruangan_availability') ?>", {
+					ruangan: ruangan,
+				},
+				function (response) {
+					$('#ruangan-message').html(response + ' Reservasi ditemukan.');
+					$('.ketersediaan-ruangan').removeAttr('hidden');
+				});
+			});
+
+			$('#ruangan, #tanggal-mulai, #tanggal-selesai, #jam-mulai, #jam-selesai').change(function () {
+				let ruangan		= $('#ruangan').val();
+				let dateStart 	= $('#tanggal-mulai').val();
+				let dateEnd		= $('#tanggal-selesai').val();
+				let timeStart	= $('#jam-mulai').val();
+				let timeEnd		= $('#jam-selesai').val();
+
+				$.post("<?= site_url('creservasi/check_reservation_collide') ?>", {
+					ruangan		: ruangan,
+					dateStart	: dateStart,
+					dateEnd		: dateEnd,
+					timeStart	: timeStart,
+					timeEnd		: timeEnd
+				},
+				function (response) {
+					let data = JSON.parse(response)
+					let message = $('#reservasi-message')
+					let buttonPengajuan = $('#pengajuan-reservasi')
+
+					if (data.isNull) {
+						message.html('Harap isi form dengan lengkap.');
+						message.css('color', 'red')
+					} else {
+						if (data.isAvailable) {
+							message.html('Ruangan tersedia.');
+							message.css('color', 'green')
+							buttonPengajuan.removeAttr('disabled')
+						}
+						else {
+							message.html('Sudah ter-reservasi.');
+							message.css('color', 'red')
+							buttonPengajuan.attr('disabled', 'true')
+						}
+
+						$('.ketersediaan-ruangan').removeAttr('hidden');
+					}
+				});
+			});
+
 		});
 	</script>
 

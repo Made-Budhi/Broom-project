@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Session $session
  * @property CI_DB $db
  * @property CI_Lang $lang
+ * @property CI_Encryption $encryption
  */
 class Maccount extends CI_Model
 {
@@ -15,6 +16,7 @@ class Maccount extends CI_Model
 	{
 		parent::__construct();
 		$this->load->library('accounts/BRoom_Verify', null, 'account_verify');
+		$this->load->library('encryption');
 		// TODO must add language mechanism
 		$this->load->language('BRoomAuth', 'indonesia');
 	}
@@ -32,8 +34,9 @@ class Maccount extends CI_Model
 		
 		// Fetching from database
 		$data = $this->db->select()->from('Account')
-				->where('email', $email)
-				->where('password', $password)->get();
+				->where('email', $email)->get()->first_row();
+		
+		$decrypted_hash = $this->encryption->decrypt($data->password);
 		
 		/*
 		 * Checking whether the data exists or not.
@@ -41,25 +44,22 @@ class Maccount extends CI_Model
 		 *                role -> set session
 		 * If not       = login authentication failed
 		 */
-		if ($data->num_rows() > 0) {
-			
-			$accountData = $data->first_row();
-			
-			if (!$accountData->is_verif) {
+		if (!empty($data) && password_verify($password, $decrypted_hash)) {
+			if (!$data->is_verif) {
 				$this->session->set_flashdata(
-						'loginerror',
+						'login_error',
 						$this->lang->line('email_not_verified')
 				);
 				redirect(site_url());
 			}
 			
 			// Join table account with related role
-			$roleData = $this->db->select()->from($accountData->role)->join(
+			$roleData = $this->db->select()->from($data->role)->join(
 					'Account',
-					"Account.account_id = " . $accountData->role .
+					"Account.account_id = " . $data->role .
 					".account_id",
 					'inner'
-			)->where('Account.account_id', $accountData->account_id)->get()
+			)->where('Account.account_id', $data->account_id)->get()
 					->first_row();
 			
 			// Setting session with role & id
@@ -71,7 +71,7 @@ class Maccount extends CI_Model
 			$this->session->set_userdata($sessionData);
 		} else {
 			$this->session->set_flashdata(
-					'loginerror',
+					'login_error',
 					$this->lang->line('login_failed')
 			);
 			redirect(site_url());
@@ -91,26 +91,37 @@ class Maccount extends CI_Model
 		$id = $this->input->post('id');
 		$name = $this->input->post("name");
 		$phone = $this->input->post("phone");
-		$token = '';
+		$token = $this->account_verify->create_random(Verification::REGISTER);
 		
-		// Insert data email, password, and generated token to table account
-		$this->account_verify->send_email($email, $token);
+		// Check duplicate id
+		$num_duplicate = $this->db->select()->from('Peminjam')
+				->where('id', $id)->get()->num_rows();
+		if (!empty($num_duplicate)) {
+			$this->session->set_flashdata('register_error',
+							$this->lang->line('register_duplicate_id'));
+			redirect('register');
+		}
+		
+		// TODO email checker if duplicate and not verified
+		
+		// Get encrypted password hash, then insert data email, password_hash,
+		// and generated token to table Account
+		$password_hash = password_hash($password, PASSWORD_DEFAULT);
+		$encrypted_hash = $this->encryption->encrypt($password_hash);
 		$data = array(
 				"email" => $email,
-				"password" => $password,
+				"password" => $encrypted_hash,
 				"token" => $token,
 				"role" => AccountRole::PEMINJAM
 		);
-		unset($token);
 		$this->db->insert('Account', $data);
 		
-		// Build a variable to get account_id FROM table account
-		$fkdata = $this->db->select()->from('Account')
-				->where('email', $email)->where('password', $password)
-				->get()->first_row();
-		$fkid = $fkdata->account_id;
+		// Get account_id FROM table account
+		$fkid = $this->db->select()->from('Account')
+				->where('email', $email)->get()
+				->first_row()->account_id;
 		
-		// Insert data id, name, phone, & (account_id FROM variable $fkdata) TO table peminjam
+		// Insert data id, name, phone, & (id FROM Account) to table peminjam
 		$data = array(
 				"id" => $id,
 				"name" => $name,
@@ -120,8 +131,10 @@ class Maccount extends CI_Model
 		);
 		$this->db->insert('Peminjam', $data);
 		
+		$this->account_verify->send_email($email, $token);
 		$this->session->set_flashdata('email_verify',
 				$this->lang->line('register_success'));
+		
 		redirect(site_url());
 	}
 	
@@ -135,29 +148,28 @@ class Maccount extends CI_Model
 	{
 		// Retrieving data from user input post
 		$email = $this->input->post('email');
-		$otp = '';
+		$otp = $this->account_verify->create_random(Verification::OTP);
 		
 		// Make sure the email has been verified before perform change password
 		$query = $this->db->select()->from('Account')
 				->where('email', $email)->where('is_verif', 1)
 				->get();
 		
-		if ($query->num_rows() > 0) {
-			$this->account_verify->send_email($email, $otp, true);
-			$array = array(
-					'email' => $email,
-					'token' => $otp,
-					'has_verification' => true
-			);
-			
-			$this->session->set_tempdata($array, null, 3600);
-		} else {
-			$this->session->set_flashdata(
-					'loginerror',
-					$this->lang->line('forgot_pass_failed')
-			);
+		// Account not yet verified
+		if (empty($query->num_rows())) {
+			$this->session->set_flashdata('login_error',
+					$this->lang->line('forgot_pass_failed'));
 			redirect('login/forgot');
 		}
+		
+		$this->account_verify->send_email($email, $otp, true);
+		$array = array(
+				'email' => $email,
+				'token' => $otp,
+				'has_verification' => true
+		);
+		
+		$this->session->set_tempdata($array, null, 3600);
 	}
 	
 	/**
@@ -172,13 +184,17 @@ class Maccount extends CI_Model
 		$query = $this->db->select()->from('Account')
 				->where('email', $email)->get();
 		
+		// Get encrypted password hash, then insert password_hash to table Account
+		$password_hash = password_hash($password, PASSWORD_DEFAULT);
+		$encrypted_hash = $this->encryption->encrypt($password_hash);
+		
 		/**
 		 * Checking whether the data exist  or not.
 		 * If exist        = Updates the password field -> redirect to first view -> destroy session
 		 * If not        = failed -> go back to reset password page
 		 */
 		if ($query->num_rows() > 0) {
-			$this->db->set('password', $password)->where('email', $email)
+			$this->db->set('password', $encrypted_hash)->where('email', $email)
 					->update('Account');
 			
 			$this->session->sess_destroy();

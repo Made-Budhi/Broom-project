@@ -29,7 +29,8 @@ foreach ($hasil as $data):
             <p class="card-text">Perihal : <?php echo $data->purpose ?></p>
             <p class="card-text">Date Start : <?php echo $data->date_start ?></p>
           </div>
-          <a href="<?= site_url('Cpimpinan/detailV/' . $data->reservasi_id) ?>" class="btn btn-primary">Detail</a>
+          <a href="<?= site_url('reservation/detail/'.$data->reservasi_id) ?>"
+             class="btn btn-primary">Detail</a>
         </div>
     </div>
   </div>

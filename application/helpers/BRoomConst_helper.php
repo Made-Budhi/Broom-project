@@ -34,6 +34,6 @@ class NotificationType
 
 class Verification
 {
-	const REGISTER = 0;
-	const OTP = 1;
+	const REGISTER = 1;
+	const OTP = 2;
 }

@@ -6,7 +6,7 @@
   <form name="profile_edit_form" method="post"
         action="<?= site_url('settings/profile_edit') ?>">
     <?php
-    view_data($account, 'name', 'phone', 'id', 'email');
+    view_data($account);
     ?>
     <label for="nama_lengkap">Nama Lengkap</label>
     <input type="text" class="profile_edit_form" name="account_name"
@@ -14,11 +14,17 @@
 
     <br>
 
-    <label for="telp">Nomer Telpon</label>
-    <input type="text" class="profile_edit_form" name="account_phone"
-           id="telp" value="<?= $account->phone ?>" disabled>
+    <?php
+    if ($account->role == AccountRole::PEMINJAM) {
+      ?>
+      <label for="telp">Nomer Telpon</label>
+      <input type="text" class="profile_edit_form" name="account_phone"
+             id="telp" value="<?= $account->phone ?>" disabled>
 
-    <br>
+      <br>
+      <?php
+    }
+    ?>
 
     <label for="nip">NIM/NIP</label>
     <input type="number" name="account_id"

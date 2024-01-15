@@ -18,7 +18,7 @@ CREATE TABLE Account
 
 CREATE TABLE Peminjam
 (
-  id         CHAR(18)                      NOT NULL UNIQUE,
+  id         VARCHAR(18)                      NOT NULL UNIQUE,
   name       VARCHAR(254)                  NOT NULL,
   phone      VARCHAR(15)                   NOT NULL,
   role       ENUM ('Mahasiswa', 'Pegawai') NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE Ruangan
 CREATE TABLE Reservasi
 (
   reservasi_id        INT AUTO_INCREMENT,
-  peminjam_id         CHAR(18),
+  peminjam_id         VARCHAR(18),
   ruangan_id          INT,
   pimpinan_id         CHAR(18),
 
@@ -107,61 +107,57 @@ CREATE TABLE Reservasi
   FOREIGN KEY (pimpinan_id) REFERENCES Pimpinan (id)
 );
 
-CREATE TABLE Notification_Master
-(
-  id   INT,
-  name TINYTEXT,
-
-  PRIMARY KEY (id)
-);
-
 CREATE TABLE Notification
 (
   id           INT AUTO_INCREMENT,
   type         INT,
   reservasi_id INT,
 
-  PRIMARY KEY (id),
-  FOREIGN KEY (type) REFERENCES Notification_Master (id)
+  PRIMARY KEY (id)
 );
-
-INSERT INTO Notification_Master
-VALUES ('101', 'peminjam_mengajukan'),
-       ('102', 'peminjam_disetujui'),
-       ('103', 'peminjam_ditolak'),
-       ('104', 'peminjam_dibatalkan'),
-
-       ('201', 'pimpinan_diajukan'),
-
-('301', 'pengelola_dinotifikasi'),
-('302', 'pengelola_membatalkan');
 
 # For testing purpose
 
 INSERT INTO Ruangan
-VALUES (DEFAULT, 'Widya Guna-Guna', DEFAULT,
-        'Gedung berukuran 50 meter persegi yang keren', ''),
-       (DEFAULT, 'Widya Padma', DEFAULT,
-        'Gedung yang biasa digunakan sebagai gedung merayakan puncak acara suatu kegiatan',
-        ''),
-       (DEFAULT, 'Widya Graha', DEFAULT, 'Gedung rapat', '');
+VALUES (DEFAULT, 'Widya Guna-Guna', DEFAULT, '',
+        'Gedung berukuran 50 meter persegi yang keren'),
+       (DEFAULT, 'Widya Padma', DEFAULT, '',
+        'Gedung yang biasa digunakan sebagai gedung merayakan puncak acara suatu kegiatan'),
+       (DEFAULT, 'Widya Graha', DEFAULT, '','Gedung rapat');
 
 
 -- Inserting peminjam account
+-- Default test pass: 123
 INSERT INTO Account
-VALUES (DEFAULT, '2215354023@pnb.ac.id', '123', '', DEFAULT, DEFAULT),
-       (DEFAULT, 'made@gmail.com', '123', '', DEFAULT, DEFAULT),
-       (DEFAULT, 'broom@gmail.com', '123', '', DEFAULT, DEFAULT);
+VALUES (DEFAULT, '2215354023@pnb.ac.id',
+        '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
+        '', DEFAULT, TRUE),
+       (DEFAULT, 'made@gmail.com',
+        '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
+        '', DEFAULT, TRUE),
+       (DEFAULT, 'broom@gmail.com',
+        '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
+        '', DEFAULT, TRUE);
 
 -- Inserting pimpinan account
+-- Default test pass: 123
 INSERT INTO Account
-VALUES (DEFAULT, 'budhi@gmail.com', '123', '', 'Pimpinan', DEFAULT),
-       (DEFAULT, 'pakbudhi@gmail.com', '123', '', 'Pimpinan', DEFAULT),
-       (DEFAULT, 'gibran@gmail.com', '123', '', 'Pimpinan', DEFAULT);
+VALUES (DEFAULT, 'budhi@gmail.com',
+        '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
+        '', 'Pimpinan', TRUE),
+       (DEFAULT, 'pakbudhi@gmail.com',
+        '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
+        '', 'Pimpinan', TRUE),
+       (DEFAULT, 'gibran@gmail.com',
+        '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
+        '', 'Pimpinan', TRUE);
 
 -- Inserting pengelola account
+-- Default test pass: admin
 INSERT INTO Account
-VALUES (DEFAULT, 'admin', 'admin', '', 'Pengelola', DEFAULT);
+VALUES (DEFAULT, 'admin',
+        'db27078cfff84d796346ebc9c234c553cb916b54bccbcbe762c8059570e66675aaa374627c113bf5a612409a4a9447f025989d784bc797f90241ff7857e2bb75TKf+YpBQHdzJxqWR0oy4t64pf8/d9zeKGo/irLzW7keIrst+DLID6SDe6R/LPyawwS8wqTobgehWC5BJIzYidwzAQ3YNc4IT006T92eYJcI=',
+        '', 'Pengelola', TRUE);
 
 INSERT INTO Peminjam
 VALUES ('2215354023', 'I Made Bagus Mahatma Budhi', '08113978683', 'Mahasiswa',

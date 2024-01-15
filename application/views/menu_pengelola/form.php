@@ -1,0 +1,33 @@
+<form name="formp" method="post" action="<?php echo base_url('cpengelola/simpandata'); ?>">
+<input type="hidden" name="account_id" id="account_id"/>
+  <div class="mb-3 mt-3">
+    Nama
+    <input type="text" class="form-control" name="name" id="name">
+  </div>
+
+  <div class="mb-3 mt-3">
+    Password
+    <input type="text" class="form-control" name="password" id="password">
+  </div>
+
+  <div class="mb-3">
+    NIP
+    <input type="text" class="form-control" name="id" id="id">
+  </div>
+
+  <div class="mb-3">
+    Email
+    <input type="text" class="form-control" name="email" id="email">
+  </div>
+
+  <div class="mb-3">
+    Jabatan
+    <input type="text" class="form-control" name="position" id="position">
+  </div>
+
+  <div class="mb-3">
+    <input type="submit" id="toggle-edit" class="btn btn-primary" value="Tambah">
+    <input type="reset" id="button-batal" class="btn btn-danger" value="Batal">
+  </div>
+</form>
+

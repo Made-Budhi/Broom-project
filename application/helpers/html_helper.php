@@ -42,3 +42,34 @@ if ( ! function_exists('div_alert_info')) {
 		
 	}
 }
+
+if ( ! function_exists('upload_handler')) {
+	/**
+	 * @param $obj_upload
+	 * @param $config
+	 * @param $role_data
+	 * @param $field_name
+	 * @return string name of uploaded file
+	 */
+	function upload_handler($obj_upload, $config, $role_data, $field_name): string
+	{
+		/**
+		 * @var CI_Upload $obj_upload
+		 */
+		
+		$CI =& get_instance();
+		$obj_upload->initialize($config);
+		
+		if ( ! $obj_upload->do_upload($field_name)) {
+			$message['error'] = $obj_upload->display_errors();
+			$html['hasil'] = $CI->load
+					->view($role_data['content'], $message, true);
+			
+			$CI->load->view($role_data['sidebar'], $html);
+		}
+		
+		$uploaded_image = $obj_upload->data();
+		
+		return $uploaded_image['file_name'];
+	}
+}
