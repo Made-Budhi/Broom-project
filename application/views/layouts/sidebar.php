@@ -16,6 +16,9 @@
 	<!-- Jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+	<!-- FullCalendar -->
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Gabarito&family=Geologica&display=swap');
 	</style>
