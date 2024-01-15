@@ -5,7 +5,6 @@
         <th>No</th>
         <th>Tanggal dan Waktu Mulai</th>
         <th>Tanggal dan Waktu Selesai</th>
-        <th>Kontak Peminjam</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -25,7 +24,6 @@
         <td><?php echo $no; ?></td>
         <td><?php echo format_indo($data->date_start) . ', ' . $data->time_start ?></td>
         <td><?php echo format_indo($data->date_end) . ', ' . $data->time_end ?></td>
-        <td><?php echo $data->phone;?></td>
         <td>
         <button type="button" class="btn btn-sm btn-primary">Kontak Peminjam</button>
         </td>

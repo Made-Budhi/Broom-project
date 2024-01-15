@@ -44,7 +44,7 @@
       foreach ($hasil as $data):
       ?>
         <tr>
-          <td class="text-center"><?php echo $data->date_start;?> <br> <?php echo $data->date_end ?></td>
+          <td class="text-center"><?php echo format_indo($data->date_start);?> <br> <?php echo format_indo($data->date_end) ?></td>
           <td class="text-center"><?php echo $data->name ?></td>
           <td class="text-center"><?php echo $data->reservasi_status ?></td>
   
