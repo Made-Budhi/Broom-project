@@ -25,7 +25,7 @@
 					<img src="<?= base_url('assets/images/logo-pnb.png')?>" width="60vw" class="logo">
 					<div class="d-flex flex-column tablet-mode">
 						<h2 class="geologica m-0">BRoom</h2>
-						<small class="gabarito m-0 fs-7">Aplikasi Peminjaman Ruangan</small>
+						<small class="gabarito m-0 fs-7 text-nowrap">Aplikasi Peminjaman Ruangan</small>
 					</div>
 				</div>
                 
