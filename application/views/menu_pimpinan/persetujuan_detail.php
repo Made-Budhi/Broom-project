@@ -30,8 +30,8 @@ foreach ($hasil as $data):
           <p class="card-text">Nama Ruangan : <?php echo $data->name ?></p>
           <p class="card-text">No.Telp : <?php echo $data->phone ?></p>
           <p class="card-text">Tujuan Penggunaan : <?php echo $data->purpose ?></p>
-          <p class="card-text">Date Start : <?php echo $data->date_start?> <?php echo $data->time_start?> <br>
-                                            <?php echo $data->date_end?> <?php echo $data->time_end?> </p>
+          <p class="card-text">Tanggal Mulai : <?php echo format_indo($data->date_start) ?> <?php echo $data->time_start ?> </p>
+          <p class="card-text">Tanggal Selesai : <?php echo format_indo($data->date_end) ?> <?php echo $data->time_end ?> </p>
         </div>
           
         <div>
@@ -41,19 +41,19 @@ foreach ($hasil as $data):
     </div>
     <!-- TODO preview pdf tapi apa yang harus diambil dari data? -->
     <a target="_blank" href="<?= site_url('reservation/document/' . $data->reservasi_id) ?>" class="btn btn-primary">lihat dokumen</a>
-    
-    
     <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Buat Keputusan
-</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Buat Keputusan
+    </button>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal" id="exampleModal" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Buat Keputusan</h5>
+        <h5 class="modal-title" style="text-align: center; margin: 0 auto;">Buat Keputusan</h5>
       </div>
       <div class="modal-body ">
           <p class="text-center">Buat keputusan untuk persetujuan reservasi gedung.</p>
@@ -65,9 +65,7 @@ foreach ($hasil as $data):
     </div>
   </div>
 </div>
-  
-  </div>
-</div>
+
 
 <?php
 	 	endforeach;
