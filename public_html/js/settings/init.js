@@ -34,7 +34,7 @@ function initPreferences(){
 				changeTheme();
 			}
 		});
-	}, 1000);
+	}, 2000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,11 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			const theme = true;
 			localStorage.setItem('theme', JSON.stringify(theme));
 		}
+		else {
+			body.setAttribute('data-bs-theme', getTheme()? 'light' : 'dark');
+		}
+
+		document.getElementById("edit-preferences").addEventListener("click", () => initPreferences());
+
 	}
 	else {
 		console.log("browser tidak mendukung preferences");
 	}
 });
 
-document.getElementById("edit-preferences").addEventListener("click", () => initPreferences());
+
 

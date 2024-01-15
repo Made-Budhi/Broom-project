@@ -5,6 +5,7 @@ $type = pathinfo($path, PATHINFO_EXTENSION);
 $content = file_get_contents($path);
 $logo_pnb = 'data:image/' . $type . ';base64,' . base64_encode($content);
 
+view_data($data);
 ?>
 
 <!DOCTYPE html>
