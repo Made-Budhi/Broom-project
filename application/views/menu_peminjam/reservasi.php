@@ -15,10 +15,10 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 	</ul>
 
 	<hr>
-  
-  <div class="message">
-    <p><?php div_alert_info('message'); ?></p>
-  </div>
+
+	<div class="message">
+		<p><?php div_alert_info('message'); ?></p>
+	</div>
 
 	<?= form_open_multipart('', 'id="form-reservasi"') ?>
 	<div>
@@ -62,7 +62,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			<input type="file" name="ttd-ketua-panitia" id="ttd-ketua-panitia" required>
 		</div>
 
-		<br><hr><br>
+		<br>
+		<hr>
+		<br>
 
 		<!-- Ruangan: ruangan, tanggal-mulai, jam-mulai, tanggal-selesai, jam-selesai -->
 		<h3>Ruangan</h3>
@@ -77,9 +79,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 			foreach ($dataruangan as $ruangan) {
 
-			?>
+				?>
 				<option value="<?= $ruangan->id ?>"><?= $ruangan->name ?></option>
-			<?php
+				<?php
 
 			}
 
@@ -110,7 +112,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			<p id="reservasi-message"></p>
 		</div>
 
-		<br><hr><br>
+		<br>
+		<hr>
+		<br>
 
 		<!-- Data Dokumen -->
 
@@ -152,9 +156,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 				$datapimpinan = $this->db->get('Pimpinan')->result();
 
 				foreach ($datapimpinan as $pimpinan) {
-				?>
+					?>
 					<option value="<?= $pimpinan->id ?>"><?= $pimpinan->position ?></option>
-				<?php
+					<?php
 				}
 
 				?>
@@ -164,7 +168,8 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		</div>
 
 		<div>
-			<label for="tembusan">Tembusan<span class="keterangan">*</span> (pisahkan dengan koma, tanpa spasi)</label><br>
+			<label for="tembusan">Tembusan<span class="keterangan">*</span> (pisahkan dengan koma, tanpa
+				spasi)</label><br>
 			<textarea name="tembusan" id="tembusan" cols="30" rows="10" required></textarea>
 		</div>
 
@@ -174,7 +179,8 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		<h3>
 			<label for="kostumisasi-lanjutan" id="label-kostumisasi">
 				Kostumisasi Lanjutan
-				<i style="transition: .3s ease; transform: rotateZ(180deg)" class="fa-solid fa-caret-up" id="icon-dropdown"></i>
+				<i style="transition: .3s ease; transform: rotateZ(180deg)" class="fa-solid fa-caret-up"
+				   id="icon-dropdown"></i>
 			</label>
 		</h3>
 		<input type="checkbox" name="kostumisasi-lanjutan" id="kostumisasi-lanjutan">
@@ -210,27 +216,27 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 	<script>
 		// Create different form action depending on user input
-		const form 				= document.getElementById('form-reservasi');
-		const buttonpreview 	= document.getElementById('preview-doc');
-		const buttonpengajuan 	= document.getElementById('pengajuan-reservasi');
-		const submitButton		= document.getElementById('submit-button');
+		const form = document.getElementById('form-reservasi');
+		const buttonpreview = document.getElementById('preview-doc');
+		const buttonpengajuan = document.getElementById('pengajuan-reservasi');
+		const submitButton = document.getElementById('submit-button');
 
-		buttonpreview.addEventListener('click', function() {
+		buttonpreview.addEventListener('click', function () {
 			form.action = "<?php echo site_url('reservation/previewpdf') ?>";
 			submitButton.click();
 		});
 
-		buttonpengajuan.addEventListener('click', function() {
+		buttonpengajuan.addEventListener('click', function () {
 			form.action = "<?php echo site_url('reservation/uploadpdf') ?>";
 			submitButton.click();
 		});
 
 		// For Kostumisasi Lanjutan dropdown
-		const checkKostumisasi 	= document.getElementById('kostumisasi-lanjutan');
-		const labelKostumisasi 	= document.getElementById('label-kostumisasi');
-		const iconDropdown 		= document.getElementById('icon-dropdown');
+		const checkKostumisasi = document.getElementById('kostumisasi-lanjutan');
+		const labelKostumisasi = document.getElementById('label-kostumisasi');
+		const iconDropdown = document.getElementById('icon-dropdown');
 
-		labelKostumisasi.addEventListener('click', function() {
+		labelKostumisasi.addEventListener('click', function () {
 			console.log(iconDropdown)
 
 			if (checkKostumisasi.checked) {
@@ -241,12 +247,12 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		})
 
 		// Clear sub-input
-		const pilihanLogoPnb 	= document.getElementById('pilihan-logo-pnb-ya');
-		const inputLogoKiri 	= document.getElementById('logo-kiri');
+		const pilihanLogoPnb = document.getElementById('pilihan-logo-pnb-ya');
+		const inputLogoKiri = document.getElementById('logo-kiri');
 
-		const pilihanOrganisasi 	= document.getElementById('pilihan-organisasi-tidak');
-		const pilihanOrganisasiYa 	= document.getElementById('pilihan-organisasi-ya');
-		const namaOrganisasi		= document.getElementById('nama-organisasi');
+		const pilihanOrganisasi = document.getElementById('pilihan-organisasi-tidak');
+		const pilihanOrganisasiYa = document.getElementById('pilihan-organisasi-ya');
+		const namaOrganisasi = document.getElementById('nama-organisasi');
 
 		pilihanOrganisasiYa.addEventListener('click', function () {
 			namaOrganisasi.setAttribute('required', 'true')
@@ -261,8 +267,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			namaOrganisasi.removeAttribute('required')
 		});
 
-		$(document).ready(function() {
-
+		$(document).ready(function () {
 
 			// Triggered when user select Ruangan
 			$('#ruangan').change(function () {
@@ -278,42 +283,41 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			});
 
 			$('#ruangan, #tanggal-mulai, #tanggal-selesai, #jam-mulai, #jam-selesai').change(function () {
-				let ruangan		= $('#ruangan').val();
-				let dateStart 	= $('#tanggal-mulai').val();
-				let dateEnd		= $('#tanggal-selesai').val();
-				let timeStart	= $('#jam-mulai').val();
-				let timeEnd		= $('#jam-selesai').val();
+				let ruangan = $('#ruangan').val();
+				let dateStart = $('#tanggal-mulai').val();
+				let dateEnd = $('#tanggal-selesai').val();
+				let timeStart = $('#jam-mulai').val();
+				let timeEnd = $('#jam-selesai').val();
 
 				$.post("<?= site_url('creservasi/check_reservation_collide') ?>", {
-					ruangan		: ruangan,
-					dateStart	: dateStart,
-					dateEnd		: dateEnd,
-					timeStart	: timeStart,
-					timeEnd		: timeEnd
-				},
-				function (response) {
-					let data = JSON.parse(response)
-					let message = $('#reservasi-message')
-					let buttonPengajuan = $('#pengajuan-reservasi')
+						ruangan: ruangan,
+						dateStart: dateStart,
+						dateEnd: dateEnd,
+						timeStart: timeStart,
+						timeEnd: timeEnd
+					},
+					function (response) {
+						let data = JSON.parse(response)
+						let message = $('#reservasi-message')
+						let buttonPengajuan = $('#pengajuan-reservasi')
 
-					if (data.isNull) {
-						message.html('Harap isi form dengan lengkap.');
-						message.css('color', 'red')
-					} else {
-						if (data.isAvailable) {
-							message.html('Ruangan tersedia.');
-							message.css('color', 'green')
-							buttonPengajuan.removeAttr('disabled')
-						}
-						else {
-							message.html('Sudah ter-reservasi.');
-							message.css('color', 'red')
-							buttonPengajuan.attr('disabled', 'true')
-						}
+						if (data.isNull) {
+								message.html('Harap isi form dengan lengkap.');
+								message.css('color', 'red')
+							} else {
+								if (data.isAvailable) {
+									message.html('Ruangan tersedia.');
+								message.css('color', 'green')
+								buttonPengajuan.removeAttr('disabled')
+							} else {
+								message.html('Sudah ter-reservasi.');
+								message.css('color', 'red')
+								buttonPengajuan.attr('disabled', 'true')
+							}
 
-						$('.ketersediaan-ruangan').removeAttr('hidden');
-					}
-				});
+							$('.ketersediaan-ruangan').removeAttr('hidden');
+						}
+					});
 			});
 
 		});
