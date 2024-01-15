@@ -2,8 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * 
- * 
+ * @property Mpengelola $pengelola
+ * @property Mpemimpin $pimpinan
+ * @property CI_Input $input
  */
 
 class Cpengelola extends Broom_Controller
@@ -37,7 +38,7 @@ class Cpengelola extends Broom_Controller
 		$this->load->view('layouts/sidebar_pengelola',$data);
 	}
 
-	function view_data_pimpinan()
+	function view_data_pimpinan(): void
 	{
 		$tampil['hasil']=$this->pengelola->tampildata();
 		$data['content']=$this->load->view('menu_pengelola/data_pimpinan',$tampil,TRUE);
@@ -45,17 +46,20 @@ class Cpengelola extends Broom_Controller
 		$this->load->view('layouts/sidebar_pengelola', $data);
 	}
 
-	function edit_pimpinan() {
+	function edit_pimpinan(): void
+	{
 		$data = $this->pimpinan->get_data_pimpinan($this->input->post('id'));
 		echo json_encode($data);
 	}
 
-	function simpandata(){
+	function simpandata(): void
+	{
 		$this->pengelola->simpandata();
 
 	}
 
-	function hapusdata($account_id){
+	function hapusdata($account_id): void
+	{
 		$this->pengelola->hapusdata($account_id);
 	}
 }
