@@ -48,7 +48,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		<br><br>
 
 		<div class="ketua-panitia">
-			<label for="nama-ketua-panitita">Ketua Panitia<span class="keterangan">*</span></label>
+			<label for="nama-ketua-panitia">Ketua Panitia<span class="keterangan">*</span></label>
 			<input type="text" name="nama-ketua-panitia" id="nama-ketua-panitia" required>
 
 			<br><br>
