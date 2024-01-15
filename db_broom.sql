@@ -87,7 +87,7 @@ CREATE TABLE Reservasi
   reservation_date    DATE                                                   NOT NULL,
   purpose             VARCHAR(254)                                           NOT NULL,
   attachment          VARCHAR(5)                                             NOT NULL,
-  event               TINYINT                                                NOT NULL,
+  event               VARCHAR(254)                                           NOT NULL,
   organizer           VARCHAR(254)                                           NOT NULL,
   copy                MEDIUMTEXT,
 
