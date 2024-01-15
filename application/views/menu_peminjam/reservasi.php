@@ -4,9 +4,8 @@ date_default_timezone_set('Asia/Makassar');
 $current_date = now();
 $formatted_date = format_indo(date('Y-m-d', $current_date));
 
-
-
 ?>
+
 
 <div class="overflow-hidden h-100 row d-flex w-75 m-auto justify-content-center align-items-center" id="intro-reservasi">
 	<div class="align-items-start d-flex">
@@ -22,6 +21,22 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 </div>
 
 <section class="reservasi d-none row gap-5 overflow-hidden">
+
+	<h1>Formulir</h1>
+	<p>Keterangan:</p>
+	<ul>
+		<li><span class="keterangan">*</span> : wajib</li>
+		<li><span class="keterangan">**</span> : wajib jika kondisi sebelumnya adalah iya/benar</li>
+	</ul>
+
+	<hr>
+
+	<div class="message">
+		<p><?php div_alert_info('message'); ?></p>
+	</div>
+
+	<?= form_open_multipart('', 'id="form-reservasi"') ?>
+
 	<div>
 		<h1>Formulir</h1>
 		<p>Keterangan:</p>
@@ -65,27 +80,26 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 								</div>
 							</div>
 
-
 							<label for="penyelenggara">Penyelenggara<span class="keterangan">*</span></label>
-							<input class="w-100 form-control" type="text" name="penyelenggara" id="penyelenggara">
-
+							<input class="w-100 form-control" type="text" name="penyelenggara" id="penyelenggara" required>
 
 							<div class="ketua-panitia">
 								<label for="nama-ketua-panitita">Ketua Panitia<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="text" name="nama-ketua-panitia" id="nama-ketua-panitia">
-
+								<input class="w-100 form-control" type="text" name="nama-ketua-panitia" id="nama-ketua-panitia" required>
 
 								<label for="id-ketua-panitia">Nomor Induk Ketua Panitia<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="text" name="id-ketua-panitia" id="id-ketua-panitia">
-
+								<input class="w-100 form-control" type="text" name="id-ketua-panitia" id="id-ketua-panitia" required>
 
 								<label for="ttd-ketua-panitia">Spesimen Tanda Tangan Ketua Panitia<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="file" name="ttd-ketua-panitia" id="ttd-ketua-panitia">
+								<input class="w-100 form-control" type="file" name="ttd-ketua-panitia" id="ttd-ketua-panitia" required>
 							</div>
 
-
-
 							<!-- Ruangan: ruangan, tanggal-mulai, jam-mulai, tanggal-selesai, jam-selesai -->
+
+		<label for="ruangan">Ruangan<span class="keterangan">*</span></label>
+		<select name="ruangan" id="ruangan" required>
+			<option value="" selected disabled>Pilih Ruangan</option>
+
 
 							<h3>Ruangan</h3>
 
@@ -93,10 +107,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 							<select class="w-100 form-control" name="ruangan" id="ruangan">
 								<option value="" selected disabled>Pilih Ruangan</option>
 
-								<?php
-
-								$dataruangan = $this->db->get('Ruangan')->result();
-
+				<option value="<?= $ruangan->id ?>"><?= $ruangan->name ?></option>
+				<?php
+              $dataruangan = $this->db->get('Ruangan')->result();
 								foreach ($dataruangan as $ruangan) {
 
 								?>
@@ -111,15 +124,15 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 							<div class="waktu-mulai">
 								<label for="tanggal-mulai">Tanggal Mulai<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="date" name="tanggal-mulai" id="tanggal-mulai">
+								<input class="w-100 form-control" type="date" name="tanggal-mulai" id="tanggal-mulai" required>
 
 								<label for="jam-mulai">Jam<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="time" name="jam-mulai" id="jam-mulai">
+								<input class="w-100 form-control" type="time" name="jam-mulai" id="jam-mulai" required>
 							</div>
 
 							<div class="waktu-selesai">
 								<label for="tanggal-selesai">Tanggal Selesai<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="date" name="tanggal-selesai" id="tanggal-selesai">
+								<input class="w-100 form-control" type="date" name="tanggal-selesai" id="tanggal-selesai" required>
 
 								<label for="jam-selesai">Jam<span class="keterangan">*</span></label>
 								<input class="w-100 form-control" type="time" name="jam-selesai" id="jam-selesai">
@@ -147,28 +160,24 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 
 								<label for="nomor-dokumen">Nomor Dokumen<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="text" name="nomor-dokumen" id="nomor-dokumen">
+								<input class="w-100 form-control" type="text" name="nomor-dokumen" id="nomor-dokumen" required>
 
 
 								<label for="lampiran">Lampiran<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="text" name="lampiran" id="lampiran">
+								<input class="w-100 form-control" type="text" name="lampiran" id="lampiran" required>
 
 
 								<label for="perihal">Perihal<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="text" name="perihal" id="perihal">
-
+								<input class="w-100 form-control" type="text" name="perihal" id="perihal" required>
 
 								<label for="kegiatan">Kegiatan<span class="keterangan">*</span></label>
-								<input class="w-100 form-control" type="text" name="kegiatan" id="kegiatan">
-
-
+								<input class="w-100 form-control" type="text" name="kegiatan" id="kegiatan" required>
 
 								<label for="pimpinan">Persetujuan Pimpinan<span class="keterangan">*</span></label>
-								<select class="w-100 form-control" name="pimpinan" id="pimpinan">
+								<select class="w-100 form-control" name="pimpinan" id="pimpinan" required>
 									<option value="" disabled selected>Pilih Pimpinan</option>
 
 									<?php
-
 									$datapimpinan = $this->db->get('Pimpinan')->result();
 
 									foreach ($datapimpinan as $pimpinan) {
@@ -181,11 +190,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 								</select>
 
-							</div>
-
 							<div>
 								<label for="tembusan">Tembusan<span class="keterangan">*</span> (pisahkan dengan koma, tanpa spasi)</label><br>
-								<textarea class="w-100 form-control" name="tembusan" id="tembusan" cols="30" rows="10"></textarea>
+								<textarea class="w-100 form-control" name="tembusan" id="tembusan" cols="30" rows="10" required></textarea>
 							</div>
 
 							<h3>
@@ -195,6 +202,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 								</label>
 							</h3>
 							<input class="w-100 form-control" type="checkbox" name="kostumisasi-lanjutan" id="kostumisasi-lanjutan">
+
 
 							<div class="kostumisasi-lanjutan">
 								<label for="logo-pnb">Sertakan Logo PNB</label>
@@ -247,6 +255,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			</div>
 		</div>
 	</div>
+
 	<?= form_close() ?>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -259,26 +268,27 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			document.querySelector(".reservasi").classList.toggle("d-none");
 		}
 		// Create different form action depending on user input
-		const form 				= document.getElementById('form-reservasi');
-		const buttonpreview 	= document.getElementById('preview-doc');
-		const buttonpengajuan 	= document.getElementById('pengajuan-reservasi');
+		const form = document.getElementById('form-reservasi');
+		const buttonpreview = document.getElementById('preview-doc');
+		const buttonpengajuan = document.getElementById('pengajuan-reservasi');
+		const submitButton = document.getElementById('submit-button');
 
-		buttonpreview.addEventListener('click', function(e) {
+		buttonpreview.addEventListener('click', function () {
 			form.action = "<?php echo site_url('reservation/previewpdf') ?>";
-			form.submit();
+			submitButton.click();
 		});
 
-		buttonpengajuan.addEventListener('click', function(e) {
+		buttonpengajuan.addEventListener('click', function () {
 			form.action = "<?php echo site_url('reservation/uploadpdf') ?>";
-			form.submit();
+			submitButton.click();
 		});
 
 		// For Kostumisasi Lanjutan dropdown
-		const checkKostumisasi 	= document.getElementById('kostumisasi-lanjutan');
-		const labelKostumisasi 	= document.getElementById('label-kostumisasi');
-		const iconDropdown 		= document.getElementById('icon-dropdown');
+		const checkKostumisasi = document.getElementById('kostumisasi-lanjutan');
+		const labelKostumisasi = document.getElementById('label-kostumisasi');
+		const iconDropdown = document.getElementById('icon-dropdown');
 
-		labelKostumisasi.addEventListener('click', function(e) {
+		labelKostumisasi.addEventListener('click', function () {
 			console.log(iconDropdown)
 
 			if (checkKostumisasi.checked) {
@@ -289,11 +299,16 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		})
 
 		// Clear sub-input
-		const pilihanLogoPnb 	= document.getElementById('pilihan-logo-pnb-ya');
-		const inputLogoKiri 	= document.getElementById('logo-kiri');
+		const pilihanLogoPnb = document.getElementById('pilihan-logo-pnb-ya');
+		const inputLogoKiri = document.getElementById('logo-kiri');
 
 		const pilihanOrganisasi = document.getElementById('pilihan-organisasi-tidak');
-		const namaOrganisasi	= document.getElementById('nama-organisasi');
+		const pilihanOrganisasiYa = document.getElementById('pilihan-organisasi-ya');
+		const namaOrganisasi = document.getElementById('nama-organisasi');
+
+		pilihanOrganisasiYa.addEventListener('click', function () {
+			namaOrganisasi.setAttribute('required', 'true')
+		})
 
 		pilihanLogoPnb.addEventListener('click', function () {
 			inputLogoKiri.value = null;
@@ -301,10 +316,10 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 		pilihanOrganisasi.addEventListener('click', function () {
 			namaOrganisasi.value = null;
+			namaOrganisasi.removeAttribute('required')
 		});
 
-		$(document).ready(function() {
-
+		$(document).ready(function () {
 
 			// Triggered when user select Ruangan
 			$('#ruangan').change(function () {
@@ -320,42 +335,41 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 			});
 
 			$('#ruangan, #tanggal-mulai, #tanggal-selesai, #jam-mulai, #jam-selesai').change(function () {
-				let ruangan		= $('#ruangan').val();
-				let dateStart 	= $('#tanggal-mulai').val();
-				let dateEnd		= $('#tanggal-selesai').val();
-				let timeStart	= $('#jam-mulai').val();
-				let timeEnd		= $('#jam-selesai').val();
+				let ruangan = $('#ruangan').val();
+				let dateStart = $('#tanggal-mulai').val();
+				let dateEnd = $('#tanggal-selesai').val();
+				let timeStart = $('#jam-mulai').val();
+				let timeEnd = $('#jam-selesai').val();
 
 				$.post("<?= site_url('creservasi/check_reservation_collide') ?>", {
-					ruangan		: ruangan,
-					dateStart	: dateStart,
-					dateEnd		: dateEnd,
-					timeStart	: timeStart,
-					timeEnd		: timeEnd
-				},
-				function (response) {
-					let data = JSON.parse(response)
-					let message = $('#reservasi-message')
-					let buttonPengajuan = $('#pengajuan-reservasi')
+						ruangan: ruangan,
+						dateStart: dateStart,
+						dateEnd: dateEnd,
+						timeStart: timeStart,
+						timeEnd: timeEnd
+					},
+					function (response) {
+						let data = JSON.parse(response)
+						let message = $('#reservasi-message')
+						let buttonPengajuan = $('#pengajuan-reservasi')
 
-					if (data.isNull) {
-						message.html('Harap isi form dengan lengkap.');
-						message.css('color', 'red')
-					} else {
-						if (data.isAvailable) {
-							message.html('Ruangan tersedia.');
-							message.css('color', 'green')
-							buttonPengajuan.removeAttr('disabled')
-						}
-						else {
-							message.html('Sudah ter-reservasi.');
-							message.css('color', 'red')
-							buttonPengajuan.attr('disabled', 'true')
-						}
+						if (data.isNull) {
+								message.html('Harap isi form dengan lengkap.');
+								message.css('color', 'red')
+							} else {
+								if (data.isAvailable) {
+									message.html('Ruangan tersedia.');
+								message.css('color', 'green')
+								buttonPengajuan.removeAttr('disabled')
+							} else {
+								message.html('Sudah ter-reservasi.');
+								message.css('color', 'red')
+								buttonPengajuan.attr('disabled', 'true')
+							}
 
-						$('.ketersediaan-ruangan').removeAttr('hidden');
-					}
-				});
+							$('.ketersediaan-ruangan').removeAttr('hidden');
+						}
+					});
 			});
 
 		});

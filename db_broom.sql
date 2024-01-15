@@ -87,7 +87,7 @@ CREATE TABLE Reservasi
   reservation_date    DATE                                                   NOT NULL,
   purpose             VARCHAR(254)                                           NOT NULL,
   attachment          VARCHAR(5)                                             NOT NULL,
-  event               TINYINT                                                NOT NULL,
+  event               VARCHAR(254)                                           NOT NULL,
   organizer           VARCHAR(254)                                           NOT NULL,
   copy                MEDIUMTEXT,
 
@@ -107,34 +107,14 @@ CREATE TABLE Reservasi
   FOREIGN KEY (pimpinan_id) REFERENCES Pimpinan (id)
 );
 
-CREATE TABLE Notification_Master
-(
-  id   INT,
-  name TINYTEXT,
-
-  PRIMARY KEY (id)
-);
-
 CREATE TABLE Notification
 (
   id           INT AUTO_INCREMENT,
   type         INT,
   reservasi_id INT,
 
-  PRIMARY KEY (id),
-  FOREIGN KEY (type) REFERENCES Notification_Master (id)
+  PRIMARY KEY (id)
 );
-
-INSERT INTO Notification_Master
-VALUES ('101', 'peminjam_mengajukan'),
-       ('102', 'peminjam_disetujui'),
-       ('103', 'peminjam_ditolak'),
-       ('104', 'peminjam_dibatalkan'),
-
-       ('201', 'pimpinan_diajukan'),
-
-('301', 'pengelola_dinotifikasi'),
-('302', 'pengelola_membatalkan');
 
 # For testing purpose
 
@@ -147,34 +127,37 @@ VALUES (DEFAULT, 'Widya Guna-Guna', DEFAULT, '',
 
 
 -- Inserting peminjam account
+-- Default test pass: 123
 INSERT INTO Account
 VALUES (DEFAULT, '2215354023@pnb.ac.id',
         '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
-        '', DEFAULT, DEFAULT),
+        '', DEFAULT, TRUE),
        (DEFAULT, 'made@gmail.com',
         '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
-        '', DEFAULT, DEFAULT),
+        '', DEFAULT, TRUE),
        (DEFAULT, 'broom@gmail.com',
         '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
-        '', DEFAULT, DEFAULT);
+        '', DEFAULT, TRUE);
 
 -- Inserting pimpinan account
+-- Default test pass: 123
 INSERT INTO Account
 VALUES (DEFAULT, 'budhi@gmail.com',
         '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
-        '', 'Pimpinan', DEFAULT),
+        '', 'Pimpinan', TRUE),
        (DEFAULT, 'pakbudhi@gmail.com',
         '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
-        '', 'Pimpinan', DEFAULT),
+        '', 'Pimpinan', TRUE),
        (DEFAULT, 'gibran@gmail.com',
         '661fbc4e2d6b6d1497e55610a0b7dce028618dcc513dbe40b26b1f02fb668ce17a33e78ab4c995aae95c1658b5aa827ad08cbdef53d5d7fae3cd43f1a7ac569ffSjYvABg1KO/MJSbpvkhX0fXmfxWrDqnLwDS5UDcAPDz9QAh2XcRBuQCIyUKNGRQjTCDgOhrbJQs/sQNHJdIzosv8GTZlCu57IPWfMTNpPU=',
-        '', 'Pimpinan', DEFAULT);
+        '', 'Pimpinan', TRUE);
 
 -- Inserting pengelola account
+-- Default test pass: admin
 INSERT INTO Account
 VALUES (DEFAULT, 'admin',
         'db27078cfff84d796346ebc9c234c553cb916b54bccbcbe762c8059570e66675aaa374627c113bf5a612409a4a9447f025989d784bc797f90241ff7857e2bb75TKf+YpBQHdzJxqWR0oy4t64pf8/d9zeKGo/irLzW7keIrst+DLID6SDe6R/LPyawwS8wqTobgehWC5BJIzYidwzAQ3YNc4IT006T92eYJcI=',
-        '', 'Pengelola', DEFAULT);
+        '', 'Pengelola', TRUE);
 
 INSERT INTO Peminjam
 VALUES ('2215354023', 'I Made Bagus Mahatma Budhi', '08113978683', 'Mahasiswa',
