@@ -16,13 +16,13 @@ foreach ($hasil as $data):
 ?>
 
 <div class="card mb-3 w-90 mx-auto" style="justify-content-center">
-  <h1 class="w-100 mx-auto card-header text-center bg-white border-0">Detail</h1>
+  <h1 class="w-100 mx-auto card-header text-center border-0">Detail</h1>
   <div class="row g-0">
     <div class="col-md-8">
-      <div class="card-body d-flex justify-content-between align-items-center">
+      <div class="card-body d-flex gap-5 justify-content-between align-items-center">
         
         <div class="col-md-0">
-          <img src="..." class="img-fluid rounded-start" alt="...">
+          <img src="<?= base_url('assets/images/ruangan/' . $data->image) ?>" class="img-fluid rounded-start" alt="...">
         </div>
           
         <div>
