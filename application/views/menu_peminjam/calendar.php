@@ -23,7 +23,7 @@ view_data($reservasi);
 	</div>
 </div>
 
-<div>
+<div class="mt-5">
 	<p id="message" hidden></p>
 	<table id="list-reservasi" class="table table-bordered" hidden>
 		<thead>
