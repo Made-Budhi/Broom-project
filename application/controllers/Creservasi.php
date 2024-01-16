@@ -42,15 +42,16 @@ class Creservasi extends Broom_Controller
 		// Determine which page should be loaded.
 		switch ($role) {
 			case AccountRole::PEMINJAM:
-				$view['content'] 	= 'menu_peminjam/reservasi';
-				$view['sidebar'] 	= 'layouts/sidebar';
+				$view['content'] 			= 'menu_peminjam/reservasi';
+				$data['pilihan_ruangan']	= $this->input->post('pilihan-ruangan');
+				$view['sidebar'] 			= 'layouts/sidebar';
 				break;
 
 			case AccountRole::PIMPINAN:
 				// add variable and get DATABASE reservasi
-				$data['hasil'] = $this->pemimpin->pesetujuan();
+				$data['hasil']	 = $this->pemimpin->pesetujuan();
 				$view['content'] = 'menu_pimpinan/persetujuan';
-				$view['sidebar'] 	= 'layouts/sidebar_pimpinan';
+				$view['sidebar'] = 'layouts/sidebar_pimpinan';
 				break;
 
 			case AccountRole::PENGELOLA:

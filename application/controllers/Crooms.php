@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * @property Mrooms $rooms
+ * @property Mreservasi $reservasi
  * @property CI_Input $input
  * @property CI_Session $session
  * @property CI_Upload $upload
@@ -18,6 +19,7 @@ class Crooms extends Broom_Controller
 	{
 		parent::__construct();
 		$this->load->model("Mrooms", "rooms");
+		$this->load->model('Mreservasi', 'reservasi');
 		$this->current_session = $this->session->get_userdata();
 		
 		$role = $this->current_session['role'];
@@ -49,28 +51,30 @@ class Crooms extends Broom_Controller
 		$this->load->view($this->view['sidebar'], $this->html);
 	}
 
-	function calendar($id): void
+	function room_schedule(): void
 	{
-		$tampildata['hasil'] = $this->rooms->tampildata($id);
-		$this->data = array(
-			'tabel' => $this->load->view('menu_peminjam/schedule', $tampildata, TRUE),
-			'id' => $id
-		);
+		$id = $this->input->post('ruangan');
+		$date = $this->input->post('date');
 
-		$this->data['content'] = $this->load
-				->view('menu_peminjam/calendar', $this->data, true);
-		$this->load->view($this->view['sidebar'], $this->data);
+		$data = $this->reservasi->get_reservation($id, $date);
+
+		if (!empty($data)) {
+			$data[0]->date_start = format_indo($data[0]->date_start);
+			$data[0]->date_end = format_indo($data[0]->date_end);
+		}
+
+		echo json_encode($data);
 	}
 
-	function view(): void
+	function detailrooms(): void
 	{
-		$this->data = array(
-			'id' => $this->input->get('id')
-		);
+		$id = $this->input->get('id');
 
-		$this->data['content'] = $this->load
-				->view('menu_peminjam/calendar', $this->data, true);
-		$this->load->view($this->view['sidebar'], $this->data);
+		$this->data['ruangan'] 		= $this->rooms->tampilgedung($id);
+		$this->data['reservasi']	= $this->reservasi->getAllRuanganReservation($id);
+
+		$this->html['content'] = $this->load->view('menu_peminjam/calendar', $this->data, true);
+		$this->load->view($this->view['sidebar'], $this->html);
 	}
 	
 	function search(): void

@@ -4,29 +4,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * @property CI_Session $session
  * @property CI_DB $db
+ * @property CI_Input $input
  */
-
- class Mpengelola extends CI_Model
- {
-	 
-	 function datasingkat()
-	 {
-		 $hasil = array();
-		 
-		 $query = $this->db->select()->from("Peminjam")
-				 ->get();
-		 
-		 // to check query database
-		 foreach ($query->result() as $row) {
-			 $hasil[] = $row;
-		 }
-		 return $hasil;
-	 }
-	 
-	 function jejakreservasi($id)
-	 {
-		 $hasil = array();
-		 $query = $this->db->select('*,
+class Mpengelola extends CI_Model
+{
+	
+	function datasingkat(): array
+	{
+		$hasil = array();
+		
+		$query = $this->db->select()->from("Peminjam")
+				->get();
+		
+		// to check query database
+		foreach ($query->result() as $row) {
+			$hasil[] = $row;
+		}
+		return $hasil;
+	}
+	
+	function jejakreservasi($id): array
+	{
+		$hasil = array();
+		$query = $this->db->select('*,
 		Reservasi.status as reservasi_status'
 		 )->from('Reservasi')
 				 ->join(
@@ -46,23 +46,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	 function tampildata()
 		{
-			$sql="SELECT * FROM Account JOIN Pimpinan ON Account.account_id = Pimpinan.account_id;";
-			$query=$this->db->query($sql);
-			if ($query->num_rows()>0)
-			{
-				foreach ($query->result() as $row)
-				{
-					$hasil[]=$row;
-				}	
+			$hasil = null;
+			$query = $this->db->select()->from('Account')
+					->join('Pimpinan',
+							'Account.account_id = Pimpinan.account_id')->get();
+			if ($query->num_rows() > 0) {
+				foreach ($query->result() as $row) {
+					$hasil[] = $row;
+				}
+			} else {
+				$hasil = "";
 			}
-			else
-			{
-				$hasil="";	
-			}
-			return $hasil;	
+			return $hasil;
 		}
 
-		public function simpandata(): void
+		public function simpandata($data): void
 		{
 		// Retrieving data from user input post
 		$account_id = $this->input->post('account_id');
@@ -71,38 +69,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		$email = $this->input->post("email");
 		$position = $this->input->post("position");
 		$password = $this->input->post("password");
+		$signature = $data['image'];
 		$token = '';
 		
-		if($account_id=="")
-		{
-		// Insert data email, password, and generated token to table account
-		$data = array(
-				"email" => $email,
-				"password" => $password,
-				"token" => $token,
-				"role" => AccountRole::PIMPINAN,
-				"is_verif" => 1
-		);
-		unset($token);
-		$this->db->insert('Account', $data);
-		
-		// Build a variable to get account_id FROM table account
-		$fkdata = $this->db->select()->from('Account')
-				->where('email', $email)->where('password', $password)
-				->get()->first_row();
-		$fkid = $fkdata->account_id;
-		
-		// Insert data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
-		$data = array(
-				"id" => $id,
-				"name" => $name,
-				"position" => $position,
-				"account_id" => $fkid
-		);
-		$this->db->insert('Pimpinan', $data);
-		
-		echo "<script>alert ('data telah disimpan');</script>";
-		redirect(site_url('cpengelola/view_data_pimpinan'));
+		if($account_id=="") {
+			// Insert data email, password, and generated token to table account
+			$data = array(
+					"email" => $email,
+					"password" => $password,
+					"token" => $token,
+					"role" => AccountRole::PIMPINAN,
+					"is_verif" => 1
+			);
+			unset($token);
+			$this->db->insert('Account', $data);
+			
+			// Build a variable to get account_id FROM table account
+			$fkdata = $this->db->select()->from('Account')
+					->where('email', $email)->where('password', $password)
+					->get()->first_row();
+			$fkid = $fkdata->account_id;
+			
+			// Insert data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
+			$data = array(
+					"id" => $id,
+					"name" => $name,
+					"position" => $position,
+					"account_id" => $fkid,
+					"signature" => $signature
+			);
+			$this->db->insert('Pimpinan', $data);
+			
+			echo "<script>alert ('data telah disimpan');</script>";
+			redirect(site_url('cpengelola/view_data_pimpinan'));
 		} else {
 			// Update data email, password, and generated token to table account
 		$data = array(
@@ -152,5 +151,4 @@ defined('BASEPATH') or exit('No direct script access allowed');
         redirect('cpengelola/view_data_pimpinan','refresh');
     }
 	}
- }
- 
+}
