@@ -19,3 +19,18 @@ function format_indo(string $date): string
 	// Format the timestamp to proper date format and in Indonesian language
 	return $tanggal . " " . $nama_bulan[(int)$bulan-1] . " " . $tahun;
 }
+
+/**
+ * To format SQL time format into widely known time format in Indonesia.
+ * example	: SQL Format 	=> 12:59:00
+ * 			: format_waktu 	=> 12.59
+ *
+ * @param string $waktu
+ * @return array|string|string[]
+ */
+function format_waktu(string $waktu)
+{
+	$newWaktu = substr($waktu, 0, 5);
+
+	return str_replace(':', '.', $newWaktu);
+}
