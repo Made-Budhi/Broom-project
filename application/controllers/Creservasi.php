@@ -20,6 +20,7 @@ class Creservasi extends Broom_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_check_is_logged_in();
 		$this->load->model('Mpdf', 'pdf');
 		$this->load->model('Mnotification', 'notification');
 		$this->load->model('Mreservasi', 'reservasi');

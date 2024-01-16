@@ -10,7 +10,16 @@ class Broom_Controller extends CI_Controller
 	{
 		parent::__construct();
 		$this->hooks =& load_class('Hooks', 'core');
-		$this->hooks->call_hook('session_check');
+	}
+	
+	protected function _check_is_logged_in(): void
+	{
+		$this->hooks->call_hook('session_login_check');
+	}
+	
+	protected function _check_is_logged_out(): void
+	{
+		$this->hooks->call_hook('session_logout_check');
 	}
 	
 }

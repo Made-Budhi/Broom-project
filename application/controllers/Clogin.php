@@ -6,11 +6,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Session $session
  * @property CI_Input $input
  */
-class Clogin extends CI_Controller
+class Clogin extends Broom_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_check_is_logged_out();
 		$this->load->model('Maccount', 'account');
 	}
 	
@@ -79,12 +80,6 @@ class Clogin extends CI_Controller
 				$this->load->view('forgot_password');
 				break;
 		}
-	}
-	
-	function logout(): void
-	{
-		$this->account->logout();
-		redirect(site_url());
 	}
 	
 	public function reset(): void

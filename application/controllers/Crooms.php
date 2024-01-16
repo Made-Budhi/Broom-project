@@ -18,6 +18,7 @@ class Crooms extends Broom_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_check_is_logged_in();
 		$this->load->model("Mrooms", "rooms");
 		$this->load->model('Mreservasi', 'reservasi');
 		$this->current_session = $this->session->get_userdata();

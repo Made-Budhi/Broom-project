@@ -17,6 +17,7 @@ class Cpengelola extends Broom_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_check_is_logged_in();
 		$this->load->model('Mpengelola', 'pengelola');
 		$this->load->model('Mpemimpin', 'pimpinan');
 		$this->current_session = $this->session->get_userdata();
