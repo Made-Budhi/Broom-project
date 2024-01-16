@@ -91,7 +91,7 @@
           </div>
           
           <div class="card-footer">
-            <a href="<?= site_url('rooms/view?id=' . $data->id); ?>"
+            <a href="<?= site_url('rooms/detailrooms?id=' . $data->id); ?>"
                class="btn btn-primary">Lihat Detail</a>
           </div>
         </div>
