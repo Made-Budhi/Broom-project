@@ -236,10 +236,9 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 	</div>
 	<br>
 
-	<div
-		class="col-md-3 col-12 text-center position-absolute top-50 end-0 translate-middle-y gap-4 me-5 fit-content p-3 ">
+	<div class="col-md-3 col-12 text-center position-absolute top-50 end-0 translate-middle-y gap-4 me-5 fit-content p-3 ">
 		<img src="<?= base_url("assets/svg/reservation-note-img.svg") ?>" alt="">
-		<div class="d-flex flex-column gap-1">
+		<div class="d-flex flex-column gap-1 mt-4">
 			<a class="btn btn-secondary w-100" id="preview-doc" target="_blank">Document Preview</a>
 			<button class="btn btn-primary w-100" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				Ajukan Reservasi

@@ -1,5 +1,5 @@
 <div id="support">
-  <b>Support</b>
+  <h3>Support</h3>
 
   <br>
 
