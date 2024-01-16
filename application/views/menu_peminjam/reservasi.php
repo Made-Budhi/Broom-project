@@ -93,7 +93,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 						<!-- Ruangan: ruangan, tanggal-mulai, jam-mulai, tanggal-selesai, jam-selesai -->
 
-						<h3>Ruangan</h3>
+						<h3 class="mt-3">Ruangan</h3>
 
 						<label for="ruangan">Ruangan<span class="keterangan">*</span></label>
 						<select class="w-100 form-control" name="ruangan" id="ruangan">
@@ -196,7 +196,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 						</div>
 
 						<h3>
-							<label for="kostumisasi-lanjutan" id="label-kostumisasi">
+							<label for="kostumisasi-lanjutan" id="label-kostumisasi" class="mt-3">
 								Kostumisasi Lanjutan
 								<i style="transition: .3s ease; transform: rotateZ(180deg)" class="fa-solid fa-caret-up"
 								   id="icon-dropdown"></i>
@@ -229,6 +229,8 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 						</div>
 					</section>
 				</div>
+
+				<input type="submit" id="submit-button" value="submit" hidden>
 			</form>
 		</div>
 	</div>
@@ -266,7 +268,6 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		</div>
 	</div>
 
-	<input type="submit" id="submit-button" hidden>
 	<?= form_close() ?>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -285,13 +286,15 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		const submitButton = document.getElementById('submit-button');
 
 		buttonpreview.addEventListener('click', function () {
+			console.log('lmaoo');
 			form.action = "<?php echo site_url('reservation/previewpdf') ?>";
-			form.submit();
+			form.setAttribute('target', '_blank')
+			submitButton.click()
 		});
 
 		buttonpengajuan.addEventListener('click', function () {
 			form.action = "<?php echo site_url('reservation/uploadpdf') ?>";
-			form.submit();
+			submitButton.click()
 		});
 
 		// For Kostumisasi Lanjutan dropdown
@@ -331,6 +334,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		});
 
 		$(document).ready(function () {
+			$('label').addClass('mt-2')
 
 			// Triggered when user select Ruangan
 			$('#ruangan').change(function () {
