@@ -97,3 +97,4 @@ $route['notifications/(:any)'] = $route['notifications'].'/$1';
 // Broom Account URL on Pengelola
 $route['account/peminjam'] = 'Cpengelola/data_akun';
 $route['account/pimpinan'] = 'Cpengelola/view_data_pimpinan';
+$route['account/peminjam/history/(:num)'] = 'Cpengelola/jejak/$1';

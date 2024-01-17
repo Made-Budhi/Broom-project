@@ -43,7 +43,7 @@ foreach ($hasil as $data):
           <?php echo $data->phone ?>
         </td>
         <td class="text-center">
-          <a href="<?= site_url('Cpengelola/jejak/' . $data->id) ?>" class="btn btn-primary">Daftar Reservasi</a>
+          <a href="<?= site_url('account/peminjam/history/' . $data->id) ?>" class="btn btn-primary">Daftar Reservasi</a>
         </td>
       </tr>
 

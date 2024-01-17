@@ -23,7 +23,7 @@
 		  case NotificationType::PENGELOLA_DINOTIFIKASI:
 			  ?>
         <!-- Icon -->
-        <div style="background: #4CAF50; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
+        <div style="background: #4CAF50; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center p-4">
           <i class="fa-solid fa-check" style="color: #f8f8f8; font-size: 2.5rem"></i>
         </div>
 
@@ -39,7 +39,7 @@
         case NotificationType::PENGELOLA_MEMBATALKAN:
 			  ?>
           <!-- Icon -->
-          <div style="background: #F44336; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center">
+          <div style="background: #F44336; height: 70px; width: 70px; border-radius: 35px" class="d-flex justify-content-center align-items-center p-4">
             <i class="fa-solid fa-xmark" style="color: #f8f8f8; font-size: 2.5rem"></i>
           </div>
 
