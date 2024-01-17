@@ -6,7 +6,13 @@
 	view_data($message);
 	?>
 
-	<?= empty($notifikasi) ? '<div><h1>' . $message . '</h1></div>' : ''; ?>
+	<?= empty($notifikasi)? '
+	<div class=" w-100 d-flex flex-column align-items-center gap-5">
+	<img src='.base_url("assets/svg/no-notification.svg").' alt="" class="w-50">
+		<h1>'.$message.'</h1>
+	</div>
+	
+	' : ''; ?>
 
 	<?php foreach ($notifikasi as $data): ?>
 		<div class='d-flex align-items-center mt-4 gap-5'>
@@ -21,7 +27,7 @@
 					</div>
 
 					<div>
-						<div class="d-flex"><h4>Permintaan persetujuan </h4>
+						<div class="d-flex justify-content-between"><h4>Permintaan persetujuan </h4>
 							<p class="text-dark-grey"> <?= format_indo($data->reservation_date) ?></p></div>
 						<p>Permintaan persetujuan mengenai reservasi ruangan <?= $data->name ?> untuk
 							tanggal <?= format_indo($data->date_start) ?>

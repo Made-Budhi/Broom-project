@@ -45,5 +45,7 @@
 	
 
 </div>
+<script src="<?= base_url('js/settings/init.js'); ?>"></script>
+
 </body>
 </html>
