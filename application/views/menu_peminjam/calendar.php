@@ -9,10 +9,14 @@ view_data($reservasi);
 			<img class="rounded w-100" src="<?= base_url('assets/images/ruangan/' . $ruangan->image) ?>" alt="<?= $ruangan->name ?>">
 		</div>
 
-		<form action="<?= site_url('creservasi') ?>" method="post" class="mt-5">
-			<input type="text" name="pilihan-ruangan" id="" value="<?= $ruangan->id ?>" hidden>
-			<button class="btn btn-primary w-100 p-2" type="submit">Ajukan Reservasi</button>
-		</form>
+		<?php if ($this->session->get_userdata()['role'] == AccountRole::PEMINJAM) {?>
+
+			<form action="<?= site_url('creservasi') ?>" method="post" class="mt-5">
+				<input type="text" name="pilihan-ruangan" id="" value="<?= $ruangan->id ?>" hidden>
+				<button class="btn btn-primary w-100 p-2" type="submit">Ajukan Reservasi</button>
+			</form>
+
+		<?php } ?>
 	</div>
 
 	<div class="col-6" id="right">
