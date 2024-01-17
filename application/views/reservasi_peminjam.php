@@ -43,12 +43,12 @@ foreach ($hasil as $data):
           <?php echo $data->name ?>
         </td>
         <td class="text-center">
-          <?php echo format_indo($data->date_start) ?>
-          <?php echo $data->time_start ?>
+          <?php echo format_indo($data->date_start) ?>,
+          <?php echo format_waktu($data->time_start) ?>
         </td>
         <td class="text-center">
-          <?php echo format_indo($data->date_end) ?>
-          <?php echo $data->time_end ?>
+          <?php echo format_indo($data->date_end) ?>,
+          <?php echo format_waktu($data->time_end) ?>
         </td>
         <td class="text-center">
           <?php echo $data->reservasi_status ?>
