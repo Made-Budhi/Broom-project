@@ -78,10 +78,10 @@ if ( ! function_exists('peminjam_result_dropdown')) {
 	function peminjam_result_dropdown($href = '', $data = null): string
 	{
 		return '<li><a class="dropdown-item d-flex" href="'.$href.'">'
-				.'<div class="col text-center">'.$data->name.'</div>'
-				.'<div class="col text-center">'.$data->id.'</div>'
-				.'<div class="col text-center">'.$data->phone.'</div>'
-				.'<div class="col text-center">'.$data->role.'</div>'
+				.'<div class="col">'.$data->name.'</div>'
+				.'<div class="col">'.$data->id.'</div>'
+				.'<div class="col">'.$data->phone.'</div>'
+				.'<div class="col">'.$data->role.'</div>'
 				.'</a></li>';
 	}
 }
@@ -89,13 +89,23 @@ if ( ! function_exists('peminjam_result_dropdown')) {
 if ( ! function_exists('peminjam_head_dropdown')) {
 	function peminjam_head_dropdown(): string
 	{
-		return '<li class="d-flex">'
-				.'<div class="col text-center">Nama</div>'
-				.'<div class="col text-center">NIM/NIK</div>'
-				.'<div class="col text-center">Telpon</div>'
-				.'<div class="col text-center">Status</div>'
-				.'<li class="dropdown-divider">'.
-				'</li>';
+		return '<li class="d-flex container">'
+				.'<div class="col">Nama</div>'
+				.'<div class="col">NIM/NIK</div>'
+				.'<div class="col">Telpon</div>'
+				.'<div class="col">Status</div>'
+				.'</li>'.
+				'<li class="dropdown-divider">';
+	}
+}
+
+if ( ! function_exists('room_head_result_dropdown')) {
+	function room_head_result_dropdown(): string
+	{
+		return '<li class="container d-flex">'
+				.'<div class="col">Nama</div>'
+				.'<li class="dropdown-divider">'
+				.'</li>';
 	}
 }
 

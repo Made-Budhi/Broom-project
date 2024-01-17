@@ -23,25 +23,25 @@
          class="form-control dropdown-toggle" data-bs-toggle="dropdown"
          data-bs-auto-close="outside">
   <ul id="livesearch" class="dropdown-menu col-11">
-    <li class="d-flex">
-      <div class="col text-center">Nama</div>
-      <div class="col text-center">NIM/NIK</div>
-      <div class="col text-center">Telpon</div>
-      <div class="col text-center">Status</div>
+    <li class="container d-flex">
+      <div class="col">Nama</div>
+      <div class="col">NIM/NIK</div>
+      <div class="col">Telpon</div>
+      <div class="col">Status</div>
       <li class="dropdown-divider">
     </li>
     <li><div class="dropdown-item disabled">No Suggestion</div></li>
   </ul>
-  <ul hidden>
-    <li id="default-result">
-      <div class="dropdown-item disabled">No Suggestion</div>
+  <ul id="default-result-dropdown" hidden>
+    <li class="container d-flex">
+      <div class="col">Nama</div>
+      <div class="col">NIM/NIK</div>
+      <div class="col">Telpon</div>
+      <div class="col">Status</div>
+    <li class="dropdown-divider">
     </li>
-    <li id="head-result" class="d-flex">
-      <div class="col text-center">Nama</div>
-      <div class="col text-center">NIM/NIK</div>
-      <div class="col text-center">Telpon</div>
-      <div class="col text-center">Status</div>
-      <li class="dropdown-divider">
+    <li>
+      <div class="dropdown-item disabled">No Suggestion</div>
     </li>
   </ul>
 </div>

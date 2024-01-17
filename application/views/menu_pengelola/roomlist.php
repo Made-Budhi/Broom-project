@@ -67,11 +67,23 @@
            onkeyup="showResult('room_name')" autocomplete="off" autocapitalize="off"
            class="form-control dropdown-toggle" data-bs-toggle="dropdown"
            data-bs-auto-close="outside">
-    <ul id="livesearch" class="dropdown-menu col-12">
+    <ul id="livesearch" class="dropdown-menu col-11">
+      <li id="head-result" class="d-flex container">
+        <div class="col">Nama</div>
+        <li class="dropdown-divider">
+      </li>
       <li><div class="dropdown-item disabled">No Suggestion</div></li>
     </ul>
-    <ul id="default-result" hidden>
-      <li><div class="dropdown-item disabled">No Suggestion</div></li>
+    
+    <ul id="default-result-dropdown" hidden>
+      <li class="d-flex container">
+        <div class="col">Nama</div>
+        <li class="dropdown-divider">
+      </li>
+      
+      <li>
+        <div class="dropdown-item disabled">No Suggestion</div>
+      </li>
     </ul>
   </div>
   
