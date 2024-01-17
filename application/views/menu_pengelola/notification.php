@@ -1,6 +1,6 @@
 <h1>Notifikasi</h1>
 
-<div class="d-flex flex-column-reverse">
+<div>
 
 	<?php
   view_data($notifikasi);

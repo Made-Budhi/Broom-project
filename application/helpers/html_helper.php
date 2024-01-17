@@ -73,3 +73,44 @@ if ( ! function_exists('upload_handler')) {
 		return $uploaded_image['file_name'];
 	}
 }
+
+if ( ! function_exists('peminjam_result_dropdown')) {
+	function peminjam_result_dropdown($href = '', $data = null): string
+	{
+		return '<li><a class="dropdown-item d-flex" href="'.$href.'">'
+				.'<div class="col text-center">'.$data->name.'</div>'
+				.'<div class="col text-center">'.$data->id.'</div>'
+				.'<div class="col text-center">'.$data->phone.'</div>'
+				.'<div class="col text-center">'.$data->role.'</div>'
+				.'</a></li>';
+	}
+}
+
+if ( ! function_exists('peminjam_head_dropdown')) {
+	function peminjam_head_dropdown(): string
+	{
+		return '<li class="d-flex">'
+				.'<div class="col text-center">Nama</div>'
+				.'<div class="col text-center">NIM/NIK</div>'
+				.'<div class="col text-center">Telpon</div>'
+				.'<div class="col text-center">Status</div>'
+				.'<li class="dropdown-divider">'.
+				'</li>';
+	}
+}
+
+if ( ! function_exists('room_result_dropdown')) {
+	function room_result_dropdown($href = '', $data = null): string
+	{
+		return '<li><a class="dropdown-item d-flex" href="'.$href.'">'
+				.'<div class="col">'.$data->name.'</div>'
+				.'</a></li>';
+	}
+}
+
+if ( ! function_exists('default_result_dropdown')) {
+	function default_result_dropdown($data = ''): string
+	{
+		return '<li><div class="dropdown-item disabled">'.$data.'</div></li>';
+	}
+}

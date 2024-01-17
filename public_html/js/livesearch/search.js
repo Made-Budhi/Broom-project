@@ -1,13 +1,16 @@
-function showResult() {
+function showResult(str_query) {
   const inputSearch = document.getElementById("inputSearch");
   const livesearch = document.getElementById("livesearch");
+  const defaultResult = document.getElementById("default-result");
+  const headResult = document.getElementById("head-result");
   
   const linkTarget = window.location.href.concat("/search");
   
   if (inputSearch.value.length === 0) {
     // TODO need something default to show
     inputSearch.value = "";
-    livesearch.innerHTML = "<li><a class=\"dropdown-item\" href=\"\">No Suggestion</a></li>";
+    livesearch.innerHTML = headResult.outerHTML;
+    livesearch.innerHTML += defaultResult.outerHTML;
     livesearch.style.border = "1px solid #A5ACB2";
     return;
   }
@@ -21,6 +24,6 @@ function showResult() {
     }
   }
 
-  xmlhttp.open("GET",linkTarget+"?room_name="+inputSearch.value,true);
+  xmlhttp.open("GET",linkTarget+"?"+str_query+"="+inputSearch.value);
   xmlhttp.send();
 }

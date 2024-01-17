@@ -59,14 +59,19 @@
 
 <!-- Search bar with dropdown -->
   <div class="input-group mb-3 dropdown-content">
-    <span class="input-group-text" id="basic-addon1">Search</span>
+    <span class="input-group-text" id="basic-addon1">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
     <input id="inputSearch" type="search" placeholder="Ruangan"
            aria-label="SearchRuangan" aria-describedby="basic-addon1"
-           onkeyup="showResult()" autocomplete="off" autocapitalize="off"
+           onkeyup="showResult('room_name')" autocomplete="off" autocapitalize="off"
            class="form-control dropdown-toggle" data-bs-toggle="dropdown"
-           aria-expanded="false" data-bs-auto-close="outside">
-    <ul id="livesearch" class="dropdown-menu">
-      <li><a class="dropdown-item" href="">No Suggestion</a></li>
+           data-bs-auto-close="outside">
+    <ul id="livesearch" class="dropdown-menu col-12">
+      <li><div class="dropdown-item disabled">No Suggestion</div></li>
+    </ul>
+    <ul id="default-result" hidden>
+      <li><div class="dropdown-item disabled">No Suggestion</div></li>
     </ul>
   </div>
   

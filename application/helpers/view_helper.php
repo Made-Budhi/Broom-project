@@ -122,21 +122,31 @@ if ( ! function_exists('view_flashdata')) {
 }
 
 if ( ! function_exists('livesearch')) {
-	function livesearch($searchStr, $results): void
+	/**
+	 * @param $searchStr
+	 * @param $results
+	 * @param $result_drop
+	 * @param $default_drop
+	 * @param $url
+	 * @param $head_drop
+	 * @return void
+	 */
+	function livesearch($searchStr, $results, $result_drop, $default_drop, $url, $head_drop): void
 	{
 		//lookup all links from the xml file if length of q>0
+		$hint = $head_drop();
 		if (strlen($searchStr) > 0) {
-			$hint = "";
 			foreach ($results as $data) {
 				//find a link matching the search text
-				$hint .= '<li><a class="dropdown-item" href="'.site_url('rooms/view?id='.$data->id).'">'.$data->name.'</a></li>';
+				$href = site_url($url.$data->id);
+				$hint .= $result_drop($href, $data);
 			}
 		}
 		
 		// Set output to "no suggestion" if no hint was found
 		// or to the correct values
 		if (empty($hint)) {
-			$response = '<li><span class="dropdown-item-text">no suggestion</span></li>';
+			$response = "yes";
 		} else {
 			$response = $hint;
 		}
