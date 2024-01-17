@@ -174,6 +174,7 @@ class Creservasi extends Broom_Controller
 		// add variable and get DATABASE reservasi
 		$data['hasil'] = $this->pemimpin->lengkap($reservasi_id);
 		$data['content']=$this->load->view('menu_pimpinan/persetujuan_detail',$data,TRUE);
+		$data['current_uri'] = 'reservasi';
 		$this->load->view('layouts/sidebar_pimpinan',$data);
 	}
 

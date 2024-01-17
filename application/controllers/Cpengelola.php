@@ -28,11 +28,11 @@ class Cpengelola extends Broom_Controller
 			case AccountRole::PEMINJAM:
 				redirect('dashboard');
 				break;
-			
+
 			case AccountRole::PIMPINAN:
 				redirect('dashboard');
 				break;
-			
+
 			case AccountRole::PENGELOLA:
 				$this->data['hasil'] = $this->pengelola->tampildata();
 				$this->view['content'] = 'menu_pengelola/roomlist';
@@ -70,6 +70,7 @@ class Cpengelola extends Broom_Controller
 		$tampil['hasil']=$this->pengelola->tampildata();
 		$data['content']=$this->load->view('menu_pengelola/data_pimpinan',$tampil,TRUE);
 		$data['form']=$this->load->view('menu_pengelola/form','',TRUE);
+		$data['current_uri'] = 'data_akun';
 		$this->load->view('layouts/sidebar_pengelola', $data);
 	}
 

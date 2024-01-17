@@ -5,9 +5,9 @@
     <input type="text" class="form-control" name="name" id="name">
   </div>
 
-  <div class="mb-3 mt-3">
+  <div class="mb-3 mt-3" id="password-field">
     Password
-    <input type="text" class="form-control" name="password" id="password">
+    <input type="password" class="form-control" name="password" id="password">
   </div>
 
   <div class="mb-3">

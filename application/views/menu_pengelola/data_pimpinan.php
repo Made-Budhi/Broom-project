@@ -46,7 +46,6 @@
     
     $('.edit-btn').click(function() {
       let id = $(this).attr('data-bs-whatever')
-      console.log(id)
 
       $.post("<?= site_url('cpengelola/edit_pimpinan') ?>", {
         id: id
@@ -60,15 +59,16 @@
         $('#email').val(data[0].email)
         $('#position').val(data[0].position)
         $('#account_id').val(data[0].account_id)
+	    $('#password').val(data[0].password)
 
         $('#toggle-edit').attr('value', 'Simpan')
-        $('#password').attr('type', 'hidden')
+        $('#password-field').attr('hidden', 'true')
       })
     })
 
     $('#button-batal').click(function() {
       $('#toggle-edit').attr('value', 'Tambah')
-      $('#password').attr('type', 'text')
+      $('#password-field').removeAttr('hidden')
     })
 
   })
