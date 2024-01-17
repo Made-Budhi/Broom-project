@@ -4,7 +4,7 @@
   <br>
   <h6>Color Theme</h6>
   <div class="d-flex gap-3 w-100">
-	
+
 	<!-- Some preference settings -->
 	<div id="lightThemeBlock" class="flex-grow-1 border rounded-3 px-2 text-center">
 		<img src="<?= base_url("assets/svg/light.svg") ?>" class="w-75" alt="">
@@ -39,3 +39,4 @@
   </div>
 </div>
 
+<script src="<?= base_url('js/settings/init.js'); ?>"></script>

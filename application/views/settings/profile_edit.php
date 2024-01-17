@@ -38,11 +38,11 @@
 			id="email" value="<?= $account->email ?>" disabled>
 	</div>
    </div>
-    <br>
+    <br><br>
 
-    <input id="form_button" type="button" value="Edit" class="btn btn-warning"
+    <input id="form_button" class="btn btn-primary" type="button" value="Edit"
            onclick="changeProfileEditFormDisabledStatus();">
       
-    <input type="submit" value="Simpan" class="btn btn-primary">
+    <input class="btn btn-success" type="submit" value="Simpan">
   </form>
 </div>
