@@ -60,8 +60,13 @@ class Mrooms extends CI_Model {
 		$default_html = function () {
 			return default_result_dropdown('No Result');
 		};
+		
+		$drop_result = function () {
+			return room_head_result_dropdown();
+		};
 
-		livesearch($searchStr, $results, $result_html, $default_html, 'rooms/detailrooms?id=', '');
+		livesearch($searchStr, $results, $result_html, $default_html,
+				'rooms/detailrooms?id=', $drop_result);
 	}
 
 	function add_room($data): void

@@ -145,8 +145,8 @@ if ( ! function_exists('livesearch')) {
 		
 		// Set output to "no suggestion" if no hint was found
 		// or to the correct values
-		if (empty($hint)) {
-			$response = "yes";
+		if (empty($results)) {
+			$response = $hint.$default_drop();
 		} else {
 			$response = $hint;
 		}
