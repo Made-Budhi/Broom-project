@@ -90,8 +90,7 @@
 	<?php
 	view_data($hasil);
 	$no = 1;
-	foreach ($hasil as $data):
-		?>
+	foreach ($hasil as $data): ?>
 
 		<div class="row border border-light p-3 mb-3 bg-body rounded">
 
@@ -119,8 +118,9 @@
 			</div>
 
 		</div>
-		<?php
-		$no++;
+  
+  <?php
+  $no++;
 	endforeach;
 	?>
 </div>

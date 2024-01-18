@@ -109,4 +109,40 @@ class Crooms extends Broom_Controller
 		redirect('rooms');
 	}
 	
+	function change(): void
+	{
+		$data['id'] = $this->input->post('id_room');
+		
+		// Upload room image
+		$config = array(
+				'upload_path' 	=> FCPATH.'assets/images/ruangan/',
+				'allowed_types' => 'jpg|png',
+				'max_size' 		=> 0,
+				'max_width'		=> 0,
+				'max_height'	=> 0
+		);
+		
+		$this->load->library('upload', $config);
+		$data['image'] = upload_handler($this->upload, $config,
+				$this->view, 'image');
+		
+		if (empty($data['image'])) {
+			$data['image'] = $this->input->post('img_name');
+		}
+		$this->rooms->edit_room($data);
+
+		redirect('rooms/detailrooms?id='.$data['id']);
+	}
+	
+	function delete($id): void
+	{
+		if ($this->session->get_userdata()['role'] != AccountRole::PENGELOLA) {
+			redirect('dashboard');
+		}
+		
+		$this->rooms->delete_rooom($id);
+		
+		redirect('rooms');
+	}
+	
 }

@@ -133,7 +133,7 @@ class Mpengelola extends CI_Model
 		$this->db->trans_start();
 		
 		// Delete rows from the dependent table (pimpinan) first
-		$this->db->delete('pimpinan', array('account_id' => $account_id));
+		$this->db->delete('Pimpinan', array('account_id' => $account_id));
 		
 		// Now, delete the row from the main table (Account)
 		$this->db->delete('Account', array('account_id' => $account_id));
