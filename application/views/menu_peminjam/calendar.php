@@ -10,17 +10,19 @@ view_data($reservasi);
 		</div>
 
     <?php if ($this->session->get_userdata()['role'] == AccountRole::PENGELOLA) { ?>
-    <!-- Button Edit trigger modal -->
-    <a type="button" class="btn btn-primary mb-4" data-bs-toggle="modal"
-       data-bs-target="#edit-room-modal">
-      Edit
-    </a>
+      <div class="d-flex gap-5 mt-3">
+        <!-- Button Edit trigger modal -->
+        <a type="button" class="btn btn-primary mb-4 flex-grow-1" data-bs-toggle="modal"
+           data-bs-target="#edit-room-modal">
+          Edit
+        </a>
 
-    <!-- Button Delete trigger modal -->
-    <a type="button" class="btn btn-danger mb-4" data-bs-toggle="modal"
-       data-bs-target="#delete-room-modal">
-      Hapus
-    </a>
+        <!-- Button Delete trigger modal -->
+        <a type="button" class="btn btn-danger mb-4 flex-grow-1" data-bs-toggle="modal"
+           data-bs-target="#delete-room-modal">
+          Hapus
+        </a>
+    </div>
 
     <!-- Modal Edit -->
     <div class="modal fade" id="edit-room-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,23 +85,27 @@ view_data($reservasi);
       </div>
     </div>
     
-    <?php // TODO Modal Delete ?>
     <!-- Modal Delete -->
     <div class="modal fade" id="delete-room-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi Penghapusan Ruangan</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           
-          <div class="modal-body">
-            test
+          <div class="modal-body text-center">
+            Apakah yakin menghapus Ruangan <?= $ruangan->name ?> ?
           </div>
-          
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+
+          <div class="d-flex justify-content-center gap-5 mb-3">
+            <form method="post" action="<?= site_url('rooms/delete') ?>">
+              <label hidden>
+                <input type="text" name="id" value="<?= $ruangan->id ?>">
+              </label>
+              <button type="submit" class="btn btn-danger px-3"
+                      data-bs-dismiss="modal">Yes</button>
+            </form>
           </div>
         </div>
       </div>

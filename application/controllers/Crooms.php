@@ -134,11 +134,13 @@ class Crooms extends Broom_Controller
 		redirect('rooms/detailrooms?id='.$data['id']);
 	}
 	
-	function delete($id): void
+	function delete(): void
 	{
 		if ($this->session->get_userdata()['role'] != AccountRole::PENGELOLA) {
 			redirect('dashboard');
 		}
+		
+		$id = $this->input->post('id');
 		
 		$this->rooms->delete_rooom($id);
 		
