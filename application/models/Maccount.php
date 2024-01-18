@@ -234,12 +234,23 @@ class Maccount extends CI_Model
 	public function edit(array $data): void
 	{
 		// TODO need refactor this logic
-		$currentSessionData = $this->session->userdata;
+		$currentSessionData = $this->session->get_userdata();
 		
-		$this->db->set('name', $data['account_name'])
-				->set('phone', $data['account_phone'])
-				->where('id', $currentSessionData['id'])
-				->update($currentSessionData['role']);
+		switch ($currentSessionData['role']) {
+			case AccountRole::PENGELOLA:
+				$this->db->set('name', $data['account_name'])
+						->where('id', $currentSessionData['id'])
+						->update($currentSessionData['role']);
+				break;
+				
+			case AccountRole::PIMPINAN:
+			case AccountRole::PEMINJAM:
+				$this->db->set('name', $data['account_name'])
+					->set('phone', $data['account_phone'])
+					->where('id', $currentSessionData['id'])
+					->update($currentSessionData['role']);
+				break;
+		}
 	}
 	
 	function verify_email(string $token): void
