@@ -57,18 +57,35 @@
 		</div>
 	</div>
 
-	<!-- Search bar with dropdown -->
-	<div class="input-group mb-3 dropdown-content">
-		<span class="input-group-text" id="basic-addon1">Search</span>
-		<input id="inputSearch" type="search" placeholder="Ruangan"
-			   aria-label="SearchRuangan" aria-describedby="basic-addon1"
-			   onkeyup="showResult()" autocomplete="off" autocapitalize="off"
-			   class="form-control dropdown-toggle" data-bs-toggle="dropdown"
-			   aria-expanded="false" data-bs-auto-close="outside">
-		<ul id="livesearch" class="dropdown-menu">
-			<li><a class="dropdown-item" href="">No Suggestion</a></li>
-		</ul>
-	</div>
+  <!-- Search bar with dropdown -->
+  <div class="input-group mb-3 dropdown-content">
+    <span class="input-group-text" id="basic-addon1">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
+    <input id="inputSearch" type="search" placeholder="Ruangan"
+           aria-label="SearchRuangan" aria-describedby="basic-addon1"
+           onkeyup="showResult('room_name')" autocomplete="off" autocapitalize="off"
+           class="form-control dropdown-toggle" data-bs-toggle="dropdown"
+           data-bs-auto-close="outside">
+    <ul id="livesearch" class="dropdown-menu col-11">
+      <li id="head-result" class="d-flex container">
+        <div class="col">Nama</div>
+        <li class="dropdown-divider">
+      </li>
+      <li><div class="dropdown-item disabled">No Suggestion</div></li>
+    </ul>
+    
+    <ul id="default-result-dropdown" hidden>
+      <li class="d-flex container">
+        <div class="col">Nama</div>
+        <li class="dropdown-divider">
+      </li>
+      
+      <li>
+        <div class="dropdown-item disabled">No Suggestion</div>
+      </li>
+    </ul>
+  </div>
 
 	<?php
 	view_data($hasil);

@@ -58,7 +58,7 @@ $route['settings'] = 'Csetting';
 $route['dashboard'] = 'Cdashboard';
 $route['login'] = 'Clogin';
 $route['register'] = 'Cregister';
-$route['logout'] = 'Clogin/logout';
+$route['logout'] = 'Clogout';
 $route['rooms'] = 'Crooms';
 $route['reservation'] = 'Creservasi';
 $route['notifications'] = 'Cnotification';
@@ -95,6 +95,8 @@ $route['notifications/(:any)/(:any)'] = $route['notifications'].'/$1/$2';
 $route['notifications/(:any)'] = $route['notifications'].'/$1';
 
 // Broom Account URL on Pengelola
-$route['account/peminjam'] = 'Cpengelola/data_akun';
+$route['account/peminjam'] = 'Cpengelola/view_data_peminjam';
+$route['account/peminjam/search'] = 'Cpengelola/search';
+$route['account/peminjam/history/(:num)'] = 'Cpengelola/jejak/$1';
 $route['account/pimpinan'] = 'Cpengelola/view_data_pimpinan';
 $route['account/peminjam/history/(:num)'] = 'Cpengelola/jejak/$1';

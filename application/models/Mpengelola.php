@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mpengelola extends CI_Model
 {
 	
-	function datasingkat(): array
+	public function datasingkat(): array
 	{
 		$hasil = array();
 		
@@ -23,45 +23,45 @@ class Mpengelola extends CI_Model
 		return $hasil;
 	}
 	
-	function jejakreservasi($id): array
+	public function jejakreservasi($id): array
 	{
 		$hasil = array();
 		$query = $this->db->select('*,
 		Reservasi.status as reservasi_status'
-		 )->from('Reservasi')
-				 ->join(
-						 "Ruangan",
-						 "Reservasi.ruangan_id = Ruangan.id",
-						 "inner"
-				 )
-				 ->where('Reservasi.peminjam_id', $id)->get();
-		 
-		 foreach ($query->result() as $row) {
-			 $hasil[] = $row;
-		 }
-		 
-		 // return variable to get database
-		 return $hasil;
-	 }
-
-	 function tampildata()
-		{
-			$hasil = null;
-			$query = $this->db->select()->from('Account')
-					->join('Pimpinan',
-							'Account.account_id = Pimpinan.account_id')->get();
-			if ($query->num_rows() > 0) {
-				foreach ($query->result() as $row) {
-					$hasil[] = $row;
-				}
-			} else {
-				$hasil = "";
-			}
-			return $hasil;
+		)->from('Reservasi')
+				->join(
+						"Ruangan",
+						"Reservasi.ruangan_id = Ruangan.id",
+						"inner"
+				)
+				->where('Reservasi.peminjam_id', $id)->get();
+		
+		foreach ($query->result() as $row) {
+			$hasil[] = $row;
 		}
-
-		public function simpandata($data): void
-		{
+		
+		// return variable to get database
+		return $hasil;
+	}
+	
+	public function tampildata(): array|string
+	{
+		$hasil = null;
+		$query = $this->db->select()->from('Account')
+				->join('Pimpinan',
+						'Account.account_id = Pimpinan.account_id')->get();
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$hasil[] = $row;
+			}
+		} else {
+			$hasil = "";
+		}
+		return $hasil;
+	}
+	
+	public function simpandata($data): void
+	{
 		// Retrieving data from user input post
 		$account_id = $this->input->post('account_id');
 		$id = $this->input->post('id');
@@ -72,7 +72,7 @@ class Mpengelola extends CI_Model
 		$signature = $data['image'];
 		$token = '';
 		
-		if($account_id=="") {
+		if ($account_id == "") {
 			// Insert data email, password, and generated token to table account
 			$data = array(
 					"email" => $email,
@@ -101,54 +101,78 @@ class Mpengelola extends CI_Model
 			$this->db->insert('Pimpinan', $data);
 			
 			echo "<script>alert ('data telah disimpan');</script>";
-			redirect(site_url('cpengelola/view_data_pimpinan'));
 		} else {
 			// Update data email, password, and generated token to table account
-		$data = array(
-			"email" => $email,
-			"password" => $password,
-			"token" => $token,
-			"role" => AccountRole::PIMPINAN
-		);
-		unset($token);
-		$this->db->where('account_id',$account_id);
-		$this->db->update('Account', $data);
-	
-		// Update data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
-		$data = array(
-			"id" => $id,
-			"name" => $name,
-			"position" => $position
-		);
-		$this->db->where('account_id', $account_id);
-		$this->db->update('Pimpinan', $data);
-		
-		echo "<script>alert ('Data telah diedit');</script>";
-		redirect(site_url('cpengelola/view_data_pimpinan'));	
-		}	
+			$data = array(
+					"email" => $email,
+					"password" => $password,
+					"token" => $token,
+					"role" => AccountRole::PIMPINAN
+			);
+			unset($token);
+			$this->db->where('account_id', $account_id);
+			$this->db->update('Account', $data);
+			
+			// Update data id, name, phone, & (account_id FROM variable $fkdata) TO table pimpinan
+			$data = array(
+					"id" => $id,
+					"name" => $name,
+					"position" => $position
+			);
+			$this->db->where('account_id', $account_id);
+			$this->db->update('Pimpinan', $data);
+			
+			echo "<script>alert ('Data telah diedit');</script>";
 		}
-
-		public function hapusdata($account_id)
+		redirect('account/pimpinan');
+	}
+	
+	public function hapusdata($account_id): void
 	{
-    // Start a database transaction
-    $this->db->trans_start();
-
-    // Delete rows from the dependent table (pimpinan) first
-    $this->db->delete('pimpinan', array('account_id' => $account_id));
-
-    // Now, delete the row from the main table (Account)
-    $this->db->delete('Account', array('account_id' => $account_id));
-
-    // Complete the transaction
-    $this->db->trans_complete();
-
-    // Check for transaction success
-    if ($this->db->trans_status() === FALSE) {
-        // Something went wrong, handle the error
-        show_error('Error deleting data', 500);
-    } else {
-        // Transaction was successful, redirect
-        redirect('cpengelola/view_data_pimpinan','refresh');
-    }
+		// Start a database transaction
+		$this->db->trans_start();
+		
+		// Delete rows from the dependent table (pimpinan) first
+		$this->db->delete('pimpinan', array('account_id' => $account_id));
+		
+		// Now, delete the row from the main table (Account)
+		$this->db->delete('Account', array('account_id' => $account_id));
+		
+		// Complete the transaction
+		$this->db->trans_complete();
+		
+		// Check for transaction success
+		if ($this->db->trans_status() === FALSE) {
+			// Something went wrong, handle the error
+			show_error('Error deleting data');
+		} else {
+			// Transaction was successful, redirect
+			redirect('cpengelola/view_data_pimpinan', 'refresh');
+		}
+	}
+	
+	public function search($searchStr, $table, $url): void
+	{
+		$searchStr = str_replace('%20', ' ', $searchStr);
+		
+		$results = $this->db->select()->from($table)
+				->like('name', $searchStr)
+				->or_like('id', $searchStr)
+				->or_like('phone', $searchStr)
+				->get()->result();
+		
+		$result_html = function ($r, $d) {
+			return peminjam_result_dropdown($r, $d);
+		};
+		
+		$default_html = function () {
+			return default_result_dropdown('No Result');
+		};
+		
+		$head_result = function () {
+			return peminjam_head_dropdown();
+		};
+		
+		livesearch($searchStr, $results, $result_html, $default_html, $url, $head_result);
 	}
 }

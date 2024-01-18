@@ -52,8 +52,21 @@ class Mrooms extends CI_Model {
 
 		$results = $this->db->select('name, id')->from('Ruangan')
 				->like('name', $searchStr)->get()->result();
+		
+		$result_html = function ($r, $d) {
+			return room_result_dropdown($r, $d);
+		};
+		
+		$default_html = function () {
+			return default_result_dropdown('No Result');
+		};
+		
+		$drop_result = function () {
+			return room_head_result_dropdown();
+		};
 
-		livesearch($searchStr, $results);
+		livesearch($searchStr, $results, $result_html, $default_html,
+				'rooms/detailrooms?id=', $drop_result);
 	}
 
 	function add_room($data): void
