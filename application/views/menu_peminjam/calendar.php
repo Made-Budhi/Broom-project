@@ -9,6 +9,103 @@ view_data($reservasi);
 			<img class="rounded w-100" src="<?= base_url('assets/images/ruangan/' . $ruangan->image) ?>" alt="<?= $ruangan->name ?>">
 		</div>
 
+    <?php if ($this->session->get_userdata()['role'] == AccountRole::PENGELOLA) { ?>
+    <!-- Button Edit trigger modal -->
+    <a type="button" class="btn btn-primary mb-4" data-bs-toggle="modal"
+       data-bs-target="#edit-room-modal">
+      Edit
+    </a>
+
+    <!-- Button Delete trigger modal -->
+    <a type="button" class="btn btn-danger mb-4" data-bs-toggle="modal"
+       data-bs-target="#delete-room-modal">
+      Hapus
+    </a>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="edit-room-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Ruangan</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+			
+			<?= form_open_multipart('rooms/change', 'id="form-ruangan"') ?>
+          <div class="modal-body">
+            <div hidden>
+              <label for="inputHidden"></label>
+              <input name="id_room" type="number" value="<?= $ruangan->id; ?>" id="inputHidden">
+              <input name="img_name" type="text" value="<?= $ruangan->image; ?>" id="inputHidden">
+            </div>
+            <div class="mb-3">
+              <label for="inputRoomName" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="inputRoomName"
+                     aria-describedby="emailHelp" name="name"
+                     placeholder="Nama gedung/ruangan" value="<?= $ruangan->name ?>">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="inputRoomStatus">Status</label>
+              <select class="form-select" id="inputRoomStatus"
+                      name="status">
+                <option value="1"
+                        <?= !empty($ruangan->status) ? 'selected':'' ?>>
+                  Tersedia
+                </option>
+                <option value="0"
+                        <?= empty($ruangan->status) ? 'selected':'' ?>>
+                  Tidak Tersedia
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="inputRoomImage">Gambar</label>
+              <input type="file" class="form-control" id="inputRoomImage"
+                     name="image">
+            </div>
+
+            <div class="mb-3">
+              <label for="inputRoomDescription" class="form-label">Deskripsi</label>
+              <textarea placeholder="Deskripsi ruangan/gedung yang disewakan"
+                        class="form-control" id="inputRoomDescription"
+                        name="description"><?= $ruangan->description ?></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+			<?= form_close() ?>
+        </div>
+      </div>
+    </div>
+    
+    <?php // TODO Modal Delete ?>
+    <!-- Modal Delete -->
+    <div class="modal fade" id="delete-room-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi Penghapusan Ruangan</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          
+          <div class="modal-body">
+            test
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php } ?>
+
 		<?php if ($this->session->get_userdata()['role'] == AccountRole::PEMINJAM) {?>
 
 			<form action="<?= site_url('creservasi') ?>" method="post" class="mt-5">
