@@ -158,8 +158,8 @@ view_data($data);
 
 		<tr>
 			<?php
-			$jammulai = str_replace(':', '.', $data['time_start']);
-			$jamselesai = str_replace(':', '.', $data['time_end']);
+			$jammulai = format_waktu($data['time_start']);
+			$jamselesai = format_waktu($data['time_start']);
 			?>
 			<td>Waktu</td>
 			<td>: <?php echo $jammulai . ' - ' . $jamselesai ?></td>

@@ -12,7 +12,7 @@ function getTheme(){
 
 function changeTheme(){
 	if(checkForStorage){
-		const currentTheme = JSON.parse(localStorage.getItem('theme'));
+		const currentTheme = getTheme();
 		localStorage.setItem('theme', JSON.stringify(!currentTheme));
 		body.setAttribute('data-bs-theme', getTheme()? 'light' : 'dark');
 		document.getElementById('darkThemeRadio').checked = !getTheme();
@@ -21,9 +21,10 @@ function changeTheme(){
 }
 
 function initPreferences(){
-	setTimeout(() => {
+	setTimeout(() => { 
 		const lightBlock = document.getElementById('lightThemeBlock');
 		const darkBlock = document.getElementById('darkThemeBlock');
+		console.log(lightBlock)
 		lightBlock.addEventListener('click', () => {
 			if (!getTheme()) {
 				changeTheme();
@@ -34,7 +35,17 @@ function initPreferences(){
 				changeTheme();
 			}
 		});
-	}, 2000);
+		initChecked();
+	}, 100);
+	
+}
+
+
+function initChecked() {
+	const theme_item = document.getElementsByName("themeRadio");
+	console.log(theme_item)
+	if (getTheme()) theme_item[0].checked = true;
+	else theme_item[1].checked = true;	
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,13 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			body.setAttribute('data-bs-theme', getTheme()? 'light' : 'dark');
 		}
 
-		document.getElementById("edit-preferences").addEventListener("click", () => initPreferences());
-
 	}
 	else {
 		console.log("browser tidak mendukung preferences");
 	}
 });
+
 
 
 

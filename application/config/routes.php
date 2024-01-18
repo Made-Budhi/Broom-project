@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'Clogin';
-$route['404_override'] = '';
+$route['404_override'] = 'Cerror';
 $route['translate_uri_dashes'] = FALSE;
 
 // Broom Main Controller
@@ -99,3 +99,4 @@ $route['account/peminjam'] = 'Cpengelola/view_data_peminjam';
 $route['account/peminjam/search'] = 'Cpengelola/search';
 $route['account/peminjam/history/(:num)'] = 'Cpengelola/jejak/$1';
 $route['account/pimpinan'] = 'Cpengelola/view_data_pimpinan';
+$route['account/peminjam/history/(:num)'] = 'Cpengelola/jejak/$1';

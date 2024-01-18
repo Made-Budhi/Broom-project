@@ -27,7 +27,7 @@ foreach ($hasil as $data):
           <div>
             <h4> Nama Ruangan: <?php echo $data->name ?></h4>
             <p class="card-text">Perihal : <?php echo $data->purpose ?></p>
-            <p class="card-text">Date Start : <?php echo $data->date_start ?></p>
+            <p class="card-text">Date Start : <?php echo format_indo($data->date_start) ?></p>
           </div>
           <a href="<?= site_url('reservation/detail/'.$data->reservasi_id) ?>"
              class="btn btn-primary">Detail</a>

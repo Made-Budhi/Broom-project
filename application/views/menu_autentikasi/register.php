@@ -98,6 +98,8 @@
 		window.open("<?php echo site_url()?>","_self");
 	}
 </script>
+<script src="<?= base_url('js/settings/init.js'); ?>"></script>
+
 
 </body>
 </html>

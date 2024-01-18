@@ -7,8 +7,13 @@
   view_data($message);
   ?>
   
-  <?= empty($notifikasi)? '<div><h1>'.$message.'</h1></div>' : ''; ?>
-  
+	<?= empty($notifikasi)? '
+	<div class=" w-100 d-flex flex-column align-items-center gap-5">
+	<img src='.base_url("assets/svg/no-notification.svg").' alt="" class="w-50">
+		<h1>'.$message.'</h1>
+	</div>
+	
+	' : ''; ?>
   <?php foreach ($notifikasi as $data): ?>
   
   <div class='d-flex align-items-center mt-4 gap-5'>
@@ -24,7 +29,7 @@
         </div>
       
         <div>
-          <div class="d-flex"><h4>Reservasi berhasil diajukan </h4><p class="text-dark-grey"> <?= format_indo($data->reservation_date) ?></p></div>
+          <div class="d-flex justify-content-between"><h4>Reservasi berhasil diajukan </h4><p class="text-dark-grey"> <?= format_indo($data->reservation_date) ?></p></div>
           <p>Pengajuan reservasi peminjaman ruangan <?= $data->name ?> untuk tanggal <?= format_indo($data->date_start)?>
             hingga <?= format_indo($data->date_end) ?> sedang menunggu persetujuan dari <?= $data->position ?>.</p>
         </div>
@@ -39,7 +44,7 @@
         </div>
       
         <div>
-          <div class="d-flex"><h4>Reservasi disetujui </h4><p class="text-dark-grey"> <?= format_indo($data->reservation_date) ?></p></div>
+          <div class="d-flex justify-content-evenly"><h4>Reservasi disetujui </h4><p class="text-dark-grey"> <?= format_indo($data->reservation_date) ?></p></div>
           <p>Pengajuan reservasi peminjaman ruangan <?= $data->name ?> untuk tanggal <?= format_indo($data->date_start)?>
             hingga <?= format_indo($data->date_end) ?> telah disetujui <?= $data->position ?>.</p>
         </div>
@@ -54,7 +59,7 @@
           </div>
         
           <div>
-            <div class="d-flex"><h4>Reservasi ditolak </h4><p class="text-dark-grey"> <?= format_indo($data->reservation_date) ?></p></div>
+            <div class="d-flex justify-content-evenly"><h4>Reservasi ditolak </h4><p class="text-dark-grey"> <?= format_indo($data->reservation_date) ?></p></div>
             <p>Pengajuan reservasi peminjaman ruangan <?= $data->name ?> untuk tanggal <?= format_indo($data->date_start)?>
               hingga <?= format_indo($data->date_end) ?> ditolak. </p>
           </div>

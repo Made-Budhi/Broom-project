@@ -20,5 +20,7 @@
     <button type="submit" class="btn btn-primary" >Verif</button>
   </form>
 </div>
+
+<script src="<?= base_url('js/settings/init.js'); ?>"></script>
 </body>
 </html>
