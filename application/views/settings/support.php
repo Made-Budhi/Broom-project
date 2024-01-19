@@ -1,31 +1,29 @@
-<div id="support" class="rounded card p-5">
-  <h3>Bantuan</h3>
+<h3>Bantuan</h3>
 
-  <br>
+<br>
 
-  <!-- Some support menu -->
-	<div>
-		<a id="panduan-penggunaan" href="<?php // Path to USER MANUAL pdf ?>" download="<?php // Filename for downloaded file ?>"
-		class="support-menu btn rounded border border-light4 border-2 d-block p-3 text-start fs-5">
-			<i class="fa-regular fa-circle-question"></i>
-			Panduan Penggunaan
-		</a>
-		<br>
-		<button type="button" class="support-menu btn rounded border border-light4 border-2 d-block w-100 p-3 text-start fs-5"
-				data-bs-toggle="modal" data-bs-target="#exampleModal"
-				data-bs-whatever="Laporkan Bug">
-			<i class="fa-solid fa-bug"></i>
-			Lapor Bug
-		</button>
-		<br>
-		<button type="button" class="support-menu btn rounded border border-light4 border-2 d-block w-100 p-3 text-start fs-5"
-				data-bs-toggle="modal" data-bs-target="#exampleModal"
-				data-bs-whatever="Kritik & Saran">
-			<i class="fa-solid fa-user-pen"></i>
-			Kritik & Saran
-		</button>
-	</div>
+<!-- Some support menu -->
+<div>
+	<a id="panduan-penggunaan" href="<?php // Path to USER MANUAL pdf ?>" download="<?php // Filename for downloaded file ?>"
+	class="support-menu btn rounded border border-light4 border-2 d-block p-3 text-start fs-5">
+		<i class="fa-regular fa-circle-question"></i>
+		Panduan Penggunaan
+	</a>
+	<br>
+	<!-- TODO: implement sending e-mail to 2215354023@pnb.ac.id -->
+	<button type="button" class="support-menu btn rounded border border-light4 border-2 d-block w-100 p-3 text-start fs-5"
+			data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Laporkan Bug">
+		<i class="fa-solid fa-bug"></i>
+		Lapor Bug
+	</button>
+	<br>
+	<button type="button" class="support-menu btn rounded border border-light4 border-2 d-block w-100 p-3 text-start fs-5"
+			data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Kritik & Saran">
+		<i class="fa-solid fa-user-pen"></i>
+		Kritik & Saran
+	</button>
 </div>
+
 
 <!--MODAL-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -36,8 +34,8 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form action="<?= site_url('') ?>" method="post">
-					<input type="text" name="perihal" class="form-control" id="perihal">
+				<form action="<?= site_url('csetting/send_user_feedback') ?>" method="post">
+					<input type="text" name="perihal" class="form-control" id="perihal" hidden>
 
 					<div class="mb-3">
 						<label for="message" class="col-form-label">Pesan:</label>

@@ -61,4 +61,10 @@ class Csetting extends Broom_Controller
 		
 		redirect(site_url('settings'), 'refresh');
 	}
+
+	public function send_user_feedback()
+	{
+		$this->account->send_feedback($this->input->post('message'));
+		redirect(site_url('settings'), 'refresh');
+	}
 }

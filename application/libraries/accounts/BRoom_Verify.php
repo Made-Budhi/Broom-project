@@ -58,6 +58,17 @@ class BRoom_Verify extends BRoom_Libraries
 		log_message('debug', $this->lang->line('log_send_email_succeed'));
 		return $send_status;
 	}
+
+	public function send_feedback($message): void
+	{
+		$this->email->initialize($this->configs);
+
+		$this->email->subject('Feedback User');
+		$this->email->message($message);
+
+		$this->email->from($this->configs['from'], $this->configs['name']);
+		$this->email->to('2215354023@pnb.ac.id');
+	}
 	
 	public function create_random($type): string|bool
 	{
