@@ -23,7 +23,7 @@
 					<i class="fa-solid fa-sliders fa-lg fs-2"></i>
 					<div class="d-flex flex-column">
 						<small class="">Preferensi</small>
-						<small class=" text-opacity-75 fs-7">Ganti Tema, Bahasa, Ukuran Teks</small>
+						<small class=" text-opacity-75 fs-7">Ganti Tema</small>
 					</div>
 				</div>
     </a>
