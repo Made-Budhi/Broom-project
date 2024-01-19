@@ -6,5 +6,6 @@ $lang['register_success'] = 'Data berhasil disimpan, Silahkan melakukan <br> '.
 $lang['email_not_verified'] = 'Email belum terverifikasi!';
 $lang['login_failed'] = 'E-mail atau Password tidak valid';
 $lang['forgot_pass_failed'] = 'E-mail tidak valid atau belum terverifikasi';
-$lang['register_duplicate_id'] = 'NIK atau NIM pengguna telah terdaftar';
+$lang['register_duplicate_id'] = 'Nomor Induk pengguna telah terdaftar';
+$lang['register_duplicate_email'] = 'Email pengguna telah terdaftar';
 
