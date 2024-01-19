@@ -2,6 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
+ * @property Maccount $account
  * @property CI_Session $session
  * @property CI_DB $db
  * @property CI_Input $input
@@ -63,30 +64,37 @@ class Mpengelola extends CI_Model
 	public function simpandata($data): void
 	{
 		// Retrieving data from user input post
+		$this->load->library('encryption');
+		$this->load->model('Maccount', 'account');
+
 		$account_id = $this->input->post('account_id');
 		$id = $this->input->post('id');
 		$name = $this->input->post("name");
 		$email = $this->input->post("email");
 		$position = $this->input->post("position");
-		$password = $this->input->post("password");
+		$password = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
 		$signature = $data['image'];
 		$token = '';
-		
+
+		$enc_hash = $this->encryption->encrypt($password);
+
 		if ($account_id == "") {
 			// Insert data email, password, and generated token to table account
 			$data = array(
+					"account_id" => '',
 					"email" => $email,
-					"password" => $password,
+					"password" => $enc_hash,
 					"token" => $token,
 					"role" => AccountRole::PIMPINAN,
 					"is_verif" => 1
 			);
+			$this->account->_checkDuplication($id, $email, AccountRole::PIMPINAN, 'account/pimpinan');
 			unset($token);
 			$this->db->insert('Account', $data);
 			
 			// Build a variable to get account_id FROM table account
 			$fkdata = $this->db->select()->from('Account')
-					->where('email', $email)->where('password', $password)
+					->where('email', $email)->where('password', $enc_hash)
 					->get()->first_row();
 			$fkid = $fkdata->account_id;
 			

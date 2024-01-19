@@ -46,6 +46,7 @@
     
     $('.edit-btn').click(function() {
       let id = $(this).attr('data-bs-whatever')
+	  $('#signature').removeAttr('required')
 
       $.post("<?= site_url('cpengelola/edit_pimpinan') ?>", {
         id: id
@@ -67,6 +68,7 @@
     })
 
     $('#button-batal').click(function() {
+	  $('#signature').attr('required', 'true')
       $('#toggle-edit').attr('value', 'Tambah')
       $('#password-field').removeAttr('hidden')
     })
