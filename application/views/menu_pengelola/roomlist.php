@@ -114,7 +114,7 @@
 				</div>
 
 				<a href="<?= site_url('rooms/detailrooms?id=' . $data->id); ?>"
-				   class="btn btn-primary btn-md w-75" <?= $data->status == 1 ? '' : 'disabled' ?>>Lihat Detail</a>
+				   class="btn btn-primary btn-md w-75">Lihat Detail</a>
 			</div>
 
 		</div>
