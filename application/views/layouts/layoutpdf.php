@@ -217,7 +217,7 @@ view_data($data);
 
 		<tr>
 			<td>NIP. <?php echo $data['pimpinan_id'] ?></td>
-			<td><?php echo strlen($data['head_committee_id']) > 10 ? 'NIP.' : 'NIM.' ?><?php echo $data['head_committee_id'] ?></td>
+			<td><?php echo strlen($data['head_committee_id']) > 10 ? 'NIP. ' : 'NIM. ' ?><?php echo $data['head_committee_id'] ?></td>
 		</tr>
 	</table>
 
