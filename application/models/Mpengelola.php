@@ -6,6 +6,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property CI_Session $session
  * @property CI_DB $db
  * @property CI_Input $input
+ * @property CI_Loader $load
+ * @property CI_Encryption $encryption
  */
 class Mpengelola extends CI_Model
 {
@@ -74,7 +76,6 @@ class Mpengelola extends CI_Model
 		$position = $this->input->post("position");
 		$password = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
 		$signature = $data['image'];
-		$token = '';
 
 		$enc_hash = $this->encryption->encrypt($password);
 
@@ -84,12 +85,10 @@ class Mpengelola extends CI_Model
 					"account_id" => '',
 					"email" => $email,
 					"password" => $enc_hash,
-					"token" => $token,
 					"role" => AccountRole::PIMPINAN,
 					"is_verif" => 1
 			);
-			$this->account->_checkDuplication($id, $email, AccountRole::PIMPINAN, 'account/pimpinan');
-			unset($token);
+			$this->account->checkDuplication($id, $email, AccountRole::PIMPINAN, 'account/pimpinan');
 			$this->db->insert('Account', $data);
 			
 			// Build a variable to get account_id FROM table account
@@ -111,13 +110,13 @@ class Mpengelola extends CI_Model
 			echo "<script>alert ('data telah disimpan');</script>";
 		} else {
 			// Update data email, password, and generated token to table account
+			$account = $this->db->select('password')->from('Account')
+					->where('account_id', $account_id)->get()->first_row();
 			$data = array(
 					"email" => $email,
-					"password" => $password,
-					"token" => $token,
+					"password" => $account->password,
 					"role" => AccountRole::PIMPINAN
 			);
-			unset($token);
 			$this->db->where('account_id', $account_id);
 			$this->db->update('Account', $data);
 			
