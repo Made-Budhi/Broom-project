@@ -22,7 +22,7 @@
 					<h3 class="card-text">Mulai melakukan reservasi hanya dari perangkat elektronik anda !</h3>
 				</div>
 
-				<a href="<?= site_url('creservasi') ?>" class="btn btn-primary btn-lg rounded-pill w-50">Buat Reservasi</a>
+				<a href="<?= site_url('reservation') ?>" class="btn btn-primary btn-lg rounded-pill w-50">Buat Reservasi</a>
 			</div>
 			<div class="">
 				<img src="<?= base_url("./assets/images/office.svg") ?>" class="d-block w-75 m-auto mt-5" alt="...">
