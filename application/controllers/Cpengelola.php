@@ -99,7 +99,6 @@ class Cpengelola extends Broom_Controller
 		$data['image'] = upload_handler($this->upload, $config,
 				$this->view, 'signature');
 
-		var_dump($data);
 		$this->pengelola->simpandata($data);
 	}
 

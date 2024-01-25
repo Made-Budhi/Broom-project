@@ -78,7 +78,7 @@ class Maccount extends CI_Model
 		}
 	}
 
-	function _checkDuplication($id, $email, $role, $redirect): void
+	function checkDuplication($id, $email, $role, $redirect): void
 	{
 		// Check duplicate id
 		$num_duplicate = $this->db->select()->from($role)
@@ -113,7 +113,7 @@ class Maccount extends CI_Model
 		$phone = $this->input->post("phone");
 		$token = $this->account_verify->create_random(Verification::REGISTER);
 
-		$this->_checkDuplication($id, $email, AccountRole::PEMINJAM, 'register');
+		$this->checkDuplication($id, $email, AccountRole::PEMINJAM, 'register');
 		
 		// Get encrypted password hash, then insert data email, password_hash,
 		// and generated token to table Account
@@ -254,12 +254,12 @@ class Maccount extends CI_Model
 		
 		switch ($currentSessionData['role']) {
 			case AccountRole::PENGELOLA:
+			case AccountRole::PIMPINAN:
 				$this->db->set('name', $data['account_name'])
 						->where('id', $currentSessionData['id'])
 						->update($currentSessionData['role']);
 				break;
 				
-			case AccountRole::PIMPINAN:
 			case AccountRole::PEMINJAM:
 				$this->db->set('name', $data['account_name'])
 					->set('phone', $data['account_phone'])

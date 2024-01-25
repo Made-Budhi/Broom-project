@@ -44,7 +44,8 @@
           </div>
 
           <div>
-            <div class="d-flex justify-content-between"><h4>Reservasi telah dibatalkan</h4>
+            <div class="d-flex justify-content-between">
+              <h4>Reservasi telah dibatalkan</h4>
               <p class="text-dark-grey">
                   <?= format_indo($data->reservation_date) ?>
               </p>
