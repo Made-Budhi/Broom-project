@@ -159,7 +159,7 @@ view_data($data);
 		<tr>
 			<?php
 			$jammulai = format_waktu($data['time_start']);
-			$jamselesai = format_waktu($data['time_start']);
+			$jamselesai = format_waktu($data['time_end']);
 			?>
 			<td>Waktu</td>
 			<td>: <?php echo $jammulai . ' - ' . $jamselesai ?></td>
