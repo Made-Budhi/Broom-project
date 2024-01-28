@@ -1,10 +1,22 @@
+<?php
+
+$role = $this->session->get_userdata()['role'];
+
+$manual = match ($role) {
+	AccountRole::PENGELOLA 	=> 'PENGELOLA_MANUAL.pdf',
+	AccountRole::PIMPINAN 	=> 'PIMPINAN_MANUAL.pdf',
+	AccountRole::PEMINJAM	=> 'PEMINJAM_MANUAL.pdf'
+};
+
+?>
+
 <h3>Bantuan</h3>
 
 <br>
 
 <!-- Some support menu -->
 <div>
-	<a id="panduan-penggunaan" href="<?php // Path to USER MANUAL pdf ?>" download="<?php // Filename for downloaded file ?>"
+	<a id="panduan-penggunaan" href="<?php echo base_url('assets/manual/') . $manual ?>" download
 	class="support-menu btn rounded border border-light4 border-2 d-block p-3 text-start fs-5">
 		<i class="fa-regular fa-circle-question"></i>
 		Panduan Penggunaan
