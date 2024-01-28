@@ -30,22 +30,22 @@
 					<div class="carousel-item active h-100" data-bs-interval="5000">
 						<img src="<?= base_url("./assets/images/office.svg") ?>" class="d-block w-75 m-auto mt-5" alt="...">
 						<div class="carousel-caption text-body">
-							<h5>First slide label</h5>
-							<p>Some representative placeholder content for the first slide.</p>
+							<h5>Lebih Digital</h5>
+							<p>Dapatkan kemudahan dalam melakukan reservasi dan mengakses jadwal peminjaman ruangan di Politeknik Negeri Bali.</p>
 						</div>
 					</div>
 					<div class="carousel-item h-100" data-bs-interval="5000">
 						<img src="<?= base_url("./assets/images/office.svg") ?>" class="d-block w-75 m-auto mt-5" alt="...">
 						<div class="carousel-caption text-body">
-							<h5>First slide label</h5>
-							<p>Some representative placeholder content for the first slide.</p>
+							<h5>Lebih Efisien</h5>
+							<p>Kemudahan dalam mengajukan reservasi dengan surat resmi yang di <i>generate</i> secara otomatis</p>
 						</div>
 					</div>
 					<div class="carousel-item h-100" data-bs-interval="5000">
 						<img src="<?= base_url("./assets/images/office.svg") ?>" class="d-block w-75 m-auto mt-5" alt="...">
 						<div class="carousel-caption text-body">
-							<h5>First slide label</h5>
-							<p>Some representative placeholder content for the first slide.</p>
+							<h5>Lebih Ramah Lingkungan</h5>
+							<p>Demi mewujudkan kebijakan <i>Green Campus</i> Politeknik Negeri Bali</p>
 						</div>
 					</div>
 				</div>

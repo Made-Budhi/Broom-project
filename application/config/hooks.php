@@ -12,9 +12,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$hook['session_check'][] = array(
+$hook['session_login_check'][] = array(
 		'class'    => 'Session_validation',
-		'function' => 'check_session',
+		'function' => 'check_session_log_in',
+		'filename' => 'Session_validation.php',
+		'filepath' => 'hooks',
+);
+
+$hook['session_logout_check'][] = array(
+		'class'    => 'Session_validation',
+		'function' => 'check_session_log_out',
 		'filename' => 'Session_validation.php',
 		'filepath' => 'hooks',
 );

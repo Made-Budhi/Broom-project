@@ -4,11 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * @property Maccount $account
  */
-class Cregister extends CI_Controller
+class Cregister extends Broom_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_check_is_logged_out();
 		$this->load->model('Maccount', 'account');
 	}
 	

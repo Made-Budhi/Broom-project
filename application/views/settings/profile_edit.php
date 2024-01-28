@@ -1,5 +1,5 @@
 <div id="profile">
-  <b>Profile</b>
+  <h3>Profile</h3>
 
   <br>
 
@@ -9,7 +9,7 @@
     view_data($account);
     ?>
     <label for="nama_lengkap">Nama Lengkap</label>
-    <input type="text" class="profile_edit_form" name="account_name"
+    <input type="text" class="profile_edit_form form-control" name="account_name"
            id="nama_lengkap" value="<?= $account->name ?>" disabled>
 
     <br>
@@ -18,7 +18,7 @@
     if ($account->role == AccountRole::PEMINJAM) {
       ?>
       <label for="telp">Nomer Telpon</label>
-      <input type="text" class="profile_edit_form" name="account_phone"
+      <input type="text" class="profile_edit_form form-control" name="account_phone"
              id="telp" value="<?= $account->phone ?>" disabled>
 
       <br>
@@ -26,19 +26,23 @@
     }
     ?>
 
-    <label for="nip">NIM/NIP</label>
-    <input type="number" name="account_id"
-           id="nip" value="<?= $account->id ?>" disabled>
+   <div class="row">
+	<div class="col">
+		<label for="nip">NIM/NIP</label>
+		<input type="number" name="account_id" class="w-100 form-control"
+			id="nip" value="<?= $account->id ?>" disabled>
+	</div>
+	<div class="col">
+		<label for="email">Alamat E-mail</label>
+		<input type="text" name="account_email" class="w-100 form-control"
+			id="email" value="<?= $account->email ?>" disabled>
+	</div>
+   </div>
+    <br><br>
 
-    <label for="email">Alamat E-mail</label>
-    <input type="text" name="account_email"
-           id="email" value="<?= $account->email ?>" disabled>
-
-    <br>
-
-    <input id="form_button" type="button" value="Edit"
+    <input id="form_button" class="btn btn-primary" type="button" value="Edit"
            onclick="changeProfileEditFormDisabledStatus();">
       
-    <input type="submit" value="Simpan">
+    <input class="btn btn-success" type="submit" value="Simpan">
   </form>
 </div>

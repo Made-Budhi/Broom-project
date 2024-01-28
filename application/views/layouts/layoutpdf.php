@@ -158,8 +158,8 @@ view_data($data);
 
 		<tr>
 			<?php
-			$jammulai = str_replace(':', '.', $data['time_start']);
-			$jamselesai = str_replace(':', '.', $data['time_end']);
+			$jammulai = format_waktu($data['time_start']);
+			$jamselesai = format_waktu($data['time_end']);
 			?>
 			<td>Waktu</td>
 			<td>: <?php echo $jammulai . ' - ' . $jamselesai ?></td>
@@ -217,7 +217,7 @@ view_data($data);
 
 		<tr>
 			<td>NIP. <?php echo $data['pimpinan_id'] ?></td>
-			<td><?php echo strlen($data['head_committee_id']) > 10 ? 'NIP.' : 'NIM.' ?><?php echo $data['head_committee_id'] ?></td>
+			<td><?php echo strlen($data['head_committee_id']) > 10 ? 'NIP. ' : 'NIM. ' ?><?php echo $data['head_committee_id'] ?></td>
 		</tr>
 	</table>
 

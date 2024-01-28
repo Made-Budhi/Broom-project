@@ -100,6 +100,7 @@ CREATE TABLE Reservasi
   status              ENUM ('Diterima', 'Ditolak', 'Menunggu', 'Dibatalkan') NOT NULL DEFAULT 'Menunggu',
   date_assigned       DATE                                                   NOT NULL,
   status_message      TEXT,
+  date_inserted TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (reservasi_id),
   FOREIGN KEY (peminjam_id) REFERENCES Peminjam (id),
@@ -112,6 +113,7 @@ CREATE TABLE Notification
   id           INT AUTO_INCREMENT,
   type         INT,
   reservasi_id INT,
+  date_inserted TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (id)
 );

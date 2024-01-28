@@ -38,6 +38,12 @@ html{
 	border: 0;
 	outline: 0;
 }
+.btn-info,.btn-info:hover,.btn-info:active{
+	background-color: #19A7CE !important;
+	border: 0;
+	outline: 0;
+	color: #f0f0f0 !important;
+}
 .btn{
 	border: 0;
 	outline: 0;
@@ -51,6 +57,7 @@ html{
 	width: fit-content;
 	height: fit-content;
 }
+
 
 @media screen and (max-width:1280px){
 	.tablet-mode, .menubutton>a>span{

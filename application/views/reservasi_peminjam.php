@@ -23,7 +23,8 @@ if($hasil == NULL){
   <thead>
   <th class="text-center" scope="col">No</th>
   <th class="text-center" scope="col">Nama Ruangan</th>
-  <th class="text-center" scope="col">Waktu</th>
+  <th class="text-center" scope="col">Waktu Mulai</th>
+  <th class="text-center" scope="col">Waktu Selesai</th>
   <th class="text-center" scope="col">Status</th>
   <th class="text-center" scope="col">Aksi</th>
   </thead>
@@ -42,7 +43,12 @@ foreach ($hasil as $data):
           <?php echo $data->name ?>
         </td>
         <td class="text-center">
-          <?php echo $data->date_start ?>
+          <?php echo format_indo($data->date_start) ?>,
+          <?php echo format_waktu($data->time_start) ?>
+        </td>
+        <td class="text-center">
+          <?php echo format_indo($data->date_end) ?>,
+          <?php echo format_waktu($data->time_end) ?>
         </td>
         <td class="text-center">
           <?php echo $data->reservasi_status ?>

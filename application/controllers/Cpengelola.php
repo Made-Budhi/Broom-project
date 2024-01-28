@@ -5,6 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Mpengelola $pengelola
  * @property Mpemimpin $pimpinan
  * @property CI_Input $input
+ * @property CI_Session $session
+ * @property CI_Upload $upload
+ * @property CI_URI $uri
  */
 
 class Cpengelola extends Broom_Controller
@@ -17,6 +20,7 @@ class Cpengelola extends Broom_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_check_is_logged_in();
 		$this->load->model('Mpengelola', 'pengelola');
 		$this->load->model('Mpemimpin', 'pimpinan');
 		$this->current_session = $this->session->get_userdata();
@@ -25,14 +29,11 @@ class Cpengelola extends Broom_Controller
 		
 		// Determine which page should be loaded.
 		switch ($role) {
+			case AccountRole::PIMPINAN:
 			case AccountRole::PEMINJAM:
 				redirect('dashboard');
 				break;
-			
-			case AccountRole::PIMPINAN:
-				redirect('dashboard');
-				break;
-			
+
 			case AccountRole::PENGELOLA:
 				$this->data['hasil'] = $this->pengelola->tampildata();
 				$this->view['content'] = 'menu_pengelola/roomlist';
@@ -41,7 +42,6 @@ class Cpengelola extends Broom_Controller
 		}
 	}
 	
-	//dummpy
 	function index(): void
 	{
 		$this->html['content'] = $this->load
@@ -49,11 +49,13 @@ class Cpengelola extends Broom_Controller
 		$this->load->view($this->view['sidebar'], $this->html);
 	}
 	
-	function data_akun(): void
+	function view_data_peminjam(): void
 	{
 		$peminjam['hasil'] = $this->pengelola->datasingkat();
 		$data['content']=$this->load->view('view_peminjam',$peminjam,TRUE);
 		$data['current_uri'] 	= "data_akun";
+		$data['search_on_table'] = 'Peminjam';
+		$data['search_url'] = 'account/peminjam/history/';
 		$this->load->view('layouts/sidebar_pengelola',$data);
 	}
 	
@@ -70,6 +72,10 @@ class Cpengelola extends Broom_Controller
 		$tampil['hasil']=$this->pengelola->tampildata();
 		$data['content']=$this->load->view('menu_pengelola/data_pimpinan',$tampil,TRUE);
 		$data['form']=$this->load->view('menu_pengelola/form','',TRUE);
+		$data['search_on_table'] = 'Pimpinan';
+		$data['search_url'] = 'account/pimpinan/history/';
+		$data['current_uri'] = 'data_akun';
+
 		$this->load->view('layouts/sidebar_pengelola', $data);
 	}
 
@@ -79,7 +85,8 @@ class Cpengelola extends Broom_Controller
 		echo json_encode($data);
 	}
 
-	function simpandata(){
+	function simpandata(): void
+	{
 		$config = array(
 			'upload_path' 	=> FCPATH . 'assets/images/signature_pimpinan/',
 			'allowed_types' => 'jpg|png',
@@ -92,13 +99,26 @@ class Cpengelola extends Broom_Controller
 		$data['image'] = upload_handler($this->upload, $config,
 				$this->view, 'signature');
 
-		var_dump($data);
 		$this->pengelola->simpandata($data);
 	}
 
 	function hapusdata($account_id): void
 	{
 		$this->pengelola->hapusdata($account_id);
+	}
+	
+	function search(): void
+	{
+		$search = $this->input->get('data_user');
+		$segment = $this->uri->segment(2);
+		$table = ucfirst($segment);
+		$url = '';
+		
+		if ($segment == 'peminjam') {
+			$url = 'account/peminjam/history/';
+		}
+		
+		$this->pengelola->search($search, $table, $url);
 	}
 }
 

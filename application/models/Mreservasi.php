@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * @property CI_Session $session
  * @property CI_DB $db
+ * @property Mnotification $notification
  */
 class Mreservasi extends CI_Model
 {
@@ -13,6 +14,7 @@ class Mreservasi extends CI_Model
 	{
 		parent::__construct();
 		$this->current_session = $this->session->get_userdata();
+		$this->load->model('Mnotification', 'notification');
 	}
 	
 	function tampildata($key): array
@@ -24,6 +26,7 @@ class Mreservasi extends CI_Model
 				"Ruangan",
 				"Reservasi.ruangan_id = Ruangan.id",
 				"inner")
+				->order_by('Reservasi.date_inserted', 'DESC')
 				->where($key, $this->current_session['id'])->get();
 		
 		// to check query database
@@ -49,7 +52,9 @@ class Mreservasi extends CI_Model
 						"Ruangan",
 						"Reservasi.ruangan_id = Ruangan.id",
 						"inner")
-				->where('pimpinan_id', $this->current_session['id'])->get();
+				->where('pimpinan_id', $this->current_session['id'])
+				->order_by('Reservasi.date_assigned', 'DESC')
+				->get();
 		$result = null;
 
 		foreach ($datas->result() as $data) {
@@ -112,6 +117,7 @@ class Mreservasi extends CI_Model
 			->join('Peminjam', 'Peminjam.id = peminjam_id')
 			->join('Pimpinan', 'Pimpinan.id = pimpinan_id')
 			->join('Ruangan', 'Ruangan.id = ruangan_id')
+			->order_by('Reservasi.date_inserted', 'DESC')
 			->get()->result();
 	}
 
@@ -122,12 +128,9 @@ class Mreservasi extends CI_Model
 	 * @param array $data
 	 * @return bool
 	 */
-	function check_reservation_collide(array $data)
+	function check_reservation_collide(array $data): bool
 	{
-		$where = "Reservasi.ruangan_id = " . $data['ruangan'] . " AND (Reservasi.date_start 
-					BETWEEN '" . $data['dateStart'] . "' AND '" . $data['dateEnd'] . "'  
-					OR Reservasi.date_end BETWEEN '" . $data['dateStart'] . "' AND '" . $data['dateEnd'] . "') 
-					AND Reservasi.status = '" . StatusReservasi::DITERIMA . "'";
+		$where = $this->collition_query($data, StatusReservasi::DITERIMA);
 
 		$data = $this->db->select()->from('Reservasi')
 			->where($where)->get()->num_rows();
@@ -136,6 +139,50 @@ class Mreservasi extends CI_Model
 			return false;
 		else
 			return true;
+	}
+
+	function get_reservasi_by_id($id): array|object
+	{
+		return $this->db->select()->from('Reservasi')->where('reservasi_id', $id)
+			->get()->first_row();
+	}
+
+	function get_reservation_collide(array $data): array|object
+	{
+		$where = $this->collition_query($data, StatusReservasi::MENUNGGU);
+
+		return $this->db->select()->from('Reservasi')
+			->where($where)->get()->result();
+	}
+
+	function tolak_reservation_collide(array $data): void
+	{
+		$where = $this->collition_query($data, StatusReservasi::MENUNGGU);
+
+		$reservasiTertolak = $this->get_reservation_collide($data);
+
+		$this->db->set('status', StatusReservasi::DITOLAK)
+			->set('date_assigned', date('Y-m-d', now()))
+			->where($where)->update('Reservasi');
+
+		foreach ($reservasiTertolak as $reservasi) {
+			$this->notification->setNotification(NotificationType::PEMINJAM_DITOLAK, $reservasi->reservasi_id);
+		}
+	}
+
+	/**
+	 * Create where sql query that targets based on its StatusReservasi.
+	 *
+	 * @param array $data
+	 * @param $status
+	 * @return string
+	 */
+	function collition_query(array $data, $status): string
+	{
+		return "Reservasi.ruangan_id = " . $data['ruangan'] . " AND (Reservasi.date_start 
+					BETWEEN '" . $data['dateStart'] . "' AND '" . $data['dateEnd'] . "'  
+					OR Reservasi.date_end BETWEEN '" . $data['dateStart'] . "' AND '" . $data['dateEnd'] . "') 
+					AND Reservasi.status = '" . $status . "'";
 	}
 
 	function cancel($id, $message): void

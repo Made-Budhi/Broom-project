@@ -41,7 +41,8 @@
 
 					<!-- Button trigger modal-->
 					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?= $data->reservasi_id ?>"
-					<?= $data->reservasi_status === StatusReservasi::DIBATALKAN ? 'disabled' : '' ?>>
+					<?= $data->reservasi_status === StatusReservasi::DIBATALKAN ||
+						$data->reservasi_status === StatusReservasi::DITOLAK ? 'disabled' : '' ?>>
 						Batalkan Reservasi
 					</button>
 				</td>

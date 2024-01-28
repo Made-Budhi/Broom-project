@@ -11,24 +11,57 @@
 
 <br>
 
+<!-- Search bar with dropdown -->
+<div class="input-group mb-3 dropdown-content">
+  <span class="input-group-text" id="basic-addon1">
+      <i class="fa-solid fa-magnifying-glass"></i>
+  </span>
+  <input id="inputSearch" type="search"
+         placeholder="Data Peminjam Nama/NIM/Telepon"
+         aria-label="SearchRuangan" aria-describedby="basic-addon1"
+         onkeyup="showResult('data_user')" autocomplete="off" autocapitalize="off"
+         class="form-control dropdown-toggle" data-bs-toggle="dropdown"
+         data-bs-auto-close="outside">
+  <ul id="livesearch" class="dropdown-menu col-11">
+    <li class="container d-flex">
+      <div class="col">Nama</div>
+      <div class="col">NIM/NIK</div>
+      <div class="col">Telpon</div>
+      <div class="col">Status</div>
+      <li class="dropdown-divider">
+    </li>
+    <li><div class="dropdown-item disabled">No Suggestion</div></li>
+  </ul>
+  <ul id="default-result-dropdown" hidden>
+    <li class="container d-flex">
+      <div class="col">Nama</div>
+      <div class="col">NIM/NIK</div>
+      <div class="col">Telpon</div>
+      <div class="col">Status</div>
+    <li class="dropdown-divider">
+    </li>
+    <li>
+      <div class="dropdown-item disabled">No Suggestion</div>
+    </li>
+  </ul>
+</div>
+
 <table class="table table-bordered" >
 
   <thead>
-  <th class="text-center" scope="col">No</th>
-  <th class="text-center" scope="col">Nama Lengkap</th>
-  <th class="text-center" scope="col">NIM</th>
-  <th class="text-center" scope="col">Telepon</th>
-  <th class="text-center" scope="col">Aksi</th>
+    <th class="text-center" scope="col">No</th>
+    <th class="text-center" scope="col">Nama Lengkap</th>
+    <th class="text-center" scope="col">NIM</th>
+    <th class="text-center" scope="col">Telepon</th>
+    <th class="text-center" scope="col">Aksi</th>
   </thead>
-
-<?php
-view_data($hasil, 'name', 'id', 'phone');
-$no=1;
-foreach ($hasil as $data):
-?>
-
+  
   <tbody>
-
+    <?php
+    view_data($hasil);
+    $no=1;
+    foreach ($hasil as $data):
+    ?>
       <tr>
         <td class="text-center">
           <?php echo $no ?>
@@ -43,15 +76,15 @@ foreach ($hasil as $data):
           <?php echo $data->phone ?>
         </td>
         <td class="text-center">
-          <a href="<?= site_url('Cpengelola/jejak/' . $data->id) ?>" class="btn btn-primary">Daftar Reservasi</a>
+          <a href="<?= site_url('account/peminjam/history/' . $data->id) ?>" class="btn btn-primary">Daftar Reservasi</a>
         </td>
       </tr>
-
-<?php
-$no++;
-endforeach;
-?>
-
+    <?php
+    $no++;
+    endforeach;
+    ?>
   </tbody>
+  
 </table>
 
+<script src="<?= base_url('js/livesearch/search.js') ?>"></script>

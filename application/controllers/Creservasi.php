@@ -20,6 +20,7 @@ class Creservasi extends Broom_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_check_is_logged_in();
 		$this->load->model('Mpdf', 'pdf');
 		$this->load->model('Mnotification', 'notification');
 		$this->load->model('Mreservasi', 'reservasi');
@@ -109,6 +110,21 @@ class Creservasi extends Broom_Controller
 		echo json_encode($response);
 	}
 
+	function get_reservation_collide()
+	{
+		$data = array(
+			'ruangan' 	=> $this->input->post('ruangan'),
+			'dateStart'	=> $this->input->post('dateStart'),
+			'dateEnd'	=> $this->input->post('dateEnd'),
+			'timeStart'	=> $this->input->post('timeStart'),
+			'timeEnd'	=> $this->input->post('timeEnd')
+		);
+
+		$response = $this->reservasi->get_reservation_collide($data);
+
+		echo json_encode($response);
+	}
+
 	function uploadpdf(): void
 	{
 		$data = $this->pdf->retrieveData();
@@ -174,6 +190,7 @@ class Creservasi extends Broom_Controller
 		// add variable and get DATABASE reservasi
 		$data['hasil'] = $this->pemimpin->lengkap($reservasi_id);
 		$data['content']=$this->load->view('menu_pimpinan/persetujuan_detail',$data,TRUE);
+		$data['current_uri'] = 'reservasi';
 		$this->load->view('layouts/sidebar_pimpinan',$data);
 	}
 
@@ -208,6 +225,16 @@ class Creservasi extends Broom_Controller
 		};
 
 		$this->pemimpin->keputusan($reservasi_id, $reservationStatus);
+
+		if ($reservationStatus == StatusReservasi::DITERIMA) {
+			$data = $this->reservasi->get_reservasi_by_id($reservasi_id);
+
+			$this->reservasi->tolak_reservation_collide(array(
+				'ruangan' 		=> $data->ruangan_id,
+				'dateStart' 	=> $data->date_start,
+				'dateEnd'		=> $data->date_end
+			));
+		}
 
 		// Notify pengelola when a reservation is approved
 		if ($type == NotificationType::PEMINJAM_DISETUJUI) {

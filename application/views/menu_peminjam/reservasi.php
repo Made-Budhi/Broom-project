@@ -86,14 +86,15 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 							<label for="ttd-ketua-panitia">Spesimen Tanda Tangan Ketua Panitia<span
 									class="keterangan">*</span></label>
-							<input class="w-100 form-control" type="file" name="ttd-ketua-panitia"
+							<input class="w-100 form-control img-upload" type="file" name="ttd-ketua-panitia"
 								   id="ttd-ketua-panitia" required>
+							<small class="text-danger file-error" hidden><i class="fa-solid fa-circle-exclamation"></i> Format file tidak sesuai.</small>
 						</div>
 
 
 						<!-- Ruangan: ruangan, tanggal-mulai, jam-mulai, tanggal-selesai, jam-selesai -->
 
-						<h3>Ruangan</h3>
+						<h3 class="mt-3">Ruangan</h3>
 
 						<label for="ruangan">Ruangan<span class="keterangan">*</span></label>
 						<select class="w-100 form-control" name="ruangan" id="ruangan">
@@ -101,7 +102,8 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 							<?php
 
-							$dataruangan = $this->db->get('Ruangan')->result();
+							$dataruangan = $this->db->select()->from('Ruangan')->where('status', 1)
+								->get()->result();
 
 							foreach ($dataruangan as $ruangan) {
 
@@ -134,8 +136,8 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 						<br>
 						<div class="ketersediaan-ruangan" hidden>
-							<p id="ruangan-message"></p>
-							<p id="reservasi-message"></p>
+							<p class="alert alert-info" id="ruangan-message"></p>
+							<p class="alert" id="reservasi-message"></p>
 						</div>
 
 					</section>
@@ -196,7 +198,7 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 						</div>
 
 						<h3>
-							<label for="kostumisasi-lanjutan" id="label-kostumisasi">
+							<label for="kostumisasi-lanjutan" id="label-kostumisasi" class="mt-3">
 								Kostumisasi Lanjutan
 								<i style="transition: .3s ease; transform: rotateZ(180deg)" class="fa-solid fa-caret-up"
 								   id="icon-dropdown"></i>
@@ -219,27 +221,30 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 							<div class="logo-kiri">
 								<label for="logo-kiri">Input Logo</label>
-								<input class="w-100 form-control" type="file" name="logo-kiri" id="logo-kiri">
+								<input class="w-100 form-control img-upload" type="file" name="logo-kiri" id="logo-kiri">
+								<small class="text-danger file-error" hidden><i class="fa-solid fa-circle-exclamation"></i> Format file tidak sesuai.</small>
 							</div>
 
 							<br><br>
 
 							<label for="logo-kanan">Input Logo Kanan Header</label>
-							<input class="w-100 form-control" type="file" name="logo-kanan" id="logo-kanan">
+							<input class="w-100 form-control img-upload" type="file" name="logo-kanan" id="logo-kanan">
+							<small class="text-danger file-error" hidden><i class="fa-solid fa-circle-exclamation"></i> Format file tidak sesuai.</small>
 						</div>
 					</section>
 				</div>
+
+				<input type="submit" id="submit-button" value="submit" hidden>
 			</form>
 		</div>
 	</div>
 	<br>
 
-	<div
-		class="col-md-3 col-12 text-center position-absolute top-50 end-0 translate-middle-y gap-4 me-5 fit-content p-3 ">
+	<div class="col-md-3 col-12 text-center position-absolute top-50 end-0 translate-middle-y gap-4 me-5 fit-content p-3 ">
 		<img src="<?= base_url("assets/svg/reservation-note-img.svg") ?>" alt="">
-		<div class="d-flex flex-column gap-1">
-			<a class="btn btn-secondary w-100" id="preview-doc" target="_blank">Document Preview</a>
-			<button class="btn btn-primary w-100" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+		<div class="d-flex flex-column gap-1 mt-4">
+			<button class="btn btn-secondary w-100" id="preview-doc">Document Preview</button>
+			<button class="btn btn-primary w-100" id="button-pengajuan" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				Ajukan Reservasi
 			</button>
 		</div>
@@ -266,7 +271,6 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		</div>
 	</div>
 
-	<input type="submit" id="submit-button" hidden>
 	<?= form_close() ?>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -286,12 +290,14 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 
 		buttonpreview.addEventListener('click', function () {
 			form.action = "<?php echo site_url('reservation/previewpdf') ?>";
-			form.submit();
+			form.setAttribute('target', '_blank')
+			submitButton.click()
 		});
 
 		buttonpengajuan.addEventListener('click', function () {
 			form.action = "<?php echo site_url('reservation/uploadpdf') ?>";
-			form.submit();
+			form.removeAttribute('target')
+			submitButton.click()
 		});
 
 		// For Kostumisasi Lanjutan dropdown
@@ -322,15 +328,40 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 		})
 
 		pilihanLogoPnb.addEventListener('click', function () {
-			inputLogoKiri.value = null;
+			inputLogoKiri.value = '';
 		});
 
 		pilihanOrganisasi.addEventListener('click', function () {
-			namaOrganisasi.value = null;
+			console.log('lolo')
+			namaOrganisasi.value = '';
 			namaOrganisasi.removeAttribute('required')
 		});
 
 		$(document).ready(function () {
+			let buttonPengajuan = $('#button-pengajuan')
+			let buttonPreview	= $('#preview-doc')
+
+			$('label').addClass('mt-2')
+
+			// Triggered when user input a file
+			$('.img-upload').change(function () {
+				let field = this
+				let message = $(field).next('.file-error')
+				let fileType = field.files[0].type
+
+				if (fileType === 'image/png' ||
+					fileType === 'image/jpg' ||
+					fileType === 'image/jpeg')
+				{
+					message.attr('hidden', 'true')
+					buttonPreview.removeAttr('disabled')
+					buttonPengajuan.removeAttr('disabled')
+				} else {
+					message.removeAttr('hidden')
+					buttonPreview.attr('disabled', 'true')
+					buttonPengajuan.attr('disabled', 'true')
+				}
+			})
 
 			// Triggered when user select Ruangan
 			$('#ruangan').change(function () {
@@ -362,19 +393,18 @@ $formatted_date = format_indo(date('Y-m-d', $current_date));
 					function (response) {
 						let data = JSON.parse(response)
 						let message = $('#reservasi-message')
-						let buttonPengajuan = $('#pengajuan-reservasi')
 
 						if (data.isNull) {
 							message.html('Harap isi form dengan lengkap.');
-							message.css('color', 'red')
+							message.addClass('alert-danger').removeClass('alert-success')
 						} else {
 							if (data.isAvailable) {
 								message.html('Ruangan tersedia.');
-								message.css('color', 'green')
+								message.addClass('alert-success').removeClass('alert-danger')
 								buttonPengajuan.removeAttr('disabled')
 							} else {
 								message.html('Sudah ter-reservasi.');
-								message.css('color', 'red')
+								message.addClass('alert-danger').removeClass('alert-success')
 								buttonPengajuan.attr('disabled', 'true')
 							}
 

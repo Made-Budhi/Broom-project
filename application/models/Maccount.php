@@ -77,6 +77,26 @@ class Maccount extends CI_Model
 			redirect(site_url());
 		}
 	}
+
+	function checkDuplication($id, $email, $role, $redirect): void
+	{
+		// Check duplicate id
+		$num_duplicate = $this->db->select()->from($role)
+			->where('id', $id)->get()->num_rows();
+		if (!empty($num_duplicate)) {
+			$this->session->set_flashdata('register_error',
+				$this->lang->line('register_duplicate_id'));
+			redirect($redirect);
+		}
+
+		$email_duplicate = $this->db->select()->from('Account')
+			->where('email', $email)->get()->num_rows();
+		if (!empty($email_duplicate)) {
+			$this->session->set_flashdata('register_error',
+				$this->lang->line('register_duplicate_email'));
+			redirect($redirect);
+		}
+	}
 	
 	/**
 	 * For registration user with input data.
@@ -92,17 +112,8 @@ class Maccount extends CI_Model
 		$name = $this->input->post("name");
 		$phone = $this->input->post("phone");
 		$token = $this->account_verify->create_random(Verification::REGISTER);
-		
-		// Check duplicate id
-		$num_duplicate = $this->db->select()->from('Peminjam')
-				->where('id', $id)->get()->num_rows();
-		if (!empty($num_duplicate)) {
-			$this->session->set_flashdata('register_error',
-							$this->lang->line('register_duplicate_id'));
-			redirect('register');
-		}
-		
-		// TODO email checker if duplicate and not verified
+
+		$this->checkDuplication($id, $email, AccountRole::PEMINJAM, 'register');
 		
 		// Get encrypted password hash, then insert data email, password_hash,
 		// and generated token to table Account
@@ -136,6 +147,11 @@ class Maccount extends CI_Model
 				$this->lang->line('register_success'));
 		
 		redirect(site_url());
+	}
+
+	public function send_feedback($message)
+	{
+		$this->account_verify->send_feedback($message);
 	}
 	
 	/**
@@ -234,12 +250,23 @@ class Maccount extends CI_Model
 	public function edit(array $data): void
 	{
 		// TODO need refactor this logic
-		$currentSessionData = $this->session->userdata;
+		$currentSessionData = $this->session->get_userdata();
 		
-		$this->db->set('name', $data['account_name'])
-				->set('phone', $data['account_phone'])
-				->where('id', $currentSessionData['id'])
-				->update($currentSessionData['role']);
+		switch ($currentSessionData['role']) {
+			case AccountRole::PENGELOLA:
+			case AccountRole::PIMPINAN:
+				$this->db->set('name', $data['account_name'])
+						->where('id', $currentSessionData['id'])
+						->update($currentSessionData['role']);
+				break;
+				
+			case AccountRole::PEMINJAM:
+				$this->db->set('name', $data['account_name'])
+					->set('phone', $data['account_phone'])
+					->where('id', $currentSessionData['id'])
+					->update($currentSessionData['role']);
+				break;
+		}
 	}
 	
 	function verify_email(string $token): void
