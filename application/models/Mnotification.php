@@ -43,6 +43,7 @@ class Mnotification extends CI_Model
 		->join('Ruangan', 'Ruangan.id = Reservasi.ruangan_id')
 		->join('Peminjam', 'Peminjam.id = Reservasi.peminjam_id')
 		->join('Pimpinan', 'Pimpinan.id = Reservasi.pimpinan_id')
+		->order_by('Notification.date_inserted', 'DESC')
 		->get()->result();
 	}
 	
@@ -65,6 +66,7 @@ class Mnotification extends CI_Model
 				->join('Peminjam',
 						'Peminjam.id = Reservasi.peminjam_id')
 				->where(strtolower($role).'_id', $id)
+				->order_by('Notification.date_inserted', 'DESC')
 				->get()->result();
 	}
 }

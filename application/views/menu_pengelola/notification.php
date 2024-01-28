@@ -8,7 +8,7 @@
   ?>
 	
 	<?= empty($notifikasi)? '
-	<div class=" w-100 d-flex flex-column align-items-center gap-5">
+	<div class=" w-100 align-items-center gap-5">
 	<img src='.base_url("assets/svg/no-notification.svg").' alt="" class="w-50">
 		<h1>'.$message.'</h1>
 	</div>
