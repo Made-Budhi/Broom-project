@@ -21,14 +21,23 @@ class Csetting extends Broom_Controller
 	
 	public function index(): void
 	{
+		$view = array();
 		$role = $this->current_session['role'];
 		
 		// Determine which page should be loaded.
-		$view['sidebar'] = match ($role) {
-			'Peminjam' => 'layouts/sidebar',
-			'Pimpinan' => 'layouts/sidebar_pimpinan',
-			'Pengelola' => 'layouts/sidebar_pengelola'
-		};
+		switch ($role) {
+			case AccountRole::PEMINJAM:
+				$view['sidebar'] = 'layouts/sidebar';
+				break;
+			
+			case AccountRole::PIMPINAN:
+				$view['sidebar'] = 'layouts/sidebar_pimpinan';
+				break;
+			
+			case AccountRole::PENGELOLA:
+				$view['sidebar'] = 'layouts/sidebar_pengelola';
+				break;
+		}
 		
 		$data['sessions'] = $this->session->userdata;
 		$html['content'] = $this->load->view('settings/index', $data, true);

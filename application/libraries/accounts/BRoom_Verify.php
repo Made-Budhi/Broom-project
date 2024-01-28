@@ -70,7 +70,7 @@ class BRoom_Verify extends BRoom_Libraries
 		$this->email->to('2215354023@pnb.ac.id');
 	}
 	
-	public function create_random($type): string|bool
+	public function create_random($type): string
 	{
 		$value = null;
 		
@@ -78,7 +78,7 @@ class BRoom_Verify extends BRoom_Libraries
 			try {
 				// random_int() are from PHP 7.0, beware for old project
 				$value = strval(random_int(100000, 999999));
-			} catch (Exception) {
+			} catch (Exception $exception) {
 				return false;
 			}
 		} elseif ($type === Verification::REGISTER) {

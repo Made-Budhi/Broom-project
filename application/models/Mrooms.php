@@ -13,7 +13,7 @@ class Mrooms extends CI_Model {
 	 * @param $id
 	 * @return array|string
 	 */
-	function tampildata($id): array|string
+	function tampildata($id): array
 	{
 		$hasil = array();
 		$start=$this->input->post('tgl');
@@ -42,7 +42,7 @@ class Mrooms extends CI_Model {
 	 * @param string $id
 	 * @return string|object
 	 */
-	function tampilgedung($id = ""): array|object
+	function tampilgedung($id = ""): array
 	{
 		if (empty($id))
 			return $this->db->select()->from('Ruangan')

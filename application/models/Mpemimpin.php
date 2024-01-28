@@ -44,13 +44,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
         "Reservasi.ruangan_id = Ruangan.id",
         "inner"
       )->where('Reservasi.reservasi_id',$reservasi_id)->get();
-
-      foreach ($query->result() as $row) 
-      {
-			  $hasil[] = $row;
-      }
-        // return variable to get database
-		return $hasil;
+		
+		// return variable to get database
+		return $query->result();
   }
 
   function keputusan($reservasi_id, $status) {
@@ -96,5 +92,3 @@ defined('BASEPATH') or exit('No direct script access allowed');
   }
 
 }
- 
-?>

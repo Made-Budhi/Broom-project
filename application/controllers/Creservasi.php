@@ -198,16 +198,18 @@ class Creservasi extends Broom_Controller
 	function decision($reservasi_id, $status): void
 	{
 		// Set notification to peminjam
-		$type = match ($status) {
-			'accept' => NotificationType::PEMINJAM_DISETUJUI,
-			'deny' => NotificationType::PEMINJAM_DITOLAK
-		};
+		if ($status == 'accpet') {
+			$type = NotificationType::PEMINJAM_DISETUJUI;
+		} else {
+			$type = NotificationType::PEMINJAM_DITOLAK;
+		}
 
 		// Set reservation status
-		$reservationStatus = match ($status) {
-			'accept' => StatusReservasi::DITERIMA,
-			'deny' => StatusReservasi::DITOLAK
-		};
+		if ($status == 'accpet') {
+			$reservationStatus = StatusReservasi::DITERIMA;
+		} else {
+			$reservationStatus = StatusReservasi::DITOLAK;
+		}
 
 		$this->pemimpin->keputusan($reservasi_id, $reservationStatus);
 

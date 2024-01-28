@@ -18,18 +18,21 @@ class Mnotification extends CI_Model
 		$this->db->insert('Notification', $data);
 	}
 	
-	function getNotification(): object|array
+	function getNotification(): object
 	{
 		$id = $this->session->userdata('id');
 		$role = $this->session->userdata('role');
 		
-		return match ($role) {
-			AccountRole::PENGELOLA => $this->_getPengelolaNotification(),
-			default => $this->_getDefaultNotification($role, $id)
-		};
+		switch ($role) {
+			case AccountRole::PENGELOLA:
+				return $this->_getPengelolaNotification();
+			
+			default:
+				return $this->_getDefaultNotification($role, $id);
+		}
 	}
 	
-	function _getPengelolaNotification(): object|array
+	function _getPengelolaNotification(): object
 	{
 		return $this->db->select(
 		'*, Notification.type as type,
@@ -46,7 +49,7 @@ class Mnotification extends CI_Model
 		->get()->result();
 	}
 	
-	function _getDefaultNotification($role, $id): object|array
+	function _getDefaultNotification($role, $id): object
 	{
 		return $this->db->select(
 				'Notification.type,

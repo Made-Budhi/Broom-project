@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -25,7 +23,7 @@ class Session_validation
 		return get_instance()->$property;
 	}
 	
-	#[NoReturn] public function check_session_log_in(): void
+	public function check_session_log_in(): void
 	{
 		if ( ! $this->authentication->isSessionValid())
 		{
@@ -33,7 +31,7 @@ class Session_validation
 		}
 	}
 	
-	#[NoReturn] public function check_session_log_out(): void
+	public function check_session_log_out(): void
 	{
 		if ($this->authentication->isSessionValid()) {
 			redirect('dashboard');

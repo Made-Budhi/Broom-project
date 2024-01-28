@@ -6,6 +6,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property CI_Session $session
  * @property CI_DB $db
  * @property CI_Input $input
+ * @property CI_Loader $load
+ * @property CI_Encryption $encryption
  */
 class Mpengelola extends CI_Model
 {
@@ -45,19 +47,16 @@ class Mpengelola extends CI_Model
 		return $hasil;
 	}
 	
-	public function tampildata(): array|string
+	public function tampildata(): array
 	{
-		$hasil = null;
+		$hasil = array();
 		$query = $this->db->select()->from('Account')
 				->join('Pimpinan',
 						'Account.account_id = Pimpinan.account_id')->get();
 		if ($query->num_rows() > 0) {
-			foreach ($query->result() as $row) {
-				$hasil[] = $row;
-			}
-		} else {
-			$hasil = "";
+			$hasil = $query->result();
 		}
+		
 		return $hasil;
 	}
 	

@@ -69,7 +69,7 @@ class Mreservasi extends CI_Model
 	 * @param $date
 	 * @return array|string
 	 */
-	function get_reservation($id, $date): array|string
+	function get_reservation($id, $date): array
 	{
 		$where = "ruangan_id = " . $id . " AND status = '" . StatusReservasi::DITERIMA .
 			"' AND ('" . $date . "' BETWEEN Reservasi.date_start AND Reservasi.date_end)";
@@ -101,7 +101,7 @@ class Mreservasi extends CI_Model
 	 *
 	 * @return array|object
 	 */
-	function getAllReservation(): array|object
+	function getAllReservation(): array
 	{
 		return $this->db->select('*, 
 		Reservasi.status as reservasi_status,
@@ -122,7 +122,7 @@ class Mreservasi extends CI_Model
 	 * @param array $data
 	 * @return bool
 	 */
-	function check_reservation_collide(array $data)
+	function check_reservation_collide(array $data): bool
 	{
 		$where = "Reservasi.ruangan_id = " . $data['ruangan'] . " AND (Reservasi.date_start 
 					BETWEEN '" . $data['dateStart'] . "' AND '" . $data['dateEnd'] . "'  
